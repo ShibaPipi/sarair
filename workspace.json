@@ -1,0 +1,126 @@
+{
+  "version": 2,
+  "projects": {
+    "sarair": {
+      "root": "apps/sarair",
+      "sourceRoot": "apps/sarair/src",
+      "projectType": "application",
+      "targets": {
+        "build": {
+          "executor": "@nrwl/web:build",
+          "outputs": ["{options.outputPath}"],
+          "options": {
+            "outputPath": "dist/apps/sarair",
+            "index": "apps/sarair/src/index.html",
+            "main": "apps/sarair/src/main.tsx",
+            "polyfills": "apps/sarair/src/polyfills.ts",
+            "tsConfig": "apps/sarair/tsconfig.app.json",
+            "assets": ["apps/sarair/src/favicon.ico", "apps/sarair/src/assets"],
+            "styles": ["apps/sarair/src/styles.css"],
+            "scripts": [],
+            "webpackConfig": "@nrwl/react/plugins/webpack"
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "apps/sarair/src/environments/environment.ts",
+                  "with": "apps/sarair/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "500kb",
+                  "maximumError": "1mb"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "executor": "@nrwl/web:dev-server",
+          "options": {
+            "buildTarget": "sarair:build",
+            "hmr": true
+          },
+          "configurations": {
+            "production": {
+              "buildTarget": "sarair:build:production",
+              "hmr": false
+            }
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "outputs": ["{options.outputFile}"],
+          "options": {
+            "lintFilePatterns": ["apps/sarair/**/*.{ts,tsx,js,jsx}"]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/apps/sarair"],
+          "options": {
+            "jestConfig": "apps/sarair/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "sarair-e2e": {
+      "root": "apps/sarair-e2e",
+      "sourceRoot": "apps/sarair-e2e/src",
+      "projectType": "application",
+      "targets": {
+        "e2e": {
+          "executor": "@nrwl/cypress:cypress",
+          "options": {
+            "cypressConfig": "apps/sarair-e2e/cypress.json",
+            "devServerTarget": "sarair:serve",
+            "tsConfig": "apps/sarair-e2e/tsconfig.json"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "sarair:serve:production"
+            }
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "outputs": ["{options.outputFile}"],
+          "options": {
+            "lintFilePatterns": ["apps/sarair-e2e/**/*.{js,ts}"]
+          }
+        }
+      }
+    }
+  },
+  "cli": {
+    "defaultCollection": "@nrwl/react"
+  },
+  "generators": {
+    "@nrwl/react": {
+      "application": {
+        "style": "css",
+        "linter": "eslint",
+        "babel": true
+      },
+      "component": {
+        "style": "css"
+      },
+      "library": {
+        "style": "css",
+        "linter": "eslint"
+      }
+    }
+  },
+  "defaultProject": "sarair"
+}
