@@ -27,6 +27,13 @@
     ]
   },
   "projects": {
+    "jira": {
+      "tags": []
+    },
+    "jira-e2e": {
+      "tags": [],
+      "implicitDependencies": ["jira"]
+    },
     "sarair": {
       "tags": []
     },

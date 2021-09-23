@@ -1,6 +1,106 @@
 {
   "version": 2,
   "projects": {
+    "jira": {
+      "root": "apps/jira",
+      "sourceRoot": "apps/jira/src",
+      "projectType": "application",
+      "targets": {
+        "build": {
+          "executor": "@nrwl/web:build",
+          "outputs": ["{options.outputPath}"],
+          "options": {
+            "outputPath": "dist/apps/jira",
+            "index": "apps/jira/src/index.html",
+            "main": "apps/jira/src/main.tsx",
+            "polyfills": "apps/jira/src/polyfills.ts",
+            "tsConfig": "apps/jira/tsconfig.app.json",
+            "assets": ["apps/jira/src/favicon.ico", "apps/jira/src/assets"],
+            "styles": ["apps/jira/src/styles.css"],
+            "scripts": [],
+            "webpackConfig": "@nrwl/react/plugins/webpack"
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "apps/jira/src/environments/environment.ts",
+                  "with": "apps/jira/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "500kb",
+                  "maximumError": "1mb"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "executor": "@nrwl/web:dev-server",
+          "options": {
+            "buildTarget": "jira:build",
+            "hmr": true
+          },
+          "configurations": {
+            "production": {
+              "buildTarget": "jira:build:production",
+              "hmr": false
+            }
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "outputs": ["{options.outputFile}"],
+          "options": {
+            "lintFilePatterns": ["apps/jira/**/*.{ts,tsx,js,jsx}"]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/apps/jira"],
+          "options": {
+            "jestConfig": "apps/jira/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "jira-e2e": {
+      "root": "apps/jira-e2e",
+      "sourceRoot": "apps/jira-e2e/src",
+      "projectType": "application",
+      "targets": {
+        "e2e": {
+          "executor": "@nrwl/cypress:cypress",
+          "options": {
+            "cypressConfig": "apps/jira-e2e/cypress.json",
+            "devServerTarget": "jira:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "jira:serve:production"
+            }
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "outputs": ["{options.outputFile}"],
+          "options": {
+            "lintFilePatterns": ["apps/jira-e2e/**/*.{js,ts}"]
+          }
+        }
+      }
+    },
     "sarair": {
       "root": "apps/sarair",
       "sourceRoot": "apps/sarair/src",
