@@ -6,11 +6,11 @@ export default new SarairRequest({
   timeout: TIMEOUT,
   interceptors: {
     request: (config) => {
-      console.log('instance request interceptor')
+      // console.log('instance request interceptor')
       return config
     },
     responseCatch: (error) => {
-      console.log('instance response err')
+      // console.log('instance response err')
       return error
     }
   }

@@ -1,5 +1,6 @@
-import axios, { AxiosInstance, AxiosRequestConfig } from 'axios'
+import axios from 'axios'
 
+import type { AxiosInstance } from 'axios'
 import type { SarairInterceptorManager, SarairRequestConfig } from './type'
 
 class SarairRequest {
@@ -27,11 +28,11 @@ class SarairRequest {
     // 全局请求拦截器
     this.instance.interceptors.request.use(
       (config) => {
-        console.log('global request interceptor')
+        // console.log('global request interceptor')
         return config
       },
       (error) => {
-        console.log('global request error interceptor')
+        // console.log('global request error interceptor')
         return error
       }
     )
@@ -39,11 +40,11 @@ class SarairRequest {
     // 全局响应拦截器
     this.instance.interceptors.response.use(
       (res) => {
-        console.log('global response interceptor')
+        // console.log('global response interceptor')
         return res
       },
       (error) => {
-        console.log('global response error interceptor')
+        // console.log('global response error interceptor')
         return error
       }
     )
@@ -55,6 +56,7 @@ class SarairRequest {
       ? config.interceptors.request(config)
       : config
 
+    // 请求失败单独拦截器
     config = config.interceptors?.requestCatch
       ? config.interceptors.requestCatch(config)
       : config
@@ -64,7 +66,8 @@ class SarairRequest {
       res = config.interceptors?.response
         ? config.interceptors.response(res)
         : res
-      // 响应单独拦截器
+
+      // 响应失败单独拦截器
       res = config.interceptors?.responseCatch
         ? config.interceptors.responseCatch(res)
         : res
