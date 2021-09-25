@@ -4,8 +4,10 @@ import type { AxiosInstance } from 'axios'
 import type { SarairInterceptorManager, SarairRequestConfig } from './type'
 
 class SarairRequest {
+  // axios 实例
   instance: AxiosInstance
 
+  // axios 拦截器
   interceptors?: SarairInterceptorManager
 
   constructor(config: SarairRequestConfig) {
@@ -52,25 +54,20 @@ class SarairRequest {
 
   request(config: SarairRequestConfig) {
     // 请求单独拦截器
-    config = config.interceptors?.request
-      ? config.interceptors.request(config)
-      : config
+    config.interceptors?.request &&
+      (config = config.interceptors.request(config))
 
     // 请求失败单独拦截器
-    config = config.interceptors?.requestCatch
-      ? config.interceptors.requestCatch(config)
-      : config
+    config.interceptors?.requestCatch &&
+      (config = config.interceptors.requestCatch(config))
 
-    this.instance.request(config).then((res) => {
+    return this.instance.request(config).then((res) => {
       // 响应单独拦截器
-      res = config.interceptors?.response
-        ? config.interceptors.response(res)
-        : res
+      config.interceptors?.response && (res = config.interceptors.response(res))
 
       // 响应失败单独拦截器
-      res = config.interceptors?.responseCatch
-        ? config.interceptors.responseCatch(res)
-        : res
+      config.interceptors?.responseCatch &&
+        (res = config.interceptors.responseCatch(res))
 
       return res
     })
