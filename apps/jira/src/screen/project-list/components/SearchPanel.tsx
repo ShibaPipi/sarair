@@ -1,5 +1,7 @@
 import { useEffect, useState } from 'react'
 
+import { sarairRequest } from '@sarair/common/request'
+
 export const SearchPanel = () => {
   const [param, setParam] = useState({
     name: '',
@@ -10,7 +12,14 @@ export const SearchPanel = () => {
   const [list, setList] = useState([])
 
   useEffect(() => {
-    // axios.get()
+    sarairRequest
+      .request({
+        url: 'users',
+        method: 'get'
+      })
+      .then((res) => {
+        console.log(res)
+      })
   }, [])
 
   return (

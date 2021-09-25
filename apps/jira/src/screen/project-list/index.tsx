@@ -1,3 +1,5 @@
+import { SearchPanel } from './components/SearchPanel'
+
 export const ProjectList = () => {
-  return <div>123</div>
+  return <SearchPanel />
 }
