@@ -84,24 +84,24 @@ class SarairRequest {
     })
   }
 
-  get<T>(config: SarairRequestConfig<T>): Promise<T> {
-    return this.request<T>({ ...config, method: 'GET' })
+  get<T>(url: string, config?: SarairRequestConfig<T>): Promise<T> {
+    return this.request<T>({ ...config, url, method: 'GET' })
   }
 
-  post<T>(config: SarairRequestConfig<T>): Promise<T> {
-    return this.request<T>({ ...config, method: 'POST' })
+  post<T>(url: string, config?: SarairRequestConfig<T>): Promise<T> {
+    return this.request<T>({ ...config, url, method: 'POST' })
   }
 
-  put<T>(config: SarairRequestConfig<T>): Promise<T> {
-    return this.request<T>({ ...config, method: 'PUT' })
+  put<T>(url: string, config?: SarairRequestConfig<T>): Promise<T> {
+    return this.request<T>({ ...config, url, method: 'PUT' })
   }
 
-  patch<T>(config: SarairRequestConfig<T>): Promise<T> {
-    return this.request<T>({ ...config, method: 'PATCH' })
+  patch<T>(url: string, config?: SarairRequestConfig<T>): Promise<T> {
+    return this.request<T>({ ...config, url, method: 'PATCH' })
   }
 
-  delete<T>(config: SarairRequestConfig<T>): Promise<T> {
-    return this.request<T>({ ...config, method: 'DELETE' })
+  delete<T>(url: string, config?: SarairRequestConfig<T>): Promise<T> {
+    return this.request<T>({ ...config, url, method: 'DELETE' })
   }
 }
 
