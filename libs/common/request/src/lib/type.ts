@@ -1,12 +1,13 @@
 import type { AxiosRequestConfig, AxiosResponse } from 'axios'
 
-export interface SarairInterceptorManager {
+export interface SarairInterceptorManager<T = AxiosResponse> {
   request?: (config: AxiosRequestConfig) => AxiosRequestConfig
   requestCatch?: (error: any) => any
-  response?: (config: AxiosResponse) => AxiosResponse
+  response?: (config: T) => T
   responseCatch?: (error: any) => any
 }
 
-export interface SarairRequestConfig extends AxiosRequestConfig {
-  interceptors?: SarairInterceptorManager
+export interface SarairRequestConfig<T = AxiosResponse>
+  extends AxiosRequestConfig {
+  interceptors?: SarairInterceptorManager<T>
 }

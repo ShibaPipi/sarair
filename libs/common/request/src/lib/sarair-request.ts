@@ -11,6 +11,7 @@ class SarairRequest {
   interceptors?: SarairInterceptorManager
 
   constructor(config: SarairRequestConfig) {
+    // 创建实例
     this.instance = axios.create(config)
 
     this.interceptors = config.interceptors
@@ -52,25 +53,55 @@ class SarairRequest {
     )
   }
 
-  request(config: SarairRequestConfig) {
-    // 请求单独拦截器
-    config.interceptors?.request &&
-      (config = config.interceptors.request(config))
+  request<T>(config: SarairRequestConfig<T>): Promise<T> {
+    return new Promise((resolve, reject) => {
+      // 请求单独拦截器
+      config.interceptors?.request &&
+        (config = config.interceptors.request(config))
 
-    // 请求失败单独拦截器
-    config.interceptors?.requestCatch &&
-      (config = config.interceptors.requestCatch(config))
+      // 请求失败单独拦截器
+      config.interceptors?.requestCatch &&
+        (config = config.interceptors.requestCatch(config))
 
-    return this.instance.request(config).then((res) => {
-      // 响应单独拦截器
-      config.interceptors?.response && (res = config.interceptors.response(res))
+      this.instance
+        .request<any, T>(config)
+        .then((res) => {
+          // 响应单独拦截器
+          config.interceptors?.response &&
+            (res = config.interceptors.response(res))
 
-      // 响应失败单独拦截器
-      config.interceptors?.responseCatch &&
-        (res = config.interceptors.responseCatch(res))
+          // 响应失败单独拦截器
+          config.interceptors?.responseCatch &&
+            (res = config.interceptors.responseCatch(res))
 
-      return res
+          resolve(res)
+        })
+        .catch((error) => {
+          reject(error)
+
+          return error
+        })
     })
+  }
+
+  get<T>(config: SarairRequestConfig<T>): Promise<T> {
+    return this.request<T>({ ...config, method: 'GET' })
+  }
+
+  post<T>(config: SarairRequestConfig<T>): Promise<T> {
+    return this.request<T>({ ...config, method: 'POST' })
+  }
+
+  put<T>(config: SarairRequestConfig<T>): Promise<T> {
+    return this.request<T>({ ...config, method: 'PUT' })
+  }
+
+  patch<T>(config: SarairRequestConfig<T>): Promise<T> {
+    return this.request<T>({ ...config, method: 'PATCH' })
+  }
+
+  delete<T>(config: SarairRequestConfig<T>): Promise<T> {
+    return this.request<T>({ ...config, method: 'DELETE' })
   }
 }
 
