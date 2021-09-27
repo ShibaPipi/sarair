@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react'
+import qs from 'qs'
 
 import { sarairRequest } from '@sarair/common/request'
+import { cleanObjectNilValue } from '@sarair/common/utils'
 
 import { SearchPanel } from './components/SearchPanel'
 import { List } from './components/List'
@@ -33,9 +35,9 @@ export const ProjectListScreen = () => {
 
   useEffect(() => {
     sarairRequest
-      .get<Project[]>(`projects?name=${param.name}&personId=${param.personId}`)
+      .get<Project[]>(`projects?${qs.stringify(cleanObjectNilValue(param))}`)
       .then(setList)
-  }, [param.name, param.personId])
+  }, [param])
 
   const [users, setUsers] = useState<User[]>([])
 
