@@ -1,15 +1,19 @@
-export const isFalsy = (value) => {
-  if (value === 0) {
-    return true
-  }
-  return !!value
+interface CommonObject {
+  [key: string]: any
 }
 
-export function cleanObjectNullValue(object): string {
+export const isFalsy = (value: any) => {
+  if (value === 0) {
+    return false
+  }
+  return !value
+}
+
+export function cleanObjectNilValue(object: CommonObject): CommonObject {
   const resultObject = { ...object }
 
   Object.keys(object).forEach((key) => {
-    if (!isFalsy(object[key])) {
+    if (isFalsy(object[key])) {
       delete resultObject[key]
     }
   })
