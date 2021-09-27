@@ -1,27 +1,18 @@
-import { useEffect, useState } from 'react'
+import React from 'react'
 
-import { sarairRequest } from '@sarair/common/request'
+import type { Param, User } from '../index'
 
-export const SearchPanel = () => {
-  const [param, setParam] = useState({
-    name: '',
-    personId: ''
-  })
+interface SearchPanelProps {
+  param: Param
+  setParam: (param: Param) => void
+  users: User[]
+}
 
-  const [users, setUsers] = useState<{ name: string; personId: string }[]>([])
-  const [list, setList] = useState([])
-
-  useEffect(() => {
-    sarairRequest
-      .request({
-        url: 'users',
-        method: 'get'
-      })
-      .then((res) => {
-        console.log(res)
-      })
-  }, [])
-
+export const SearchPanel: React.FC<SearchPanelProps> = ({
+  param,
+  setParam,
+  users
+}) => {
   return (
     <form action="">
       <div>
@@ -36,7 +27,9 @@ export const SearchPanel = () => {
         >
           <option value="">负责人</option>
           {users.map((user) => (
-            <option value="">{user.name}</option>
+            <option key={user.id} value="">
+              {user.name}
+            </option>
           ))}
         </select>
       </div>

@@ -2,7 +2,7 @@ import styles from './app.module.css'
 
 import { ReactComponent as Logo } from './logo.svg'
 
-import { ProjectList } from '../screen/project-list'
+import { ProjectListScreen } from '../screen/project-list'
 
 export function App() {
   return (
@@ -12,7 +12,7 @@ export function App() {
         <h1>Welcome to jira!</h1>
       </header>
       <main>
-        <ProjectList />
+        <ProjectListScreen />
         <h2>Next Steps</h2>
         <p>Here are some things you can do with Nx.</p>
         <details open>
