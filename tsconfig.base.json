@@ -15,6 +15,7 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
+      "@sarair/common/hooks": ["libs/common/hooks/src/index.ts"],
       "@sarair/common/request": ["libs/common/request/src/index.ts"],
       "@sarair/common/utils": ["libs/common/utils/src/index.ts"]
     }

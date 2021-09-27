@@ -27,6 +27,9 @@
     ]
   },
   "projects": {
+    "common-hooks": {
+      "tags": []
+    },
     "common-request": {
       "tags": []
     },
