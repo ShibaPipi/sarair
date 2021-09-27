@@ -30,6 +30,9 @@
     "common-request": {
       "tags": []
     },
+    "common-utils": {
+      "tags": []
+    },
     "jira": {
       "tags": []
     },

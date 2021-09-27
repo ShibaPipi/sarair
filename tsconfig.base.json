@@ -15,7 +15,8 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@sarair/common/request": ["libs/common/request/src/index.ts"]
+      "@sarair/common/request": ["libs/common/request/src/index.ts"],
+      "@sarair/common/utils": ["libs/common/utils/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]
