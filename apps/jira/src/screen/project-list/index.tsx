@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import qs from 'qs'
 
-import { useDidMount } from '@sarair/common/hooks'
+import { useDebounce, useDidMount } from '@sarair/common/hooks'
 import { sarairRequest } from '@sarair/common/request'
 import { cleanObjectNilValue } from '@sarair/common/utils'
 
@@ -9,14 +9,14 @@ import { SearchPanel } from './components/SearchPanel'
 import { List } from './components/List'
 
 export interface User {
-  id: number
+  id: string
   name: string
 }
 
 export interface Project {
-  id: number
+  id: string
   name: string
-  personId: number
+  personId: string
   organization: string
   created: number
 }
@@ -32,16 +32,17 @@ export const ProjectListScreen = () => {
     personId: ''
   })
 
+  const debouncedParam = useDebounce(param, 1000)
   const [list, setList] = useState<Project[]>([])
-
   useEffect(() => {
     sarairRequest
-      .get<Project[]>(`projects?${qs.stringify(cleanObjectNilValue(param))}`)
+      .get<Project[]>(
+        `projects?${qs.stringify(cleanObjectNilValue(debouncedParam))}`
+      )
       .then(setList)
-  }, [param])
+  }, [debouncedParam])
 
   const [users, setUsers] = useState<User[]>([])
-
   useDidMount(() => {
     sarairRequest.get<User[]>('users').then(setUsers)
   })
