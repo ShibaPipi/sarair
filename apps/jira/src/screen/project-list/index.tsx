@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import qs from 'qs'
 
+import { useDidMount } from '@sarair/common/hooks'
 import { sarairRequest } from '@sarair/common/request'
 import { cleanObjectNilValue } from '@sarair/common/utils'
 
@@ -41,9 +42,9 @@ export const ProjectListScreen = () => {
 
   const [users, setUsers] = useState<User[]>([])
 
-  useEffect(() => {
+  useDidMount(() => {
     sarairRequest.get<User[]>('users').then(setUsers)
-  }, [])
+  })
 
   return (
     <div>
