@@ -32,7 +32,7 @@ export const ProjectListScreen = () => {
     personId: ''
   })
 
-  const debouncedParam = useDebounce(param, 1000)
+  const debouncedParam = useDebounce<Param>(param, 1000)
   const [list, setList] = useState<Project[]>([])
   useEffect(() => {
     sarairRequest

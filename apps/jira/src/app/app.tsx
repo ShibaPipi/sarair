@@ -2,7 +2,7 @@ import styles from './app.module.css'
 
 import { ReactComponent as Logo } from './logo.svg'
 
-import { ProjectListScreen } from '../screen/project-list'
+import { ProjectListScreen } from '../screens/project-list'
 
 export function App() {
   return (
