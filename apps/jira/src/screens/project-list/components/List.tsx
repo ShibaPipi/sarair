@@ -1,4 +1,4 @@
-import React, { FC } from 'react'
+import React from 'react'
 
 import type { Project, User } from '../index'
 
@@ -7,7 +7,7 @@ interface ListProps {
   users: Array<User>
 }
 
-export const List: FC<ListProps> = ({ list, users }) => {
+export const List: React.FC<ListProps> = ({ list, users }) => {
   return (
     <table>
       <thead>

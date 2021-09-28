@@ -26,7 +26,7 @@ export interface Param {
   personId: string
 }
 
-export const ProjectListScreen = () => {
+export const ProjectListScreen: React.FC = () => {
   const [param, setParam] = useState<Param>({
     name: '',
     personId: ''
