@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import qs from 'qs'
 
-import { useDebounce, useDidMount } from '@sarair/common/hooks'
-import { sarairRequest } from '@sarair/common/request'
-import { cleanObjectNilValue } from '@sarair/common/utils'
+import { useDebounce, useDidMount } from '@sarair/shared/hooks'
+import { sarairRequest } from '@sarair/shared/request'
+import { cleanObjectNilValue } from '@sarair/shared/utils'
 
 import { SearchPanel } from './components/SearchPanel'
 import { List } from './components/List'
@@ -11,6 +11,10 @@ import { List } from './components/List'
 export interface User {
   id: string
   name: string
+  email: string
+  title: string
+  organization: string
+  token: string
 }
 
 export interface Project {
