@@ -1,28 +1,6 @@
 {
   "version": 2,
   "projects": {
-    "common-hooks": {
-      "root": "libs/common/hooks",
-      "sourceRoot": "libs/common/hooks/src",
-      "projectType": "library",
-      "targets": {
-        "lint": {
-          "executor": "@nrwl/linter:eslint",
-          "outputs": ["{options.outputFile}"],
-          "options": {
-            "lintFilePatterns": ["libs/common/hooks/**/*.ts"]
-          }
-        },
-        "test": {
-          "executor": "@nrwl/jest:jest",
-          "outputs": ["coverage/libs/common/hooks"],
-          "options": {
-            "jestConfig": "libs/common/hooks/jest.config.js",
-            "passWithNoTests": true
-          }
-        }
-      }
-    },
     "common-request": {
       "root": "libs/common/request",
       "sourceRoot": "libs/common/request/src",
@@ -242,6 +220,28 @@
           "outputs": ["{options.outputFile}"],
           "options": {
             "lintFilePatterns": ["apps/sarair-e2e/**/*.{js,ts}"]
+          }
+        }
+      }
+    },
+    "shared-hooks": {
+      "root": "libs/shared/hooks",
+      "sourceRoot": "libs/shared/hooks/src",
+      "projectType": "library",
+      "targets": {
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "outputs": ["{options.outputFile}"],
+          "options": {
+            "lintFilePatterns": ["libs/shared/hooks/**/*.ts"]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/shared/hooks"],
+          "options": {
+            "jestConfig": "libs/shared/hooks/jest.config.js",
+            "passWithNoTests": true
           }
         }
       }

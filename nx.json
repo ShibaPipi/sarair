@@ -27,9 +27,6 @@
     ]
   },
   "projects": {
-    "common-hooks": {
-      "tags": []
-    },
     "common-request": {
       "tags": []
     },
@@ -46,6 +43,9 @@
     "sarair-e2e": {
       "tags": [],
       "implicitDependencies": ["sarair"]
+    },
+    "shared-hooks": {
+      "tags": []
     },
     "shared-utils": {
       "tags": []

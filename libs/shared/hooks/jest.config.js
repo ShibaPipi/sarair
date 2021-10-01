@@ -1,5 +1,5 @@
 module.exports = {
-  displayName: 'common-hooks',
+  displayName: 'shared-hooks',
   preset: '../../../jest.preset.js',
   globals: {
     'ts-jest': {
@@ -10,5 +10,5 @@ module.exports = {
     '^.+\\.[tj]sx?$': 'ts-jest'
   },
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx'],
-  coverageDirectory: '../../../coverage/libs/common/hooks'
+  coverageDirectory: '../../../coverage/libs/shared/hooks'
 }
