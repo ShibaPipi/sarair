@@ -1,28 +1,6 @@
 {
   "version": 2,
   "projects": {
-    "common-request": {
-      "root": "libs/common/request",
-      "sourceRoot": "libs/common/request/src",
-      "projectType": "library",
-      "targets": {
-        "lint": {
-          "executor": "@nrwl/linter:eslint",
-          "outputs": ["{options.outputFile}"],
-          "options": {
-            "lintFilePatterns": ["libs/common/request/**/*.ts"]
-          }
-        },
-        "test": {
-          "executor": "@nrwl/jest:jest",
-          "outputs": ["coverage/libs/common/request"],
-          "options": {
-            "jestConfig": "libs/common/request/jest.config.js",
-            "passWithNoTests": true
-          }
-        }
-      }
-    },
     "jira": {
       "root": "apps/jira",
       "sourceRoot": "apps/jira/src",
@@ -241,6 +219,28 @@
           "outputs": ["coverage/libs/shared/hooks"],
           "options": {
             "jestConfig": "libs/shared/hooks/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "shared-request": {
+      "root": "libs/shared/request",
+      "sourceRoot": "libs/shared/request/src",
+      "projectType": "library",
+      "targets": {
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "outputs": ["{options.outputFile}"],
+          "options": {
+            "lintFilePatterns": ["libs/shared/request/**/*.ts"]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/shared/request"],
+          "options": {
+            "jestConfig": "libs/shared/request/jest.config.js",
             "passWithNoTests": true
           }
         }

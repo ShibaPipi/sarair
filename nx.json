@@ -27,9 +27,6 @@
     ]
   },
   "projects": {
-    "common-request": {
-      "tags": []
-    },
     "jira": {
       "tags": []
     },
@@ -45,6 +42,9 @@
       "implicitDependencies": ["sarair"]
     },
     "shared-hooks": {
+      "tags": []
+    },
+    "shared-request": {
       "tags": []
     },
     "shared-utils": {

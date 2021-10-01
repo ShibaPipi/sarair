@@ -15,8 +15,8 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@sarair/common/request": ["libs/common/request/src/index.ts"],
       "@sarair/shared-hooks": ["libs/shared/hooks/src/index.ts"],
+      "@sarair/shared-request": ["libs/shared/request/src/index.ts"],
       "@sarair/shared/utils": ["libs/shared/utils/src/index.ts"]
     }
   },
