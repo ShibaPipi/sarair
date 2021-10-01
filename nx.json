@@ -33,9 +33,6 @@
     "common-request": {
       "tags": []
     },
-    "common-utils": {
-      "tags": []
-    },
     "jira": {
       "tags": []
     },
@@ -49,6 +46,9 @@
     "sarair-e2e": {
       "tags": [],
       "implicitDependencies": ["sarair"]
+    },
+    "shared-utils": {
+      "tags": []
     }
   }
 }
