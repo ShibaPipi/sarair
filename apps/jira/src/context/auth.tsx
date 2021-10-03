@@ -14,7 +14,7 @@ interface AuthContextValue {
   methods: {
     login: (form: AuthForm) => Promise<void>
     register: (form: AuthForm) => Promise<void>
-    logout: (form: AuthForm) => Promise<void>
+    logout: () => Promise<void>
   }
 }
 

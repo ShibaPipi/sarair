@@ -1,20 +1,17 @@
+import React from 'react'
 import styles from './app.module.css'
 
-import { ReactComponent as Logo } from './logo.svg'
+import { useAuth } from '../context/auth'
 
-import { ProjectListScreen } from '../screens/project-list'
-import { LoginScreen } from '../screens/login'
+import { AuthenticatedApp } from '../authenticated-app'
+import { UnauthenticatedApp } from '../unauthenticated-app'
 
 export function App() {
+  const { user } = useAuth()
   return (
     <div className={styles.app}>
-      <header className="flex">
-        <Logo width="75" height="75" />
-        <h1>Welcome to jira!</h1>
-      </header>
       <main>
-        <LoginScreen />
-        <ProjectListScreen />
+        {user ? <AuthenticatedApp /> : <UnauthenticatedApp />}
         <h2>Next Steps</h2>
         <p>Here are some things you can do with Nx.</p>
         <details open>
