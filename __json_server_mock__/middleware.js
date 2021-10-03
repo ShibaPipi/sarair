@@ -16,5 +16,12 @@ module.exports = (request, response, next) => {
     }
   }
 
+  if (request.method === 'GET' && request.path === '/me') {
+    return response.status(200).json({
+      name: 'pdrol',
+      token: '123'
+    })
+  }
+
   next()
 }
