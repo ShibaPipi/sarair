@@ -2,7 +2,7 @@ import React, { StrictMode } from 'react'
 import * as ReactDOM from 'react-dom'
 
 import { AppProviders } from './context'
-import App from './app/app'
+import { App } from './app'
 
 ReactDOM.render(
   <StrictMode>

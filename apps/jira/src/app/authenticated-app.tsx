@@ -1,8 +1,10 @@
-import { ProjectListScreen } from './screens/project-list'
+import React from 'react'
 
-import { useAuth } from './context/auth'
+import { useAuth } from '../context/auth'
 
-export const AuthenticatedApp = () => {
+import { ProjectListScreen } from '../screens/project-list'
+
+export const AuthenticatedApp: React.FC = () => {
   const {
     methods: { logout }
   } = useAuth()

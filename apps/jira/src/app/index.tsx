@@ -3,10 +3,10 @@ import styles from './app.module.css'
 
 import { useAuth } from '../context/auth'
 
-import { AuthenticatedApp } from '../authenticated-app'
-import { UnauthenticatedApp } from '../unauthenticated-app'
+import { AuthenticatedApp } from './authenticated-app'
+import { UnauthenticatedApp } from './unauthenticated-app'
 
-export function App() {
+export const App: React.FC = () => {
   const { user } = useAuth()
   return (
     <div className={styles.app}>
@@ -42,5 +42,3 @@ nx affected:e2e
     </div>
   )
 }
-
-export default App

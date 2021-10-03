@@ -1,6 +1,6 @@
 import React, { FormEvent } from 'react'
 
-import { useAuth } from '../../context/auth'
+import { useAuth } from '../../../context/auth'
 
 export const Register: React.FC = () => {
   const {
