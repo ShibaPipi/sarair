@@ -202,6 +202,50 @@
         }
       }
     },
+    "shared-auth": {
+      "root": "libs/shared/auth",
+      "sourceRoot": "libs/shared/auth/src",
+      "projectType": "library",
+      "targets": {
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "outputs": ["{options.outputFile}"],
+          "options": {
+            "lintFilePatterns": ["libs/shared/auth/**/*.{ts,tsx,js,jsx}"]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/shared/auth"],
+          "options": {
+            "jestConfig": "libs/shared/auth/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "shared-context": {
+      "root": "libs/shared/context",
+      "sourceRoot": "libs/shared/context/src",
+      "projectType": "library",
+      "targets": {
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "outputs": ["{options.outputFile}"],
+          "options": {
+            "lintFilePatterns": ["libs/shared/context/**/*.{ts,tsx,js,jsx}"]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/shared/context"],
+          "options": {
+            "jestConfig": "libs/shared/context/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
     "shared-hooks": {
       "root": "libs/shared/hooks",
       "sourceRoot": "libs/shared/hooks/src",
@@ -219,6 +263,28 @@
           "outputs": ["coverage/libs/shared/hooks"],
           "options": {
             "jestConfig": "libs/shared/hooks/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "shared-providers": {
+      "root": "libs/shared/providers",
+      "sourceRoot": "libs/shared/providers/src",
+      "projectType": "library",
+      "targets": {
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "outputs": ["{options.outputFile}"],
+          "options": {
+            "lintFilePatterns": ["libs/shared/providers/**/*.{ts,tsx,js,jsx}"]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/shared/providers"],
+          "options": {
+            "jestConfig": "libs/shared/providers/jest.config.js",
             "passWithNoTests": true
           }
         }

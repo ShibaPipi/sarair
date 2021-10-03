@@ -41,7 +41,16 @@
       "tags": [],
       "implicitDependencies": ["sarair"]
     },
+    "shared-auth": {
+      "tags": []
+    },
+    "shared-context": {
+      "tags": []
+    },
     "shared-hooks": {
+      "tags": []
+    },
+    "shared-providers": {
       "tags": []
     },
     "shared-request": {

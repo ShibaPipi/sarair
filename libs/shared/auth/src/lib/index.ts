@@ -1,8 +1,5 @@
-import { User } from '../screens/project-list'
-
+import type { AuthForm, User } from '@sarair/shared/context'
 import { sarairRequest } from '@sarair/shared/request'
-
-import type { AuthForm } from '../context/auth'
 
 const localStorageKey = '__AUTH__PROVIDER_TOKEN__'
 
