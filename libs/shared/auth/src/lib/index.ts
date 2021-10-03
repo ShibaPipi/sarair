@@ -3,8 +3,10 @@ import { sarairRequest } from '@sarair/shared/request'
 
 const localStorageKey = '__AUTH__PROVIDER_TOKEN__'
 
+export const getToken = () => window.localStorage.getItem(localStorageKey)
+
 export const handleUserResponse = (user: User) => {
-  localStorage.setItem(localStorageKey, user.token || '')
+  window.localStorage.setItem(localStorageKey, user.token || '')
   return user
 }
 
@@ -24,4 +26,5 @@ export const register = ({ username, password }: AuthForm) => {
     .then(handleUserResponse)
 }
 
-export const logout = async () => localStorage.removeItem(localStorageKey)
+export const logout = async () =>
+  window.localStorage.removeItem(localStorageKey)
