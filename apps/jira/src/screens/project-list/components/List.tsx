@@ -1,6 +1,7 @@
 import React from 'react'
 
-import type { Project, User } from '../index'
+import type { Project } from '../index'
+import type { User } from '@sarair/shared/context'
 
 interface ListProps {
   list: Array<Project>

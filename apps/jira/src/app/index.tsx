@@ -1,7 +1,7 @@
 import React from 'react'
 import styles from './app.module.css'
 
-import { useAuth } from '../context/auth'
+import { useAuth } from '@sarair/shared/context'
 
 import { AuthenticatedApp } from './authenticated-app'
 import { UnauthenticatedApp } from './unauthenticated-app'

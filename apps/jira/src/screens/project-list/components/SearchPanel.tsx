@@ -1,6 +1,7 @@
 import React from 'react'
 
-import type { Param, User } from '../index'
+import type { User } from '@sarair/shared/context'
+import type { Param } from '../index'
 
 interface SearchPanelProps {
   param: Param

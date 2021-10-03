@@ -8,14 +8,7 @@ import { cleanObjectNilValue } from '@sarair/shared/utils'
 import { SearchPanel } from './components/SearchPanel'
 import { List } from './components/List'
 
-export interface User {
-  id: string
-  name: string
-  email: string
-  title: string
-  organization: string
-  token: string
-}
+import type { User } from '@sarair/shared/context'
 
 export interface Project {
   id: string

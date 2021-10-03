@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { useAuth } from '../context/auth'
+import { useAuth } from '@sarair/shared/context'
 
 import { ProjectListScreen } from '../screens/project-list'
 
