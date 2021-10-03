@@ -10,5 +10,11 @@ module.exports = (request, response, next) => {
     }
   }
 
+  if (/users|projects/.test(request.path)) {
+    if (!request.headers['Authentication']) {
+      return response.status(401).json({ message: 'Unauthorized.' })
+    }
+  }
+
   next()
 }
