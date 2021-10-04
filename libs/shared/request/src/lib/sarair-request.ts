@@ -64,7 +64,7 @@ class SarairRequest {
         (config = config.interceptors.requestCatch(config))
 
       this.instance
-        .request<any, T>(config)
+        .request<unknown, T>(config)
         .then((res) => {
           // 响应单独拦截器
           config.interceptors?.response &&
@@ -84,20 +84,36 @@ class SarairRequest {
     })
   }
 
-  get<T>(url: string, config?: SarairRequestConfig<T>): Promise<T> {
-    return this.request<T>({ ...config, url, method: 'GET' })
+  get<T>(
+    url: string,
+    params?: unknown,
+    config?: SarairRequestConfig<T>
+  ): Promise<T> {
+    return this.request<T>({ ...config, url, method: 'GET', params })
   }
 
-  post<T>(url: string, config?: SarairRequestConfig<T>): Promise<T> {
-    return this.request<T>({ ...config, url, method: 'POST' })
+  post<T>(
+    url: string,
+    data?: unknown,
+    config?: SarairRequestConfig<T>
+  ): Promise<T> {
+    return this.request<T>({ ...config, url, method: 'POST', data })
   }
 
-  put<T>(url: string, config?: SarairRequestConfig<T>): Promise<T> {
-    return this.request<T>({ ...config, url, method: 'PUT' })
+  put<T>(
+    url: string,
+    data?: unknown,
+    config?: SarairRequestConfig<T>
+  ): Promise<T> {
+    return this.request<T>({ ...config, url, method: 'PUT', data })
   }
 
-  patch<T>(url: string, config?: SarairRequestConfig<T>): Promise<T> {
-    return this.request<T>({ ...config, url, method: 'PATCH' })
+  patch<T>(
+    url: string,
+    data?: unknown,
+    config?: SarairRequestConfig<T>
+  ): Promise<T> {
+    return this.request<T>({ ...config, url, method: 'PATCH', data })
   }
 
   delete<T>(url: string, config?: SarairRequestConfig<T>): Promise<T> {
