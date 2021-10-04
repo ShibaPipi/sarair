@@ -33,9 +33,7 @@ export const ProjectListScreen: React.FC = () => {
   const [list, setList] = useState<Project[]>([])
   useEffect(() => {
     sarairRequest
-      .get<Project[]>(
-        `projects?${qs.stringify(cleanObjectNilValue(debouncedParam))}`
-      )
+      .get<Project[]>('projects', cleanObjectNilValue(debouncedParam))
       .then(setList)
   }, [debouncedParam])
 
