@@ -1,3 +1,5 @@
+import { getToken } from '@sarair/shared/utils'
+
 import SarairRequest from './sarair-request'
 import { BASE_URL, TIMEOUT } from './config'
 
@@ -7,7 +9,7 @@ const sarairRequest = new SarairRequest({
   interceptors: {
     request: (config) => {
       // console.log('instance request interceptor')
-      const token = ''
+      const token = getToken()
       token && (config.headers.Authorization = `bearer ${token}`)
 
       return config
