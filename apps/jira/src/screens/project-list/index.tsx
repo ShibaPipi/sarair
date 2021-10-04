@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react'
-import qs from 'qs'
 
 import { useDebounce, useDidMount } from '@sarair/shared/hooks'
 import { sarairRequest } from '@sarair/shared/request'
