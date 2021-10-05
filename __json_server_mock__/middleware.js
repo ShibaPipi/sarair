@@ -10,6 +10,13 @@ module.exports = (request, response, next) => {
     }
   }
 
+  if (request.method === 'POST' && request.path === '/register') {
+    return response.status(200).json({
+      name: request.body.username,
+      token: '123'
+    })
+  }
+
   if (/users|projects/.test(request.path)) {
     if (!request.headers['Authorization'.toLowerCase()]) {
       return response.status(401).json({ message: 'Unauthorized.' })
