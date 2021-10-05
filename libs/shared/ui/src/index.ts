@@ -1,3 +1,6 @@
 export * from './lib/Button'
+export * from './lib/Card'
 export * from './lib/Form'
 export * from './lib/Input'
+export * from './lib/Select'
+export * from './lib/Table'
