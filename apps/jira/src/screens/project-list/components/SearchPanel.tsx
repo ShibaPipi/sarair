@@ -3,6 +3,8 @@ import React from 'react'
 import type { User } from '@sarair/shared/context'
 import type { Param } from '../index'
 
+import { Input, Select } from '@sarair/shared/ui'
+
 interface SearchPanelProps {
   param: Param
   setParam: (param: Param) => void
@@ -17,22 +19,21 @@ export const SearchPanel: React.FC<SearchPanelProps> = ({
   return (
     <form action="">
       <div>
-        <input
-          type="text"
+        <Input
           value={param.name}
           onChange={(e) => setParam({ ...param, name: e.target.value })}
         />
-        <select
+        <Select
           value={param.personId}
-          onChange={(e) => setParam({ ...param, personId: e.target.value })}
+          onChange={(value) => setParam({ ...param, personId: value })}
         >
-          <option value="">负责人</option>
+          <Select.Option value="">负责人</Select.Option>
           {users.map((user) => (
-            <option key={user.id} value={user.id}>
+            <Select.Option key={user.id} value={user.id}>
               {user.name}
-            </option>
+            </Select.Option>
           ))}
-        </select>
+        </Select>
       </div>
     </form>
   )

@@ -3,31 +3,29 @@ import React from 'react'
 import type { Project } from '../index'
 import type { User } from '@sarair/shared/context'
 
+import { ColumnProps, Table } from '@sarair/shared/ui'
+
 interface ListProps {
   list: Array<Project>
   users: Array<User>
 }
 
 export const List: React.FC<ListProps> = ({ list, users }) => {
-  return (
-    <table>
-      <thead>
-        <tr>
-          <td>名称</td>
-          <td>负责人</td>
-        </tr>
-      </thead>
-      <tbody>
-        {list.map((project) => (
-          <tr key={project.id}>
-            <td>{project.name}</td>
-            <td>
-              {users.find((user) => user.id === project.personId)?.name ||
-                '未知'}
-            </td>
-          </tr>
-        ))}
-      </tbody>
-    </table>
-  )
+  const columns: ColumnProps<Project>[] = [
+    {
+      title: '名称',
+      dataIndex: 'name',
+      sorter: (a: Project, b: Project) => a.name.localeCompare(b.name)
+    },
+    {
+      title: '负责人',
+      render: (_, record) => (
+        <span>
+          {users.find((user) => user.id === record.personId)?.name || '未知'}
+        </span>
+      )
+    }
+  ]
+
+  return <Table columns={columns} dataSource={list} pagination={false} />
 }
