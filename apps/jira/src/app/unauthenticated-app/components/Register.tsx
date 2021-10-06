@@ -1,7 +1,9 @@
 import React from 'react'
 
 import { AuthForm, useAuth } from '@sarair/shared/context'
-import { Button, Form, Input } from '@sarair/shared/ui'
+
+import { Form, Input } from '@sarair/shared/ui'
+import { LongButton } from '../index'
 
 export const Register: React.FC = () => {
   const {
@@ -26,9 +28,9 @@ export const Register: React.FC = () => {
         <Input placeholder={'密码'} />
       </Form.Item>
       <Form.Item>
-        <Button htmlType={'submit'} type={'primary'}>
+        <LongButton htmlType={'submit'} type={'primary'}>
           注册
-        </Button>
+        </LongButton>
       </Form.Item>
     </Form>
   )

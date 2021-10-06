@@ -8,5 +8,9 @@ import { UnauthenticatedApp } from './unauthenticated-app'
 export const App: React.FC = () => {
   const { user } = useAuth()
 
-  return <div>{user ? <AuthenticatedApp /> : <UnauthenticatedApp />}</div>
+  return (
+    <div className={'App'}>
+      {user ? <AuthenticatedApp /> : <UnauthenticatedApp />}
+    </div>
+  )
 }
