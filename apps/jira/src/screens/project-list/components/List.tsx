@@ -27,5 +27,12 @@ export const List: React.FC<ListProps> = ({ list, users }) => {
     }
   ]
 
-  return <Table columns={columns} dataSource={list} pagination={false} />
+  return (
+    <Table
+      columns={columns}
+      dataSource={list}
+      pagination={false}
+      rowKey={(r) => r.id}
+    />
+  )
 }
