@@ -1,9 +1,11 @@
 import React from 'react'
+import styled from '@emotion/styled'
 
 import { useAuth } from '@sarair/shared/context'
 
 import { ProjectListScreen } from '../screens/project-list'
-import styled from '@emotion/styled'
+
+import { SarairRow } from '@sarair/shared/ui'
 
 export const AuthenticatedApp: React.FC = () => {
   const {
@@ -12,8 +14,8 @@ export const AuthenticatedApp: React.FC = () => {
 
   return (
     <Container>
-      <Header>
-        <HeaderLeft>
+      <Header between>
+        <HeaderLeft gap>
           <h3>logo</h3>
           <h3>项目</h3>
           <h3>用户</h3>
@@ -42,18 +44,11 @@ export const AuthenticatedApp: React.FC = () => {
 
 const Main = styled.main``
 
-const HeaderLeft = styled.div`
-  display: flex;
-  align-items: center;
-`
+const HeaderLeft = styled(SarairRow)``
 
 const HeaderRight = styled.div``
 
-const Header = styled.header`
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-`
+const Header = styled(SarairRow)``
 
 const Container = styled.div`
   display: grid;
