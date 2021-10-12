@@ -18,6 +18,10 @@ export const List: React.FC<ListProps> = ({ list, users }) => {
       sorter: (a: Project, b: Project) => a.name.localeCompare(b.name)
     },
     {
+      title: '部门',
+      dataIndex: 'organization'
+    },
+    {
       title: '负责人',
       render: (_, record) => (
         <span>

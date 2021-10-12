@@ -3,7 +3,7 @@ import React from 'react'
 import type { User } from '@sarair/shared/context'
 import type { Param } from '../index'
 
-import { Input, Select } from '@sarair/shared/ui'
+import { Form, Input, Select } from '@sarair/shared/ui'
 
 interface SearchPanelProps {
   param: Param
@@ -17,12 +17,15 @@ export const SearchPanel: React.FC<SearchPanelProps> = ({
   users
 }) => {
   return (
-    <form action="">
-      <div>
+    <Form layout={'inline'} style={{ marginBottom: '2rem' }}>
+      <Form.Item>
         <Input
-          value={param.name}
           onChange={(e) => setParam({ ...param, name: e.target.value })}
+          value={param.name}
+          placeholder={'项目名'}
         />
+      </Form.Item>
+      <Form.Item>
         <Select
           value={param.personId}
           onChange={(value) => setParam({ ...param, personId: value })}
@@ -34,7 +37,7 @@ export const SearchPanel: React.FC<SearchPanelProps> = ({
             </Select.Option>
           ))}
         </Select>
-      </div>
-    </form>
+      </Form.Item>
+    </Form>
   )
 }
