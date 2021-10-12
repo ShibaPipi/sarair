@@ -4,6 +4,7 @@ import type { Project } from '../index'
 import type { User } from '@sarair/shared/context'
 
 import { ColumnProps, Table } from '@sarair/shared/ui'
+import dayjs from 'dayjs'
 
 interface ListProps {
   list: Array<Project>
@@ -23,11 +24,18 @@ export const List: React.FC<ListProps> = ({ list, users }) => {
     },
     {
       title: '负责人',
-      render: (_, record) => (
+      dataIndex: 'personId',
+      render: (personId: Project['personId']) => (
         <span>
-          {users.find((user) => user.id === record.personId)?.name || '未知'}
+          {users.find((user) => user.id === personId)?.name || '未知'}
         </span>
       )
+    },
+    {
+      title: '创建时间',
+      dataIndex: 'created',
+      render: (created: Project['created']) =>
+        created ? dayjs(created).format('YYYY-MM-DD') : '无'
     }
   ]
 
