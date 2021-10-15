@@ -34,6 +34,13 @@
       "tags": [],
       "implicitDependencies": ["jira"]
     },
+    "keeper": {
+      "tags": []
+    },
+    "keeper-e2e": {
+      "tags": [],
+      "implicitDependencies": ["keeper"]
+    },
     "sarair": {
       "tags": []
     },
