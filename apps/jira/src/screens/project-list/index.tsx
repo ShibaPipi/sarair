@@ -2,10 +2,10 @@ import React, { useState } from 'react'
 import styled from '@emotion/styled'
 
 import { useDebounce } from '@sarair/shared/hooks'
-import { Typography } from '@sarair/shared/ui'
 import { useProjectList } from '../../hooks/useProjectList'
 import { useUserList } from '../../hooks/useUserList'
 
+import { Typography } from '@sarair/shared/ui'
 import { SearchPanel } from './components/SearchPanel'
 import { List } from './components/List'
 

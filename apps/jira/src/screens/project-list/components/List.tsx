@@ -41,10 +41,10 @@ export const List: React.FC<ListProps> = ({ users, ...tableProps }) => {
 
   return (
     <Table
+      {...tableProps}
       columns={columns}
       pagination={false}
       rowKey={(r) => r.id}
-      {...tableProps}
     />
   )
 }
