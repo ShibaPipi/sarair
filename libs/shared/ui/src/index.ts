@@ -8,6 +8,7 @@ export * from './lib/Input'
 export * from './lib/Menu'
 export * from './lib/Select'
 export * from './lib/Table'
+export * from './lib/Typography'
 
 // custom export
 export * from './lib/SarairRow'
