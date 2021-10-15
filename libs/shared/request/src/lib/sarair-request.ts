@@ -2,6 +2,7 @@ import axios from 'axios'
 
 import type { AxiosInstance } from 'axios'
 import type { SarairInterceptorManager, SarairRequestConfig } from './type'
+import { cleanObjectNilValue, CommonObject } from '@sarair/shared/utils'
 
 class SarairRequest {
   // axios 实例
@@ -48,7 +49,7 @@ class SarairRequest {
       },
       (error) => {
         // console.log('global response error interceptor')
-        return error
+        return Promise.reject(error.response.data)
       }
     )
   }
@@ -86,10 +87,15 @@ class SarairRequest {
 
   get<T>(
     url: string,
-    params?: unknown,
+    params?: CommonObject,
     config?: SarairRequestConfig<T>
   ): Promise<T> {
-    return this.request<T>({ ...config, url, method: 'GET', params })
+    return this.request<T>({
+      ...config,
+      url,
+      method: 'GET',
+      params: params ? cleanObjectNilValue(params) : params
+    })
   }
 
   post<T>(
