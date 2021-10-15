@@ -1,52 +1,42 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
+import styled from '@emotion/styled'
 
-import { useDebounce, useDidMount } from '@sarair/shared/hooks'
-import { sarairRequest } from '@sarair/shared/request'
-import { cleanObjectNilValue } from '@sarair/shared/utils'
+import { useDebounce } from '@sarair/shared/hooks'
+import { Typography } from '@sarair/shared/ui'
+import { useProjectList } from '../../hooks/useProjectList'
+import { useUserList } from '../../hooks/useUserList'
 
 import { SearchPanel } from './components/SearchPanel'
 import { List } from './components/List'
 
-import type { User } from '@sarair/shared/context'
-import styled from '@emotion/styled'
-
-export interface Project {
-  id: string
-  name: string
-  personId: string
-  organization: string
-  created: number
-}
-
-export interface Param {
-  name: string
-  personId: string
-}
+import type { Param } from '../../types/project'
 
 export const ProjectListScreen: React.FC = () => {
   const [param, setParam] = useState<Param>({
     name: '',
     personId: ''
   })
+  const debouncedParam = useDebounce(param, 500)
+  const {
+    isLoading: listLoading,
+    data: list,
+    error
+  } = useProjectList(debouncedParam)
 
-  const debouncedParam = useDebounce<Param>(param, 1000)
-  const [list, setList] = useState<Project[]>([])
-  useEffect(() => {
-    sarairRequest
-      .get<Project[]>('projects', cleanObjectNilValue(debouncedParam))
-      .then(setList)
-  }, [debouncedParam])
-
-  const [users, setUsers] = useState<User[]>([])
-  useDidMount(() => {
-    sarairRequest.get<User[]>('users').then(setUsers)
-  })
+  const { isLoading: usersLoading, data: users } = useUserList()
 
   return (
     <Container>
       <h1>项目列表</h1>
-      <SearchPanel param={param} setParam={setParam} users={users} />
-      <List list={list} users={users} />
+      <SearchPanel param={param} setParam={setParam} users={users || []} />
+      {error ? (
+        <Typography.Text type={'danger'}>{error.message}</Typography.Text>
+      ) : null}
+      <List
+        dataSource={list || []}
+        loading={listLoading || usersLoading}
+        users={users || []}
+      />
     </Container>
   )
 }

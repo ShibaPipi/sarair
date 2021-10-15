@@ -1,17 +1,17 @@
 import React from 'react'
-
-import type { Project } from '../index'
-import type { User } from '@sarair/shared/context'
-
-import { ColumnProps, Table } from '@sarair/shared/ui'
 import dayjs from 'dayjs'
 
-interface ListProps {
-  list: Array<Project>
-  users: Array<User>
+import { ColumnProps, Table } from '@sarair/shared/ui'
+
+import type { User } from '@sarair/shared/context'
+import type { TableProps } from '@sarair/shared/ui'
+import type { Project } from '../../../types/project'
+
+interface ListProps extends TableProps<Project> {
+  users: User[]
 }
 
-export const List: React.FC<ListProps> = ({ list, users }) => {
+export const List: React.FC<ListProps> = ({ users, ...tableProps }) => {
   const columns: ColumnProps<Project>[] = [
     {
       title: '名称',
@@ -42,9 +42,9 @@ export const List: React.FC<ListProps> = ({ list, users }) => {
   return (
     <Table
       columns={columns}
-      dataSource={list}
       pagination={false}
       rowKey={(r) => r.id}
+      {...tableProps}
     />
   )
 }

@@ -1,9 +1,9 @@
 import React from 'react'
 
-import type { User } from '@sarair/shared/context'
-import type { Param } from '../index'
-
 import { Form, Input, Select } from '@sarair/shared/ui'
+
+import type { User } from '@sarair/shared/context'
+import type { Param } from '../../../types/project'
 
 interface SearchPanelProps {
   param: Param
@@ -28,10 +28,13 @@ export const SearchPanel: React.FC<SearchPanelProps> = ({
       <Form.Item>
         <Select
           value={param.personId}
-          onChange={(value) => setParam({ ...param, personId: value })}
+          onChange={(value) => {
+            console.log(value)
+            setParam({ ...param, personId: value })
+          }}
         >
           <Select.Option value="">负责人</Select.Option>
-          {users.map((user) => (
+          {users?.map((user) => (
             <Select.Option key={user.id} value={user.id}>
               {user.name}
             </Select.Option>

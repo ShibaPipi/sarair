@@ -3,7 +3,7 @@ import React, { useState } from 'react'
 import styled from '@emotion/styled'
 
 // Component / UI imports
-import { Button, Card, Divider } from '@sarair/shared/ui'
+import { Button, Card, Divider, Typography } from '@sarair/shared/ui'
 import { Login } from './components/Login'
 import { Register } from './components/Register'
 
@@ -14,6 +14,7 @@ import right from '../../assets/right.svg'
 
 export const UnauthenticatedApp: React.FC = () => {
   const [isRegister, setIsRegister] = useState<boolean>(false)
+  const [error, setError] = useState<Error | null>(null)
 
   return (
     <Container>
@@ -21,11 +22,18 @@ export const UnauthenticatedApp: React.FC = () => {
       <Background />
       <ShadowCard>
         <Title>{isRegister ? '请注册' : '请登录'}</Title>
-        {isRegister ? <Register /> : <Login />}
+        {error ? (
+          <Typography.Text type={'danger'}>{error.message}</Typography.Text>
+        ) : null}
+        {isRegister ? (
+          <Register onError={setError} />
+        ) : (
+          <Login onError={setError} />
+        )}
         <Divider />
-        <a onClick={() => setIsRegister(!isRegister)}>
+        <Button type={'link'} onClick={() => setIsRegister(!isRegister)}>
           {isRegister ? '已经有账号了？直接登录' : '还没有账号？去注册'}
-        </a>
+        </Button>
       </ShadowCard>
     </Container>
   )

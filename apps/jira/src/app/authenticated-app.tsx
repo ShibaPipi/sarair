@@ -5,7 +5,7 @@ import { useAuth } from '@sarair/shared/context'
 
 import { ProjectListScreen } from '../screens/project-list'
 
-import { Dropdown, Menu, SarairRow } from '@sarair/shared/ui'
+import { Button, Dropdown, Menu, SarairRow } from '@sarair/shared/ui'
 import { ReactComponent as SoftwareLogo } from '../assets/software-logo.svg'
 
 export const AuthenticatedApp: React.FC = () => {
@@ -27,12 +27,16 @@ export const AuthenticatedApp: React.FC = () => {
             overlay={
               <Menu>
                 <Menu.Item key={'logout'}>
-                  <a onClick={logout}>登出</a>
+                  <Button type={'link'} onClick={logout}>
+                    登出
+                  </Button>
                 </Menu.Item>
               </Menu>
             }
           >
-            <a onClick={(event) => event.preventDefault()}>Hi, {user?.name}</a>
+            <Button type={'link'} onClick={(event) => event.preventDefault()}>
+              Hi, {user?.name}
+            </Button>
           </Dropdown>
         </HeaderRight>
       </Header>

@@ -5,15 +5,20 @@ import { AuthForm, useAuth } from '@sarair/shared/context'
 import { Form, Input } from '@sarair/shared/ui'
 import { LongButton } from '../index'
 
-export const Login: React.FC = () => {
+interface LoginProps {
+  onError: (error: Error) => void
+}
+
+export const Login: React.FC<LoginProps> = ({ onError }) => {
   const {
     user,
     methods: { login }
   } = useAuth()
 
   const handleSubmit = (values: AuthForm) => {
-    login(values)
+    login(values).catch(onError)
   }
+
   return (
     <Form onFinish={handleSubmit}>
       {user ? <div>登录成功，用户名：{user?.name}</div> : null}

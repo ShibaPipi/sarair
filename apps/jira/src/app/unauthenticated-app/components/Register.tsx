@@ -5,14 +5,19 @@ import { AuthForm, useAuth } from '@sarair/shared/context'
 import { Form, Input } from '@sarair/shared/ui'
 import { LongButton } from '../index'
 
-export const Register: React.FC = () => {
+interface RegisterProps {
+  onError: (error: Error) => void
+}
+
+export const Register: React.FC<RegisterProps> = ({ onError }) => {
   const {
     methods: { register }
   } = useAuth()
 
   const handleSubmit = (values: AuthForm) => {
-    register(values)
+    register(values).catch(onError)
   }
+
   return (
     <Form onFinish={handleSubmit}>
       <Form.Item
