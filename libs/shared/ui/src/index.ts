@@ -7,7 +7,9 @@ export * from './lib/Form'
 export * from './lib/Input'
 export * from './lib/Menu'
 export * from './lib/Select'
+export * from './lib/Space'
 export * from './lib/Table'
+export * from './lib/Tag'
 export * from './lib/Typography'
 
 // custom export
