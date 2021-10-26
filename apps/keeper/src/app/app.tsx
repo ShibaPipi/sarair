@@ -10,11 +10,14 @@ import { Charts } from './components/Charts'
 const App: React.FC = () => {
   const { data: list, isLoading } = useKeepers()
 
-  const [current, setCurrent] = useState('Cherry')
+  const [currentKeeper, setCurrentKeeper] = useState('Cherry')
 
   const data = useMemo(
-    () => list?.filter((d) => d.name === current),
-    [current, list]
+    () =>
+      list
+        ?.filter((d) => d.name === currentKeeper)
+        .sort((prev, next) => prev.created - next.created),
+    [currentKeeper, list]
   )
 
   const handleAddData = useCallback(() => {}, [])
@@ -22,13 +25,13 @@ const App: React.FC = () => {
   return (
     <PageWrapper>
       <PageHeader
-        title="Keeper 身体数据记录表"
+        title={`Keeper 身体数据记录表：${currentKeeper}`}
         extra={[
           <Select
             key="select"
             style={{ width: '6.4rem' }}
             defaultValue={'Cherry'}
-            onChange={setCurrent}
+            onChange={setCurrentKeeper}
           >
             <Select.Option value={'Cherry'}>Cherry</Select.Option>
             <Select.Option value={'Pdrol'}>Pdrol</Select.Option>

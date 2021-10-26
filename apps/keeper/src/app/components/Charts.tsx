@@ -1,5 +1,6 @@
 import React, { useCallback, useEffect, useMemo, useRef } from 'react'
-import { map, pluck } from 'ramda'
+import dayjs from 'dayjs'
+import { compose, map, max, pluck, reduce } from 'ramda'
 import * as echarts from 'echarts/core'
 import {
   TitleComponent,
@@ -15,7 +16,6 @@ import { CanvasRenderer } from 'echarts/renderers'
 import { Empty, Spin } from '@sarair/shared/ui'
 
 import type { HealthItem } from '../../types/health'
-import dayjs from 'dayjs'
 
 interface ChartProps {
   loading: boolean
@@ -38,6 +38,10 @@ const generateData = (
   key: string,
   record: Array<Record<string, unknown>>
 ) => {
+  const data = pluck(key)(record) as number[]
+  const max = Math.ceil(Math.max(...data))
+  const min = Math.floor(Math.min(...data))
+
   return {
     title: {
       text: `${name}折线图`
@@ -67,14 +71,16 @@ const generateData = (
       )
     },
     yAxis: {
-      type: 'value'
+      type: 'value',
+      max,
+      min
     },
     series: [
       {
-        name: '体重',
+        name,
         type: 'line',
         stack: 'Total',
-        data: pluck(key)(record)
+        data
       }
     ]
   }
