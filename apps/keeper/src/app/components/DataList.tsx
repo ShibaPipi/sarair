@@ -15,6 +15,8 @@ export const DataList: React.FC<DataListProps> = ({ ...tableProps }) => {
       dataIndex: 'created',
       fixed: 'left',
       width: '10%',
+      defaultSortOrder: 'descend',
+      sorter: (a, b) => a.created - b.created,
       render: (created) => dayjs(created).format('YYYY-MM-DD')
     },
     {
