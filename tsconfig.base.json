@@ -15,6 +15,9 @@
         "skipDefaultLibCheck": true,
         "baseUrl": ".",
         "paths": {
+            "@sarair/desktop/shared/ui": [
+                "libs/desktop/shared/ui/src/index.ts"
+            ],
             "@sarair/shared/auth": ["libs/shared/auth/src/index.ts"],
             "@sarair/shared/context": ["libs/shared/context/src/index.ts"],
             "@sarair/shared/hooks": ["libs/shared/hooks/src/index.ts"],

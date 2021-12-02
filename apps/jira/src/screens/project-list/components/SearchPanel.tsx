@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { Form, Input, Select } from '@sarair/shared/ui'
+import { Form, Input, Select } from '@sarair/desktop/shared/ui'
 
 import type { User } from '@sarair/shared/context'
 import type { Param } from '../../../types/project'

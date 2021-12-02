@@ -1,6 +1,30 @@
 {
     "version": 2,
     "projects": {
+        "desktop-shared-ui": {
+            "root": "libs/desktop/shared/ui",
+            "sourceRoot": "libs/desktop/shared/ui/src",
+            "projectType": "library",
+            "targets": {
+                "lint": {
+                    "executor": "@nrwl/linter:eslint",
+                    "outputs": ["{options.outputFile}"],
+                    "options": {
+                        "lintFilePatterns": [
+                            "libs/desktop/shared/ui/**/*.{ts,tsx,js,jsx}"
+                        ]
+                    }
+                },
+                "test": {
+                    "executor": "@nrwl/jest:jest",
+                    "outputs": ["coverage/libs/desktop/shared/ui"],
+                    "options": {
+                        "jestConfig": "libs/desktop/shared/ui/jest.config.js",
+                        "passWithNoTests": true
+                    }
+                }
+            }
+        },
         "jira": {
             "root": "apps/jira",
             "sourceRoot": "apps/jira/src",

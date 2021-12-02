@@ -3,7 +3,7 @@ import React, { useState } from 'react'
 import styled from '@emotion/styled'
 
 // Component / UI imports
-import { Button, Card, Divider, Typography } from '@sarair/shared/ui'
+import { Button, Card, Divider, Typography } from '@sarair/desktop/shared/ui'
 import { Login } from './components/Login'
 import { Register } from './components/Register'
 

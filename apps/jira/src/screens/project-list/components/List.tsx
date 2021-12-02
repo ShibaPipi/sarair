@@ -1,10 +1,10 @@
 import React from 'react'
 import dayjs from 'dayjs'
 
-import { ColumnProps, Table } from '@sarair/shared/ui'
+import { ColumnProps, Table } from '@sarair/desktop/shared/ui'
 
 import type { User } from '@sarair/shared/context'
-import type { TableProps } from '@sarair/shared/ui'
+import type { TableProps } from '@sarair/desktop/shared/ui'
 import type { Project } from '../../../types/project'
 
 interface ListProps extends TableProps<Project> {

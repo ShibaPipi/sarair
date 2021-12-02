@@ -27,6 +27,9 @@
         ]
     },
     "projects": {
+        "desktop-shared-ui": {
+            "tags": []
+        },
         "jira": {
             "tags": []
         },

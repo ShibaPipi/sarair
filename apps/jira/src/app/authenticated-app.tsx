@@ -5,7 +5,7 @@ import { useAuth } from '@sarair/shared/context'
 
 import { ProjectListScreen } from '../screens/project-list'
 
-import { Button, Dropdown, Menu, SarairRow } from '@sarair/shared/ui'
+import { Button, Dropdown, Menu, SarairRow } from '@sarair/desktop/shared/ui'
 import { ReactComponent as SoftwareLogo } from '../assets/software-logo.svg'
 
 export const AuthenticatedApp: React.FC = () => {

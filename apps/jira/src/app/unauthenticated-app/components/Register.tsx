@@ -2,7 +2,7 @@ import React from 'react'
 
 import { AuthForm, useAuth } from '@sarair/shared/context'
 
-import { Form, Input } from '@sarair/shared/ui'
+import { Form, Input } from '@sarair/desktop/shared/ui'
 import { LongButton } from '../index'
 
 interface RegisterProps {

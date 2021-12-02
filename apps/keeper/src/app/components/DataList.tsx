@@ -1,9 +1,9 @@
 import React from 'react'
 import dayjs from 'dayjs'
 
-import { Table } from '@sarair/shared/ui'
+import { Table } from '@sarair/desktop/shared/ui'
 
-import type { ColumnProps, TableProps } from '@sarair/shared/ui'
+import type { ColumnProps, TableProps } from '@sarair/desktop/shared/ui'
 import type { HealthItem } from '../../types/health'
 
 type DataListProps = TableProps<HealthItem>

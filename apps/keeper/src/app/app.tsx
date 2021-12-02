@@ -4,7 +4,7 @@ import styled from '@emotion/styled'
 import { DataList } from './components/DataList'
 import { useKeepers } from '../hooks/useKeepers'
 
-import { Button, PageHeader, Select } from '@sarair/shared/ui'
+import { Button, PageHeader, Select } from '@sarair/desktop/shared/ui'
 import { Charts } from './components/Charts'
 
 const App: React.FC = () => {

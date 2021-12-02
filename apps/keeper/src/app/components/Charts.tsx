@@ -13,7 +13,7 @@ import { LineChart } from 'echarts/charts'
 import { UniversalTransition } from 'echarts/features'
 import { CanvasRenderer } from 'echarts/renderers'
 
-import { Empty, Spin } from '@sarair/shared/ui'
+import { Empty, Spin } from '@sarair/desktop/shared/ui'
 
 import type { HealthItem } from '../../types/health'
 

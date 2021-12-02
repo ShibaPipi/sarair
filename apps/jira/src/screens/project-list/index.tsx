@@ -5,7 +5,7 @@ import { useDebounce } from '@sarair/shared/hooks'
 import { useProjectList } from '../../hooks/useProjectList'
 import { useUserList } from '../../hooks/useUserList'
 
-import { Typography } from '@sarair/shared/ui'
+import { Typography } from '@sarair/desktop/shared/ui'
 import { SearchPanel } from './components/SearchPanel'
 import { List } from './components/List'
 
