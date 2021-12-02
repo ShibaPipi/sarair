@@ -6,14 +6,14 @@ import { sarairRequest } from '@sarair/shared/request'
 import type { Project } from '../types/project'
 
 export const useProjectList = (params?: Partial<Project>) => {
-  const {
-    methods: { run },
-    ...result
-  } = useAsync<Project[]>()
+    const {
+        methods: { run },
+        ...result
+    } = useAsync<Project[]>()
 
-  useEffect(() => {
-    run(sarairRequest.get<Project[]>('projects', params))
-  }, [params, run])
+    useEffect(() => {
+        run(sarairRequest.get<Project[]>('projects', params))
+    }, [params, run])
 
-  return result
+    return result
 }

@@ -1,73 +1,73 @@
 {
-  "npmScope": "sarair",
-  "affected": {
-    "defaultBase": "master"
-  },
-  "implicitDependencies": {
-    "package.json": {
-      "dependencies": "*",
-      "devDependencies": "*"
+    "npmScope": "sarair",
+    "affected": {
+        "defaultBase": "master"
     },
-    ".eslintrc.json": "*"
-  },
-  "tasksRunnerOptions": {
-    "default": {
-      "runner": "@nrwl/workspace/tasks-runners/default",
-      "options": {
-        "cacheableOperations": ["build", "lint", "test", "e2e"]
-      }
+    "implicitDependencies": {
+        "package.json": {
+            "dependencies": "*",
+            "devDependencies": "*"
+        },
+        ".eslintrc.json": "*"
+    },
+    "tasksRunnerOptions": {
+        "default": {
+            "runner": "@nrwl/workspace/tasks-runners/default",
+            "options": {
+                "cacheableOperations": ["build", "lint", "test", "e2e"]
+            }
+        }
+    },
+    "targetDependencies": {
+        "build": [
+            {
+                "target": "build",
+                "projects": "dependencies"
+            }
+        ]
+    },
+    "projects": {
+        "jira": {
+            "tags": []
+        },
+        "jira-e2e": {
+            "tags": [],
+            "implicitDependencies": ["jira"]
+        },
+        "keeper": {
+            "tags": []
+        },
+        "keeper-e2e": {
+            "tags": [],
+            "implicitDependencies": ["keeper"]
+        },
+        "sarair": {
+            "tags": []
+        },
+        "sarair-e2e": {
+            "tags": [],
+            "implicitDependencies": ["sarair"]
+        },
+        "shared-auth": {
+            "tags": []
+        },
+        "shared-context": {
+            "tags": []
+        },
+        "shared-hooks": {
+            "tags": []
+        },
+        "shared-providers": {
+            "tags": []
+        },
+        "shared-request": {
+            "tags": []
+        },
+        "shared-ui": {
+            "tags": []
+        },
+        "shared-utils": {
+            "tags": []
+        }
     }
-  },
-  "targetDependencies": {
-    "build": [
-      {
-        "target": "build",
-        "projects": "dependencies"
-      }
-    ]
-  },
-  "projects": {
-    "jira": {
-      "tags": []
-    },
-    "jira-e2e": {
-      "tags": [],
-      "implicitDependencies": ["jira"]
-    },
-    "keeper": {
-      "tags": []
-    },
-    "keeper-e2e": {
-      "tags": [],
-      "implicitDependencies": ["keeper"]
-    },
-    "sarair": {
-      "tags": []
-    },
-    "sarair-e2e": {
-      "tags": [],
-      "implicitDependencies": ["sarair"]
-    },
-    "shared-auth": {
-      "tags": []
-    },
-    "shared-context": {
-      "tags": []
-    },
-    "shared-hooks": {
-      "tags": []
-    },
-    "shared-providers": {
-      "tags": []
-    },
-    "shared-request": {
-      "tags": []
-    },
-    "shared-ui": {
-      "tags": []
-    },
-    "shared-utils": {
-      "tags": []
-    }
-  }
 }

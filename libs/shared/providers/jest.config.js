@@ -1,9 +1,9 @@
 module.exports = {
-  displayName: 'shared-providers',
-  preset: '../../../jest.preset.js',
-  transform: {
-    '^.+\\.[tj]sx?$': 'babel-jest'
-  },
-  moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx'],
-  coverageDirectory: '../../../coverage/libs/shared/providers'
+    displayName: 'shared-providers',
+    preset: '../../../jest.preset.js',
+    transform: {
+        '^.+\\.[tj]sx?$': 'babel-jest'
+    },
+    moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx'],
+    coverageDirectory: '../../../coverage/libs/shared/providers'
 }

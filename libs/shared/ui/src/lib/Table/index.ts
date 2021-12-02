@@ -1,6 +1,6 @@
 import Table, {
-  ColumnProps as ColumnPropsType,
-  TableProps as TablePropsType
+    ColumnProps as ColumnPropsType,
+    TableProps as TablePropsType
 } from 'antd/es/table'
 import 'antd/es/table/style/css'
 

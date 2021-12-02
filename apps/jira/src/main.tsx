@@ -7,10 +7,10 @@ import { AppProviders } from './context'
 import { App } from './app'
 
 ReactDOM.render(
-  <StrictMode>
-    <AppProviders>
-      <App />
-    </AppProviders>
-  </StrictMode>,
-  document.getElementById('root')
+    <StrictMode>
+        <AppProviders>
+            <App />
+        </AppProviders>
+    </StrictMode>,
+    document.getElementById('root')
 )
