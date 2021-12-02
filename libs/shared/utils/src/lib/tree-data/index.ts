@@ -1,42 +1,22 @@
-type Id = string | number
-
-interface OriginData {
-  id: Id
-  parentId: Id
-
-  [extraProps: string]: unknown
+interface Item {
+  id: string
+  parentId: string
 }
 
-interface TreeData extends OriginData {
-  children: TreeData[]
+interface TreeItem extends Item {
+  children: TreeItem[]
 }
 
-export const buildTree = <T extends OriginData>(data: T[]): TreeData[] => {
-  const nodeData = data.map((item) => ({ ...item, children: [] }))
-  const rootNodes = getRootNodes(nodeData)
-  return rootNodes.map((rootData) => ({
-    ...rootData,
-    children: buildChildren(rootData, nodeData)
-  }))
-}
-
-const buildChildren = (node: TreeData, data: TreeData[]): TreeData[] => {
-  const children = getChildNodes(node, data)
-  if (children.length) {
-    children.forEach((child) => {
-      buildChildren(child, data)
+export const generateTreeData = (list: Item[], parentId = '') => {
+  return list.reduce((acc, node) => {
+    if (node.parentId !== parentId) {
+      return acc
+    }
+    const children = list.filter((item) => item.parentId === parentId)
+    acc.push({
+      ...node,
+      children: children.length ? generateTreeData(list, node.id) : []
     })
-    node.children = children
-  }
-  return children
+    return acc
+  }, [] as TreeItem[])
 }
-
-const getChildNodes = (node: TreeData, data: TreeData[]) => {
-  return data.filter(({ parentId }) => parentId === node.id)
-}
-
-const getRootNodes = <T extends OriginData>(data: T[]) => {
-  return data.filter(({ parentId }) => idIsRoot(parentId))
-}
-
-const idIsRoot = (id: unknown) => id === 0 || id === ''
