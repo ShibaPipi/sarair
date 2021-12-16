@@ -151,11 +151,11 @@ const renderTreeData = (
 ): Array<TreeItem> => {
     const childrenIds =
         childrenIdsOfIdMap[parentId]?.filter(
-            (id) => !parentId || childrenIdsOfIdMap[id]
+            id => !parentId || childrenIdsOfIdMap[id]
         ) || []
-    return childrenIds.map((id) => {
+    return childrenIds.map(id => {
         const item = itemOfIdMap[id]
-        const values = childrenIdsOfIdMap[id]?.map((id) => itemOfIdMap[id])
+        const values = childrenIdsOfIdMap[id]?.map(id => itemOfIdMap[id])
         return {
             ...item,
             key: item.id,
@@ -173,7 +173,7 @@ export function App() {
     const [expandedKeys, setExpandedKeys] = useState<Array<string | number>>([])
     const [tagIdsMap, setTagIdsMap] = useState<Record<string, boolean>>({})
     const tagIds = useMemo(() => {
-        return Object.keys(tagIdsMap).filter((id) => tagIdsMap[id])
+        return Object.keys(tagIdsMap).filter(id => tagIdsMap[id])
     }, [tagIdsMap])
 
     const treeData = useMemo(() => {
@@ -191,19 +191,19 @@ export function App() {
     }, [childrenIdsOfIdMap, itemOfIdMap])
 
     const handleExpandNode = useCallback(
-        (key: string) => setExpandedKeys((prevState) => [...prevState, key]),
+        (key: string) => setExpandedKeys(prevState => [...prevState, key]),
         []
     )
 
     const changeSelfCheckState = useCallback(
         (id: string, checked: boolean) =>
-            setTagIdsMap((prevState) => ({ ...prevState, [id]: checked })),
+            setTagIdsMap(prevState => ({ ...prevState, [id]: checked })),
         []
     )
 
     const checkParentsById = useCallback(
         (id: string) =>
-            setTagIdsMap((prevState) => ({
+            setTagIdsMap(prevState => ({
                 ...prevState,
                 ...getParentIds(id, itemOfIdMap)?.reduce(
                     (acc, id) => ({ ...acc, [id]: true }),
@@ -215,7 +215,7 @@ export function App() {
 
     const uncheckChildrenById = useCallback(
         (id: string) => {
-            setTagIdsMap((prevState) => ({
+            setTagIdsMap(prevState => ({
                 ...prevState,
                 ...getChildrenIds(id, childrenIdsOfIdMap)?.reduce(
                     (acc, id) => ({ ...acc, [id]: false }),
@@ -230,7 +230,7 @@ export function App() {
         (id: string, checked: boolean, isUnlimited = true) => {
             if (!isUnlimited) {
                 !checked &&
-                    setTagIdsMap((prevState) => ({
+                    setTagIdsMap(prevState => ({
                         ...prevState,
                         [itemOfIdMap[id].parentId]: true
                     }))
@@ -240,7 +240,7 @@ export function App() {
             checked && uncheckChildrenById(id)
             // 反选不限
             !checked &&
-                setTagIdsMap((prevState) => ({
+                setTagIdsMap(prevState => ({
                     ...prevState,
                     [childrenIdsOfIdMap[id][0]]: true
                 }))
@@ -286,7 +286,7 @@ export function App() {
 
     const renderChildren = useCallback(
         (treeData: TreeItem[]) => {
-            return treeData.map((item) => {
+            return treeData.map(item => {
                 return (
                     <Tree.TreeNode
                         key={item.key}
@@ -311,7 +311,7 @@ export function App() {
                                     >
                                         {'不限'}
                                     </Checkbox>
-                                    {item.values?.map((child) => {
+                                    {item.values?.map(child => {
                                         return (
                                             <Checkbox
                                                 key={child.key}
