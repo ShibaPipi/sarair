@@ -16,7 +16,7 @@ export const ProjectListScreen: React.FC = () => {
         name: '',
         personId: ''
     })
-    const debouncedParam = useDebounce(param, 500)
+    const debouncedParam = useDebounce(param, { wait: 500 })
     const {
         isLoading: listLoading,
         data: list,
