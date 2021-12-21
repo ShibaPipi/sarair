@@ -1,4 +1,4 @@
-import InputNumber from 'antd/es/input-number'
+import InputNumber, { InputNumberProps } from 'antd/es/input-number'
 import 'antd/es/input-number/style'
 
-export { InputNumber }
+export { InputNumber, InputNumberProps }
