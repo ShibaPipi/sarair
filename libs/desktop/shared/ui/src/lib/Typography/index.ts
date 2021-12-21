@@ -1,4 +1,6 @@
 import Typography from 'antd/es/typography'
 import 'antd/es/typography/style/css'
 
-export { Typography }
+const { Text: TypographyText } = Typography
+
+export { Typography, TypographyText }
