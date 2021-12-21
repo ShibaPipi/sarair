@@ -1,8 +1,19 @@
 import axios from 'axios'
 
+import { cleanObjectNilValue, CommonObject } from '@sarair/shared/utils'
+
+import { message } from '@sarair/desktop/shared/ui'
+
 import type { AxiosInstance } from 'axios'
 import type { SarairInterceptorManager, SarairRequestConfig } from './type'
-import { cleanObjectNilValue, CommonObject } from '@sarair/shared/utils'
+
+enum HttpMethodEnum {
+    GET = 'GET',
+    POST = 'POST',
+    PUT = 'PUT',
+    PATCH = 'PATCH',
+    DELETE = 'DELETE'
+}
 
 class SarairRequest {
     // axios 实例
@@ -31,11 +42,11 @@ class SarairRequest {
 
         // 全局请求拦截器
         this.instance.interceptors.request.use(
-            (config) => {
+            config => {
                 // console.log('global request interceptor')
                 return config
             },
-            (error) => {
+            error => {
                 // console.log('global request error interceptor')
                 return error
             }
@@ -43,13 +54,19 @@ class SarairRequest {
 
         // 全局响应拦截器
         this.instance.interceptors.response.use(
-            (res) => {
+            res => {
                 // console.log('global response interceptor')
                 return res
             },
-            (error) => {
+            error => {
                 // console.log('global response error interceptor')
-                return Promise.reject(error.response.data)
+                switch (error.message) {
+                    case 'Network Error':
+                        message.error(error.message)
+                        return
+                    default:
+                        return Promise.reject(error.response.data)
+                }
             }
         )
     }
@@ -66,7 +83,7 @@ class SarairRequest {
 
             this.instance
                 .request<unknown, T>(config)
-                .then((res) => {
+                .then(res => {
                     // 响应单独拦截器
                     config.interceptors?.response &&
                         (res = config.interceptors.response(res))
@@ -77,7 +94,7 @@ class SarairRequest {
 
                     resolve(res)
                 })
-                .catch((error) => {
+                .catch(error => {
                     reject(error)
 
                     return error
@@ -103,7 +120,12 @@ class SarairRequest {
         data?: unknown,
         config?: SarairRequestConfig<T>
     ): Promise<T> {
-        return this.request<T>({ ...config, url, method: 'POST', data })
+        return this.request<T>({
+            ...config,
+            url,
+            method: HttpMethodEnum.POST,
+            data
+        })
     }
 
     put<T>(
@@ -111,7 +133,12 @@ class SarairRequest {
         data?: unknown,
         config?: SarairRequestConfig<T>
     ): Promise<T> {
-        return this.request<T>({ ...config, url, method: 'PUT', data })
+        return this.request<T>({
+            ...config,
+            url,
+            method: HttpMethodEnum.PUT,
+            data
+        })
     }
 
     patch<T>(
@@ -119,11 +146,20 @@ class SarairRequest {
         data?: unknown,
         config?: SarairRequestConfig<T>
     ): Promise<T> {
-        return this.request<T>({ ...config, url, method: 'PATCH', data })
+        return this.request<T>({
+            ...config,
+            url,
+            method: HttpMethodEnum.PATCH,
+            data
+        })
     }
 
     delete<T>(url: string, config?: SarairRequestConfig<T>): Promise<T> {
-        return this.request<T>({ ...config, url, method: 'DELETE' })
+        return this.request<T>({
+            ...config,
+            url,
+            method: HttpMethodEnum.DELETE
+        })
     }
 }
 
