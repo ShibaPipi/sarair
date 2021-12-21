@@ -1,5 +1,4 @@
-export interface HealthItem {
-    id: string
+interface BaseHealth {
     name: string
     created: number
     weight: number
@@ -16,4 +15,10 @@ export interface HealthItem {
     weightWithoutFat: number
     skeletalMuscleRate: number
     score: number
+}
+
+export type HealthFormData = BaseHealth
+
+export interface Health extends BaseHealth {
+    id: string
 }
