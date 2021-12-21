@@ -66,6 +66,9 @@
         "shared-request": {
             "tags": []
         },
+        "shared-types": {
+            "tags": []
+        },
         "shared-ui": {
             "tags": []
         },

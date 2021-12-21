@@ -1,1 +1,1 @@
-nx g @nrwl/react:lib desktop/shared/ui
+nx g @nrwl/react:lib shared/types
