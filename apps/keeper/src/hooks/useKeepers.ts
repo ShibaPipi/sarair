@@ -1,31 +1,31 @@
-import { useCallback, useEffect } from 'react'
-
-import { useAsync } from '@sarair/shared/hooks'
+import { useRequest } from '@sarair/shared/hooks'
 import { sarairRequest } from '@sarair/shared/request'
 
-import type { HealthItem } from '../types/health'
+import type { Health, HealthFormData } from '../models/health'
 
 export const useKeepers = () => {
     const {
-        methods: { run },
-        ...result
-    } = useAsync<HealthItem[]>()
-
-    const getList = useCallback(
-        (params?: Partial<HealthItem>) => {
-            run(sarairRequest.get<HealthItem[]>('keepers', params))
-        },
-        [run]
+        data: list,
+        loading: listLoading,
+        error: listError,
+        run: getList
+    } = useRequest((params?: Partial<Health>) =>
+        sarairRequest.get<Health[]>('keepers', params)
     )
 
-    useEffect(() => {
-        getList()
-    }, [getList])
+    const {
+        loading: createLoading,
+        error: createError,
+        runAsync: create
+    } = useRequest(
+        (formData: HealthFormData) => sarairRequest.post('keepers', formData),
+        { manual: true, onSuccess: () => getList() }
+    )
 
     return {
-        ...result,
-        methods: {
-            getList
-        }
+        list,
+        loading: listLoading || createLoading,
+        error: listError || createError,
+        methods: { create }
     }
 }

@@ -1,15 +1,17 @@
 import React from 'react'
 import dayjs from 'dayjs'
 
-import { Table } from '@sarair/desktop/shared/ui'
+import { healthFieldsMap } from '../../models/health'
 
 import type { ColumnProps, TableProps } from '@sarair/desktop/shared/ui'
-import type { HealthItem } from '../../types/health'
+import type { Health } from '../../models/health'
 
-type DataListProps = TableProps<HealthItem>
+import { Table } from '@sarair/desktop/shared/ui'
+
+type DataListProps = TableProps<Health>
 
 export const DataList: React.FC<DataListProps> = ({ ...tableProps }) => {
-    const columns: ColumnProps<HealthItem>[] = [
+    const columns: ColumnProps<Health>[] = [
         {
             title: '日期',
             dataIndex: 'created',
@@ -17,12 +19,13 @@ export const DataList: React.FC<DataListProps> = ({ ...tableProps }) => {
             width: '10%',
             defaultSortOrder: 'descend',
             sorter: (a, b) => a.created - b.created,
-            render: (created) => dayjs(created).format('YYYY-MM-DD')
+            render: created => dayjs(created).format('YYYY-MM-DD')
         },
         {
             title: '体重',
             dataIndex: 'weight',
-            fixed: 'left'
+            fixed: 'left',
+            render: val => `${val}${healthFieldsMap['weight'].suffix}`
         },
         {
             title: 'BMI',
@@ -32,7 +35,8 @@ export const DataList: React.FC<DataListProps> = ({ ...tableProps }) => {
         {
             title: '体脂率',
             dataIndex: 'bodyFatRate',
-            fixed: 'left'
+            fixed: 'left',
+            render: val => `${val}${healthFieldsMap['bodyFatRate'].suffix}`
         },
         {
             title: '身体年龄',
@@ -40,15 +44,18 @@ export const DataList: React.FC<DataListProps> = ({ ...tableProps }) => {
         },
         {
             title: '肌肉',
-            dataIndex: 'muscle'
+            dataIndex: 'muscle',
+            render: val => `${val}${healthFieldsMap['muscle'].suffix}`
         },
         {
             title: '骨量',
-            dataIndex: 'boneMass'
+            dataIndex: 'boneMass',
+            render: val => `${val}${healthFieldsMap['boneMass'].suffix}`
         },
         {
             title: '水分',
-            dataIndex: 'water'
+            dataIndex: 'water',
+            render: val => `${val}${healthFieldsMap['water'].suffix}`
         },
         {
             title: '内脏脂肪',
@@ -60,19 +67,24 @@ export const DataList: React.FC<DataListProps> = ({ ...tableProps }) => {
         },
         {
             title: '蛋白质',
-            dataIndex: 'protein'
+            dataIndex: 'protein',
+            render: val => `${val}${healthFieldsMap['protein'].suffix}`
         },
         {
             title: '皮下脂肪',
-            dataIndex: 'subcutaneousFat'
+            dataIndex: 'subcutaneousFat',
+            render: val => `${val}${healthFieldsMap['subcutaneousFat'].suffix}`
         },
         {
             title: '去脂体重',
-            dataIndex: 'weightWithoutFat'
+            dataIndex: 'weightWithoutFat',
+            render: val => `${val}${healthFieldsMap['weightWithoutFat'].suffix}`
         },
         {
             title: '骨骼肌率',
-            dataIndex: 'skeletalMuscleRate'
+            dataIndex: 'skeletalMuscleRate',
+            render: val =>
+                `${val}${healthFieldsMap['skeletalMuscleRate'].suffix}`
         },
         {
             title: '分数',
@@ -116,7 +128,7 @@ export const DataList: React.FC<DataListProps> = ({ ...tableProps }) => {
         <Table
             {...tableProps}
             columns={columns}
-            rowKey={(r) => r.id}
+            rowKey={r => r.id}
             scroll={{ x: 1300 }}
         />
     )

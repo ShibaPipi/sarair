@@ -1,25 +1,30 @@
-import React, { useCallback, useEffect, useMemo, useRef } from 'react'
-import dayjs from 'dayjs'
-import { compose, map, max, pluck, reduce } from 'ramda'
+// Basic Imports
+import React from 'react'
+import styled from '@emotion/styled'
+
+// Echarts Imports
 import * as echarts from 'echarts/core'
 import {
+    GridComponent,
+    LegendComponent,
     TitleComponent,
     ToolboxComponent,
-    TooltipComponent,
-    GridComponent,
-    LegendComponent
+    TooltipComponent
 } from 'echarts/components'
 import { LineChart } from 'echarts/charts'
 import { UniversalTransition } from 'echarts/features'
 import { CanvasRenderer } from 'echarts/renderers'
 
-import { Empty, Spin } from '@sarair/desktop/shared/ui'
+// Types Imports
+import type { Health } from '../../models/health'
 
-import type { HealthItem } from '../../types/health'
+// UI Imports
+import { Col, Empty, Row, Spin } from '@sarair/desktop/shared/ui'
+import { Chart } from './Chart'
 
 interface ChartProps {
     loading: boolean
-    data: HealthItem[]
+    data: Health[]
 }
 
 echarts.use([
@@ -33,96 +38,49 @@ echarts.use([
     UniversalTransition
 ])
 
-const generateData = (
-    name: string,
-    key: string,
-    record: Array<Record<string, unknown>>
-) => {
-    const data = pluck(key)(record) as number[]
-    const max = Math.ceil(Math.max(...data))
-    const min = Math.floor(Math.min(...data))
-
-    return {
-        title: {
-            text: `${name}折线图`
-        },
-        tooltip: {
-            trigger: 'axis'
-        },
-        legend: {
-            data: [name]
-        },
-        grid: {
-            left: '3%',
-            right: '4%',
-            bottom: '3%',
-            containLabel: true
-        },
-        toolbox: {
-            feature: {
-                saveAsImage: {}
-            }
-        },
-        xAxis: {
-            type: 'category',
-            boundaryGap: false,
-            data: map((item) => dayjs(item as number).format('YYYY/MM/DD'))(
-                pluck('created')(record)
-            )
-        },
-        yAxis: {
-            type: 'value',
-            max,
-            min
-        },
-        series: [
-            {
-                name,
-                type: 'line',
-                stack: 'Total',
-                data
-            }
-        ]
-    }
-}
-
 export const Charts: React.FC<ChartProps> = ({ loading, data }) => {
-    console.log(data)
-    const chartDOMRef = useRef<HTMLDivElement | null>(null)
-    const option = useMemo(() => {
-        return generateData(
-            '体重',
-            'weight',
-            data as unknown as Record<string, unknown>[]
-        )
-    }, [data])
-
-    const renderChart = useCallback(() => {
-        if (!chartDOMRef.current) return
-
-        let chartInstance = echarts.getInstanceByDom(chartDOMRef.current)
-        if (!chartInstance) {
-            chartInstance = echarts.init(chartDOMRef.current)
-        }
-
-        chartInstance.clear()
-        chartInstance.setOption(option)
-    }, [option])
-
-    const dispose = useCallback(() => {
-        chartDOMRef.current && echarts.dispose(chartDOMRef.current)
-    }, [])
-
-    useEffect(() => {
-        renderChart()
-
-        return () => dispose()
-    }, [dispose, renderChart])
-
     return (
-        <Spin spinning={loading}>
+        <ChartsWrapper spinning={loading}>
             {!data && <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} />}
-            <div ref={chartDOMRef} style={{ height: '40rem' }} />
-        </Spin>
+            <Chart data={data} field="weight" />
+            <ChartRow>
+                <Col span={12}>
+                    <Chart data={data} field="bmi" />
+                </Col>
+                <Col span={12}>
+                    <Chart data={data} field="bodyFatRate" />
+                </Col>
+            </ChartRow>
+            <ChartRow>
+                <Col span={8}>
+                    <Chart data={data} field="muscle" />
+                </Col>
+                <Col span={8}>
+                    <Chart data={data} field="water" />
+                </Col>
+                <Col span={8}>
+                    <Chart data={data} field="protein" />
+                </Col>
+            </ChartRow>
+            <ChartRow>
+                <Col span={8}>
+                    <Chart data={data} field="subcutaneousFat" />
+                </Col>
+                <Col span={8}>
+                    <Chart data={data} field="weightWithoutFat" />
+                </Col>
+                <Col span={8}>
+                    <Chart data={data} field="skeletalMuscleRate" />
+                </Col>
+            </ChartRow>
+        </ChartsWrapper>
     )
 }
+
+const ChartsWrapper = styled(Spin)`
+    height: 20rem;
+`
+
+const ChartRow = styled(Row)`
+    padding: 1.6rem 0;
+`
