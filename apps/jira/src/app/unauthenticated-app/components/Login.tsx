@@ -32,7 +32,7 @@ export const Login: React.FC<LoginProps> = ({ onError }) => {
                 name={'password'}
                 rules={[{ required: true, message: '请输入密码' }]}
             >
-                <Input placeholder={'密码'} />
+                <Input type="password" placeholder={'密码'} />
             </Form.Item>
             <Form.Item>
                 <LongButton htmlType={'submit'} type={'primary'}>

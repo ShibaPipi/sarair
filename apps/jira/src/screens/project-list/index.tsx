@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import styled from '@emotion/styled'
 
-import { useDebounce } from '@sarair/shared/hooks'
+import { useDebounce, useUrlQueryState } from '@sarair/shared/hooks'
 import { useProjectList } from '../../hooks/useProjectList'
 import { useUserList } from '../../hooks/useUserList'
 
@@ -16,6 +16,8 @@ export const ProjectListScreen: React.FC = () => {
         name: '',
         personId: ''
     })
+    // console.log(useUrlQueryState(['name']))
+    // const [param] = useUrlQueryState(['name', 'personId'])
     const debouncedParam = useDebounce(param, { wait: 500 })
     const {
         isLoading: listLoading,

@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 import dayjs from 'dayjs'
 
 import { ColumnProps, Table } from '@sarair/desktop/shared/ui'
@@ -15,8 +16,8 @@ export const List: React.FC<ListProps> = ({ users, ...tableProps }) => {
     const columns: ColumnProps<Project>[] = [
         {
             title: '名称',
-            dataIndex: 'name',
-            sorter: (a: Project, b: Project) => a.name.localeCompare(b.name)
+            sorter: (a: Project, b: Project) => a.name.localeCompare(b.name),
+            render: (_, { id, name }) => <Link to={String(id)}>{name}</Link>
         },
         {
             title: '部门',
@@ -27,7 +28,7 @@ export const List: React.FC<ListProps> = ({ users, ...tableProps }) => {
             dataIndex: 'personId',
             render: (personId: Project['personId']) => (
                 <span>
-                    {users.find((user) => user.id === personId)?.name || '未知'}
+                    {users.find(user => user.id === personId)?.name || '未知'}
                 </span>
             )
         },
@@ -44,7 +45,7 @@ export const List: React.FC<ListProps> = ({ users, ...tableProps }) => {
             {...tableProps}
             columns={columns}
             pagination={false}
-            rowKey={(r) => r.id}
+            rowKey={r => r.id}
         />
     )
 }
