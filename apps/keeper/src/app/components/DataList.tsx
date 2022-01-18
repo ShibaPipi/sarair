@@ -128,7 +128,7 @@ export const DataList: React.FC<DataListProps> = ({ ...tableProps }) => {
         <Table
             {...tableProps}
             columns={columns}
-            rowKey={r => r.id}
+            rowKey="id"
             scroll={{ x: 1300 }}
         />
     )

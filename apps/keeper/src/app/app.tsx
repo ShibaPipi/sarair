@@ -1,10 +1,11 @@
-import React, { ReactNode, useMemo, useState } from 'react'
+import React, { useMemo, useState } from 'react'
+import { compose, map, pluck } from 'ramda'
 import dayjs from 'dayjs'
 import styled from '@emotion/styled'
 
 import { useAntdTable, useMemoizedFn } from '@sarair/shared/hooks'
 import { useKeepers } from '../hooks/useKeepers'
-import { healthFieldsMap } from '../models/health'
+import { healthFieldsMap, KeeperEnum } from '../models/health'
 
 import type { InputNumberProps } from '@sarair/desktop/shared/ui'
 import type { HealthFormData } from '../models/health'
@@ -109,7 +110,7 @@ const renderFormItem = (
                 />
             )
         case FormItemEnum.DATE:
-            return <DatePicker {...formItemProps} />
+            return
         default:
             return null
     }
@@ -117,19 +118,22 @@ const renderFormItem = (
 
 const App: React.FC = () => {
     // const {} = useAntdTable();
-    const [currentKeeper, setCurrentKeeper] = useState('Pdrol')
+    const [currentKeeper, setCurrentKeeper] = useState<KeeperEnum>(
+        KeeperEnum.PDROL
+    )
 
     const {
         list,
         loading,
         methods: { create }
-    } = useKeepers()
-    const data = useMemo(
+    } = useKeepers(currentKeeper)
+    const recordedDates = useMemo(
         () =>
-            list
-                ?.filter(({ name }) => name === currentKeeper)
-                .sort((prev, next) => prev.created - next.created),
-        [currentKeeper, list]
+            map<number, string>(
+                item => dayjs(item).format('YYYY-MM-DD'),
+                pluck('created', list)
+            ),
+        [list]
     )
 
     const [form] = useForm<Omit<HealthFormData, 'name'>>()
@@ -158,11 +162,15 @@ const App: React.FC = () => {
                     <Select
                         key="select"
                         style={{ width: '6.4rem' }}
-                        defaultValue="Pdrol"
+                        defaultValue={KeeperEnum.PDROL}
                         onChange={setCurrentKeeper}
                     >
-                        <Select.Option value="Pdrol">Pdrol</Select.Option>
-                        <Select.Option value="Cherry">Cherry</Select.Option>
+                        <Select.Option value={KeeperEnum.PDROL}>
+                            {KeeperEnum.PDROL}
+                        </Select.Option>
+                        <Select.Option value={KeeperEnum.CHERRY}>
+                            {KeeperEnum.CHERRY}
+                        </Select.Option>
                     </Select>,
                     <Button
                         key="add-button"
@@ -173,8 +181,8 @@ const App: React.FC = () => {
                     </Button>
                 ]}
             >
-                <DataList dataSource={data || []} loading={loading} />
-                {data && <Charts loading={loading} data={data} />}
+                <DataList dataSource={list} loading={loading} />
+                <Charts loading={loading} data={list} />
             </PageHeader>
             <Modal
                 title={`给 ${currentKeeper} 新增数据`}
@@ -199,7 +207,21 @@ const App: React.FC = () => {
                                     }
                                 ]}
                             >
-                                {renderFormItem(type, extraInputNumberProps)}
+                                {[
+                                    FormItemEnum.INT,
+                                    FormItemEnum.FLOAT
+                                ].includes(type) ? (
+                                    renderFormItem(type, extraInputNumberProps)
+                                ) : (
+                                    <DatePicker
+                                        disabledDate={date =>
+                                            recordedDates.includes(
+                                                date.format('YYYY-MM-DD')
+                                            )
+                                        }
+                                        {...formItemProps}
+                                    />
+                                )}
                             </FormItem>
                         )
                     )}

@@ -1,3 +1,8 @@
+export enum KeeperEnum {
+    PDROL = 'Pdrol',
+    CHERRY = 'Cherry'
+}
+
 interface BaseHealth {
     name: string
     created: number

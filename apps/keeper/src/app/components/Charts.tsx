@@ -39,6 +39,8 @@ echarts.use([
 ])
 
 export const Charts: React.FC<ChartProps> = ({ loading, data }) => {
+    if (!data.length) return null
+
     return (
         <ChartsWrapper spinning={loading}>
             {!data && <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} />}
