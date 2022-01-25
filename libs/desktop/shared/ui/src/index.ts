@@ -1,4 +1,4 @@
-// antd export
+// antd component exports
 export * from './lib/Button'
 export * from './lib/Card'
 export * from './lib/Calendar'
@@ -23,6 +23,7 @@ export * from './lib/Tag'
 export * from './lib/Tree'
 export * from './lib/Typography'
 
-// custom export
+// custom component exports
 export * from './lib/FullPageErrorCallback'
+export * from './lib/IdSelector'
 export * from './lib/SarairRow'
