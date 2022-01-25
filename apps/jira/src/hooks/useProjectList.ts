@@ -6,6 +6,7 @@ import { sarairRequest } from '@sarair/shared/request'
 import type { Project } from '../types/project'
 
 export const useProjectList = (params?: Partial<Project>) => {
+    // const {} = useRequest(sarairRequest.get<Project[]>('projects', params))
     const {
         methods: { run },
         ...result

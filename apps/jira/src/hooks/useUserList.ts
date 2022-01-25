@@ -1,19 +1,24 @@
-import { useEffect } from 'react'
-
-import { useAsync } from '@sarair/shared/hooks'
+import { useListRequest } from '@sarair/shared/hooks'
 import { sarairRequest } from '@sarair/shared/request'
 
 import type { User } from '@sarair/shared/context'
 
-export const useUserList = (params?: Partial<User>) => {
+export const useUserList = () => {
     const {
-        methods: { run },
-        ...result
-    } = useAsync<User[]>()
+        list,
+        loading,
+        error,
+        run: getList
+    } = useListRequest((params?: Partial<User>) =>
+        sarairRequest.get<User[]>('users', params)
+    )
 
-    useEffect(() => {
-        run(sarairRequest.get<User[]>('users', params))
-    }, [params, run])
-
-    return result
+    return {
+        list,
+        loading,
+        error,
+        methods: {
+            getList
+        }
+    }
 }
