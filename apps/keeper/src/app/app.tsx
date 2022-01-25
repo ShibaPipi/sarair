@@ -1,5 +1,5 @@
 import React, { useMemo, useState } from 'react'
-import { compose, map, pluck } from 'ramda'
+import { map, pluck } from 'ramda'
 import dayjs from 'dayjs'
 import styled from '@emotion/styled'
 
@@ -41,6 +41,7 @@ const formFields: Array<{
         name: 'weight',
         type: FormItemEnum.FLOAT
     },
+    { name: 'score', type: FormItemEnum.INT },
     { name: 'bmi', type: FormItemEnum.FLOAT },
     {
         name: 'bodyFatRate',
@@ -76,8 +77,7 @@ const formFields: Array<{
     {
         name: 'skeletalMuscleRate',
         type: FormItemEnum.FLOAT
-    },
-    { name: 'score', type: FormItemEnum.INT }
+    }
 ].map(item => ({
     ...item,
     label: healthFieldsMap[item.name].name,
@@ -127,6 +127,7 @@ const App: React.FC = () => {
         loading,
         methods: { create }
     } = useKeepers(currentKeeper)
+    const now = useMemo(() => new Date(), [])
     const recordedDates = useMemo(
         () =>
             map<number, string>(
@@ -217,7 +218,7 @@ const App: React.FC = () => {
                                         disabledDate={date =>
                                             recordedDates.includes(
                                                 date.format('YYYY-MM-DD')
-                                            )
+                                            ) || date > dayjs(now)
                                         }
                                         {...formItemProps}
                                     />

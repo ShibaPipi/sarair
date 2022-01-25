@@ -50,9 +50,10 @@ interface HealthFieldItem {
 const healthFields: HealthFieldItem[] = [
     { key: 'created', name: '日期' },
     { key: 'weight', name: '体重', suffix: 'kg' },
+    { key: 'score', name: '分数' },
     { key: 'bmi', name: 'BMI' },
     { key: 'bodyFatRate', name: '体脂率', suffix: '%' },
-    { key: 'bodyAge', name: '身体年龄' },
+    { key: 'bodyAge', name: '身体年龄', suffix: '岁' },
     { key: 'muscle', name: '肌肉', suffix: 'kg' },
     { key: 'boneMass', name: '骨量', suffix: 'kg' },
     { key: 'water', name: '水分', suffix: '%' },
@@ -61,8 +62,7 @@ const healthFields: HealthFieldItem[] = [
     { key: 'protein', name: '蛋白质', suffix: '%' },
     { key: 'subcutaneousFat', name: '皮下脂肪', suffix: '%' },
     { key: 'weightWithoutFat', name: '去脂体重', suffix: 'kg' },
-    { key: 'skeletalMuscleRate', name: '骨骼肌率', suffix: '%' },
-    { key: 'score', name: '分数' }
+    { key: 'skeletalMuscleRate', name: '骨骼肌率', suffix: '%' }
 ]
 
 export const healthFieldsMap = healthFields.reduce<
