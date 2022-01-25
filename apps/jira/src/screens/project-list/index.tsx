@@ -1,23 +1,17 @@
-import React, { useState } from 'react'
+import React from 'react'
 import styled from '@emotion/styled'
 
-import { useDebounce, useUrlQueryState } from '@sarair/shared/hooks'
+import { useDebounce } from '@sarair/shared/hooks'
 import { useProjectList } from '../../hooks/useProjectList'
 import { useUserList } from '../../hooks/useUserList'
+import { useProjectUrlState } from '../../hooks/useProjectUrlState'
 
 import { Typography } from '@sarair/desktop/shared/ui'
 import { SearchPanel } from './components/SearchPanel'
 import { List } from './components/List'
 
-import type { Param } from '../../types/project'
-
 export const ProjectListScreen: React.FC = () => {
-    const [param, setParam] = useState<Param>({
-        name: '',
-        personId: ''
-    })
-    // console.log(useUrlQueryState(['name']))
-    // const [param] = useUrlQueryState(['name', 'personId'])
+    const [param, setParam] = useProjectUrlState()
     const debouncedParam = useDebounce(param, { wait: 500 })
     const {
         isLoading: listLoading,
@@ -25,25 +19,19 @@ export const ProjectListScreen: React.FC = () => {
         error
     } = useProjectList(debouncedParam)
 
-    const { isLoading: usersLoading, data: users } = useUserList()
+    const { list: users, loading: usersLoading } = useUserList()
 
     return (
         <Container>
             <h1>项目列表</h1>
-            <SearchPanel
-                param={param}
-                setParam={setParam}
-                users={users || []}
-            />
+            <SearchPanel param={param} setParam={setParam} />
             {error ? (
-                <Typography.Text type={'danger'}>
-                    {error.message}
-                </Typography.Text>
+                <Typography.Text type="danger">{error.message}</Typography.Text>
             ) : null}
             <List
                 dataSource={list || []}
                 loading={listLoading || usersLoading}
-                users={users || []}
+                users={users}
             />
         </Container>
     )
