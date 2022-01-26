@@ -1,7 +1,7 @@
 import { useMemo } from 'react'
 import { sort } from 'ramda'
 
-import { useListRequest, useRequest } from '@sarair/shared/hooks'
+import { useListRequest, useManualRequest } from '@sarair/shared/hooks'
 import { sarairRequest } from '@sarair/shared/request'
 
 import type { Health, HealthFormData, KeeperEnum } from '../models/health'
@@ -11,7 +11,7 @@ export const useKeepers = (currentKeeper: KeeperEnum) => {
         list: res,
         loading: listLoading,
         error: listError,
-        run: getList
+        getList
     } = useListRequest(
         (params?: Partial<Health>) =>
             sarairRequest
@@ -23,9 +23,10 @@ export const useKeepers = (currentKeeper: KeeperEnum) => {
         loading: createLoading,
         error: createError,
         runAsync: create
-    } = useRequest(
-        (formData: HealthFormData) => sarairRequest.post('keepers', formData),
-        { manual: true, onSuccess: () => getList() }
+    } = useManualRequest(
+        (formData: HealthFormData) =>
+            sarairRequest.post<Health>('keepers', formData),
+        { onSuccess: getList }
     )
 
     const list = useMemo(
