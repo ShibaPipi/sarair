@@ -6,5 +6,5 @@ export * from './lib/useMemoizedFn'
 export * from './lib/useMount'
 export * from './lib/useUrlState'
 
-export * from './lib/useListRequest'
-export * from './lib/useRequest'
+// request
+export * from './lib/request'

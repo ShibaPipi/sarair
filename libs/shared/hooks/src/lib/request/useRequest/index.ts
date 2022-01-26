@@ -7,3 +7,5 @@ export const useRequest = <TData, TParams extends unknown[]>(
 ) => {
     return useRequestBase(service, options)
 }
+
+export type { Options, Service }
