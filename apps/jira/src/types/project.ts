@@ -3,6 +3,7 @@ export interface Project {
     name: string
     personId: number
     organization: string
+    pin: boolean
     created: number
 }
 

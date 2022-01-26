@@ -2,7 +2,7 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import dayjs from 'dayjs'
 
-import { ColumnProps, Table } from '@sarair/desktop/shared/ui'
+import { ColumnProps, Pin, Table } from '@sarair/desktop/shared/ui'
 
 import type { User } from '@sarair/shared/context'
 import type { TableProps } from '@sarair/desktop/shared/ui'
@@ -10,10 +10,24 @@ import type { Project } from '../../../types/project'
 
 interface ListProps extends TableProps<Project> {
     users: User[]
+    onPinChange: (id: number, pin: boolean) => void
 }
 
-export const List: React.FC<ListProps> = ({ users, ...tableProps }) => {
+export const List: React.FC<ListProps> = ({
+    users,
+    onPinChange,
+    ...tableProps
+}) => {
     const columns: ColumnProps<Project>[] = [
+        {
+            title: <Pin checked={true} disabled />,
+            render: (_, { id, pin }) => (
+                <Pin
+                    checked={pin}
+                    onCheckedChange={pin => onPinChange(id, pin)}
+                />
+            )
+        },
         {
             title: '名称',
             sorter: (a: Project, b: Project) => a.name.localeCompare(b.name),

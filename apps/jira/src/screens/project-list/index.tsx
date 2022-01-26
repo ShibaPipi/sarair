@@ -14,9 +14,10 @@ export const ProjectListScreen: React.FC = () => {
     const [param, setParam] = useProjectUrlState()
     const debouncedParam = useDebounce(param, { wait: 500 })
     const {
-        isLoading: listLoading,
-        data: list,
-        error
+        list,
+        loading,
+        error,
+        methods: { updatePin }
     } = useProjectList(debouncedParam)
 
     const { list: users, loading: usersLoading } = useUserList()
@@ -29,9 +30,10 @@ export const ProjectListScreen: React.FC = () => {
                 <Typography.Text type="danger">{error.message}</Typography.Text>
             ) : null}
             <List
-                dataSource={list || []}
-                loading={listLoading || usersLoading}
+                dataSource={list}
+                loading={loading || usersLoading}
                 users={users}
+                onPinChange={updatePin}
             />
         </Container>
     )
