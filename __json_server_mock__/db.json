@@ -39,7 +39,7 @@
       "name": "总部管理系统",
       "personId": 3,
       "organization": "总部",
-      "pin": false,
+      "pin": true,
       "created": 1604980000011
     },
     {

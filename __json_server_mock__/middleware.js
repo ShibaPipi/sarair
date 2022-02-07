@@ -1,12 +1,16 @@
+const NAME = 'pdrol'
+const PASSWORD = '111111'
+const TOKEN = '123'
+
 module.exports = (request, response, next) => {
     if (request.method === 'POST' && request.path === '/login') {
         if (
-            request.body.username === 'pdrol' &&
-            request.body.password === '111111'
+            request.body.username === NAME &&
+            request.body.password === PASSWORD
         ) {
             return response.status(200).json({
                 name: request.body.username,
-                token: '123'
+                token: TOKEN
             })
         } else {
             return response
@@ -18,7 +22,7 @@ module.exports = (request, response, next) => {
     if (request.method === 'POST' && request.path === '/register') {
         return response.status(200).json({
             name: request.body.username,
-            token: '123'
+            token: TOKEN
         })
     }
 
@@ -30,8 +34,8 @@ module.exports = (request, response, next) => {
 
     if (request.method === 'GET' && request.path === '/me') {
         return response.status(200).json({
-            name: 'pdrol',
-            token: '123'
+            name: NAME,
+            token: TOKEN
         })
     }
 
