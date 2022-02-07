@@ -11,8 +11,7 @@ export const useProjectList = (params?: Partial<Project>) => {
     )
     useEffect(() => {
         getList()
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [params])
+    }, [getList, params])
 
     const manualOptions = { onSuccess: getList }
     const { loading: createLoading, runAsync: create } = useManualRequest(

@@ -18,7 +18,7 @@ export const Header: React.FC = () => {
         <HeaderWrapper between>
             <HeaderLeft gap>
                 <Link to="/">
-                    <SoftwareLogo width={'18rem'} color={'rgb(38, 132, 255)'} />
+                    <SoftwareLogo width="18rem" color={'rgb(38, 132, 255)'} />
                 </Link>
                 <h2>项目</h2>
                 <h2>用户</h2>
@@ -27,8 +27,8 @@ export const Header: React.FC = () => {
                 <Dropdown
                     overlay={
                         <Menu>
-                            <Menu.Item key={'logout'}>
-                                <Button type={'link'} onClick={logout}>
+                            <Menu.Item key="logout">
+                                <Button type="link" onClick={logout}>
                                     登出
                                 </Button>
                             </Menu.Item>
