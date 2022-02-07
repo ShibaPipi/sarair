@@ -7,13 +7,12 @@ export const SarairRow = styled.div<{
 }>`
     display: flex;
     align-items: center;
-    justify-content: ${(props) =>
-        props.between ? 'space-between' : undefined};
-    margin-bottom: ${(props) =>
+    justify-content: ${props => (props.between ? 'space-between' : undefined)};
+    margin-bottom: ${props =>
         props.marginBottom ? `${props.marginBottom}rem` : undefined};
     > * {
         margin-top: 0 !important;
-        margin-right: ${(props) =>
+        margin-right: ${props =>
             typeof props.gap === 'number'
                 ? `${props.gap}rem`
                 : props.gap
