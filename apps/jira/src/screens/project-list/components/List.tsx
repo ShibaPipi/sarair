@@ -19,13 +19,13 @@ import type { Project } from '../../../types/project'
 interface ListProps extends TableProps<Project> {
     users: User[]
     onPinChange: (id: number, pin: boolean) => void
-    showProjectDrawer: () => void
+    projectDrawerButton: JSX.Element
 }
 
 export const List: React.FC<ListProps> = ({
     users,
     onPinChange,
-    showProjectDrawer,
+    projectDrawerButton,
     ...tableProps
 }) => {
     const columns: ColumnProps<Project>[] = [
@@ -68,12 +68,7 @@ export const List: React.FC<ListProps> = ({
                     overlay={
                         <Menu>
                             <MenuItem key="edit">
-                                <ButtonNoPadding
-                                    type="link"
-                                    onClick={showProjectDrawer}
-                                >
-                                    编辑
-                                </ButtonNoPadding>
+                                {projectDrawerButton}
                             </MenuItem>
                         </Menu>
                     }

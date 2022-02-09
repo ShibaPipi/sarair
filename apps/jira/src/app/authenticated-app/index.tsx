@@ -7,6 +7,7 @@ import { ProjectScreen } from '../../screens/project'
 
 import { Header } from './components/Header'
 import { ProjectDrawer } from './components/ProjectDrawer'
+import { ButtonNoPadding } from '@sarair/desktop/shared/ui'
 
 export const AuthenticatedApp: React.FC = () => {
     const [drawerVisible, setDrawerVisible] = useState<boolean>(false)
@@ -19,14 +20,30 @@ export const AuthenticatedApp: React.FC = () => {
     return (
         <Container>
             <Router>
-                <Header showProjectDrawer={handleShowProjectDrawer} />
+                <Header
+                    projectDrawerButton={
+                        <ButtonNoPadding
+                            type="link"
+                            onClick={handleShowProjectDrawer}
+                        >
+                            创建项目
+                        </ButtonNoPadding>
+                    }
+                />
                 <Main>
                     <Routes>
                         <Route
                             path={`/projects`}
                             element={
                                 <ProjectListScreen
-                                    showProjectDrawer={handleShowProjectDrawer}
+                                    projectDrawerButton={
+                                        <ButtonNoPadding
+                                            type="link"
+                                            onClick={handleShowProjectDrawer}
+                                        >
+                                            创建项目
+                                        </ButtonNoPadding>
+                                    }
                                 />
                             }
                         />
@@ -38,7 +55,14 @@ export const AuthenticatedApp: React.FC = () => {
                             path="*"
                             element={
                                 <ProjectListScreen
-                                    showProjectDrawer={handleShowProjectDrawer}
+                                    projectDrawerButton={
+                                        <ButtonNoPadding
+                                            type="link"
+                                            onClick={handleShowProjectDrawer}
+                                        >
+                                            创建项目
+                                        </ButtonNoPadding>
+                                    }
                                 />
                             }
                         />

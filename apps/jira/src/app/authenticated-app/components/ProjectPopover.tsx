@@ -4,7 +4,6 @@ import styled from '@emotion/styled'
 import { useProjectList } from '../../../hooks/useProjectList'
 
 import {
-    ButtonNoPadding,
     Divider,
     List,
     ListItem,
@@ -14,11 +13,11 @@ import {
 } from '@sarair/desktop/shared/ui'
 
 interface ProjectPopoverProps {
-    showProjectDrawer: () => void
+    projectDrawerButton: JSX.Element
 }
 
 export const ProjectPopover: React.FC<ProjectPopoverProps> = ({
-    showProjectDrawer
+    projectDrawerButton
 }) => {
     const { list } = useProjectList()
 
@@ -38,9 +37,7 @@ export const ProjectPopover: React.FC<ProjectPopoverProps> = ({
                         ))}
                     </List>
                     <Divider />
-                    <ButtonNoPadding type="link" onClick={showProjectDrawer}>
-                        创建项目
-                    </ButtonNoPadding>
+                    {projectDrawerButton}
                 </ContentContainer>
             }
         >

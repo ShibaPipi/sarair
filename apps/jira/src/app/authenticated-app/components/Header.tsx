@@ -17,10 +17,10 @@ import { ProjectPopover } from './ProjectPopover'
 import { ReactComponent as SoftwareLogo } from '../../../assets/software-logo.svg'
 
 interface HeaderProps {
-    showProjectDrawer: () => void
+    projectDrawerButton: JSX.Element
 }
 
-export const Header: React.FC<HeaderProps> = ({ showProjectDrawer }) => {
+export const Header: React.FC<HeaderProps> = ({ projectDrawerButton }) => {
     const {
         user,
         methods: { logout }
@@ -32,7 +32,7 @@ export const Header: React.FC<HeaderProps> = ({ showProjectDrawer }) => {
                 <ButtonNoPadding type="link" onClick={resetRoute}>
                     <SoftwareLogo width="18rem" color={'rgb(38, 132, 255)'} />
                 </ButtonNoPadding>
-                <ProjectPopover showProjectDrawer={showProjectDrawer} />
+                <ProjectPopover projectDrawerButton={projectDrawerButton} />
                 <h2>用户</h2>
             </HeaderLeft>
             <HeaderRight>
