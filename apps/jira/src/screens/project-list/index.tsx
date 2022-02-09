@@ -6,11 +6,17 @@ import { useProjectList } from '../../hooks/useProjectList'
 import { useUserList } from '../../hooks/useUserList'
 import { useProjectUrlState } from '../../hooks/useProjectUrlState'
 
-import { Typography } from '@sarair/desktop/shared/ui'
+import { Button, SarairRow, Typography } from '@sarair/desktop/shared/ui'
 import { SearchPanel } from './components/SearchPanel'
 import { List } from './components/List'
 
-export const ProjectListScreen: React.FC = () => {
+interface ProjectListScreenProps {
+    showProjectDrawer: () => void
+}
+
+export const ProjectListScreen: React.FC<ProjectListScreenProps> = ({
+    showProjectDrawer
+}) => {
     const [param, setParam] = useProjectUrlState()
     const debouncedParam = useDebounce(param, { wait: 500 })
     const {
@@ -24,7 +30,10 @@ export const ProjectListScreen: React.FC = () => {
 
     return (
         <Container>
-            <h1>项目列表</h1>
+            <SarairRow between>
+                <h1>项目列表</h1>
+                <Button onClick={showProjectDrawer}>创建项目</Button>
+            </SarairRow>
             <SearchPanel param={param} setParam={setParam} />
             {error ? (
                 <Typography.Text type="danger">{error.message}</Typography.Text>
@@ -34,6 +43,7 @@ export const ProjectListScreen: React.FC = () => {
                 loading={loading || usersLoading}
                 users={users}
                 onPinChange={updatePin}
+                showProjectDrawer={showProjectDrawer}
             />
         </Container>
     )

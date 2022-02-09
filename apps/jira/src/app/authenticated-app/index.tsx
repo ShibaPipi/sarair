@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useCallback, useState } from 'react'
 import { Route, BrowserRouter as Router, Routes } from 'react-router-dom'
 import styled from '@emotion/styled'
 
@@ -6,25 +6,48 @@ import { ProjectListScreen } from '../../screens/project-list'
 import { ProjectScreen } from '../../screens/project'
 
 import { Header } from './components/Header'
+import { ProjectDrawer } from './components/ProjectDrawer'
 
 export const AuthenticatedApp: React.FC = () => {
+    const [drawerVisible, setDrawerVisible] = useState<boolean>(false)
+
+    const handleShowProjectDrawer = useCallback(
+        () => setDrawerVisible(true),
+        []
+    )
+
     return (
         <Container>
             <Router>
-                <Header />
+                <Header showProjectDrawer={handleShowProjectDrawer} />
                 <Main>
                     <Routes>
                         <Route
                             path={`/projects`}
-                            element={<ProjectListScreen />}
+                            element={
+                                <ProjectListScreen
+                                    showProjectDrawer={handleShowProjectDrawer}
+                                />
+                            }
                         />
                         <Route
                             path={`/projects/:id/*`}
                             element={<ProjectScreen />}
                         />
-                        <Route path="*" element={<ProjectListScreen />} />
+                        <Route
+                            path="*"
+                            element={
+                                <ProjectListScreen
+                                    showProjectDrawer={handleShowProjectDrawer}
+                                />
+                            }
+                        />
                     </Routes>
                 </Main>
+                <ProjectDrawer
+                    visible={drawerVisible}
+                    onClose={() => setDrawerVisible(false)}
+                />
             </Router>
         </Container>
     )

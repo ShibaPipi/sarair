@@ -1,14 +1,26 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
 import styled from '@emotion/styled'
 
 import { useAuth } from '@sarair/shared/context'
+import { resetRoute } from '@sarair/shared/utils'
 
-import { Button, Dropdown, Menu, SarairRow } from '@sarair/desktop/shared/ui'
+import {
+    Button,
+    ButtonNoPadding,
+    Dropdown,
+    Menu,
+    MenuItem,
+    SarairRow
+} from '@sarair/desktop/shared/ui'
+import { ProjectPopover } from './ProjectPopover'
 
 import { ReactComponent as SoftwareLogo } from '../../../assets/software-logo.svg'
 
-export const Header: React.FC = () => {
+interface HeaderProps {
+    showProjectDrawer: () => void
+}
+
+export const Header: React.FC<HeaderProps> = ({ showProjectDrawer }) => {
     const {
         user,
         methods: { logout }
@@ -17,21 +29,21 @@ export const Header: React.FC = () => {
     return (
         <HeaderWrapper between>
             <HeaderLeft gap>
-                <Link to="/">
+                <ButtonNoPadding type="link" onClick={resetRoute}>
                     <SoftwareLogo width="18rem" color={'rgb(38, 132, 255)'} />
-                </Link>
-                <h2>项目</h2>
+                </ButtonNoPadding>
+                <ProjectPopover showProjectDrawer={showProjectDrawer} />
                 <h2>用户</h2>
             </HeaderLeft>
             <HeaderRight>
                 <Dropdown
                     overlay={
                         <Menu>
-                            <Menu.Item key="logout">
+                            <MenuItem key="logout">
                                 <Button type="link" onClick={logout}>
                                     登出
                                 </Button>
-                            </Menu.Item>
+                            </MenuItem>
                         </Menu>
                     }
                 >

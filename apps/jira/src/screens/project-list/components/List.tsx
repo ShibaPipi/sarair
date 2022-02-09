@@ -2,7 +2,15 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import dayjs from 'dayjs'
 
-import { ColumnProps, Pin, Table } from '@sarair/desktop/shared/ui'
+import {
+    ButtonNoPadding,
+    ColumnProps,
+    Dropdown,
+    Menu,
+    MenuItem,
+    Pin,
+    Table
+} from '@sarair/desktop/shared/ui'
 
 import type { User } from '@sarair/shared/context'
 import type { TableProps } from '@sarair/desktop/shared/ui'
@@ -11,11 +19,13 @@ import type { Project } from '../../../types/project'
 interface ListProps extends TableProps<Project> {
     users: User[]
     onPinChange: (id: number, pin: boolean) => void
+    showProjectDrawer: () => void
 }
 
 export const List: React.FC<ListProps> = ({
     users,
     onPinChange,
+    showProjectDrawer,
     ...tableProps
 }) => {
     const columns: ColumnProps<Project>[] = [
@@ -51,6 +61,26 @@ export const List: React.FC<ListProps> = ({
             dataIndex: 'created',
             render: (created: Project['created']) =>
                 created ? dayjs(created).format('YYYY-MM-DD') : '无'
+        },
+        {
+            render: () => (
+                <Dropdown
+                    overlay={
+                        <Menu>
+                            <MenuItem key="edit">
+                                <ButtonNoPadding
+                                    type="link"
+                                    onClick={showProjectDrawer}
+                                >
+                                    编辑
+                                </ButtonNoPadding>
+                            </MenuItem>
+                        </Menu>
+                    }
+                >
+                    <ButtonNoPadding type="link">...</ButtonNoPadding>
+                </Dropdown>
+            )
         }
     ]
 
