@@ -1,21 +1,19 @@
-import React, { useCallback, useState } from 'react'
+import React, { useState } from 'react'
 import { Route, BrowserRouter as Router, Routes } from 'react-router-dom'
 import styled from '@emotion/styled'
 
+import { useMemoizedFn } from '@sarair/shared/hooks'
 import { ProjectListScreen } from '../../screens/project-list'
 import { ProjectScreen } from '../../screens/project'
 
+import { ButtonNoPadding } from '@sarair/desktop/shared/ui'
 import { Header } from './components/Header'
 import { ProjectDrawer } from './components/ProjectDrawer'
-import { ButtonNoPadding } from '@sarair/desktop/shared/ui'
 
 export const AuthenticatedApp: React.FC = () => {
     const [drawerVisible, setDrawerVisible] = useState<boolean>(false)
 
-    const handleShowProjectDrawer = useCallback(
-        () => setDrawerVisible(true),
-        []
-    )
+    const handleShowProjectDrawer = useMemoizedFn(() => setDrawerVisible(true))
 
     return (
         <Container>

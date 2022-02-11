@@ -30,8 +30,8 @@ export const ProjectPopover: React.FC<ProjectPopoverProps> = ({
                 <ContentContainer>
                     <TypographyText type="secondary">收藏项目</TypographyText>
                     <List>
-                        {pinnedProjects.map(({ name }) => (
-                            <ListItem>
+                        {pinnedProjects.map(({ id, name }) => (
+                            <ListItem key={id}>
                                 <ListItemMeta title={name} />
                             </ListItem>
                         ))}
