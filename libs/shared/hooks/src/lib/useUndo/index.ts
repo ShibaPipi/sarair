@@ -1,13 +1,13 @@
 import { useCallback, useMemo, useReducer } from 'react'
 import { last } from 'ramda'
 
-interface UndoState<T> {
+interface State<T> {
     past: T[]
     present: T
     future: T[]
 }
 
-interface UndoAction<T> {
+interface Action<T> {
     type: typeof UNDO | typeof REDO | typeof SET | typeof RESET
     newPresent?: T
 }
@@ -17,7 +17,7 @@ const REDO = 'REDO'
 const SET = 'SET'
 const RESET = 'RESET'
 
-const reducer = <T>(state: UndoState<T>, action: UndoAction<T>) => {
+const reducer = <T>(state: State<T>, action: Action<T>) => {
     const { past, present, future } = state
     const { newPresent, type } = action
 
@@ -61,7 +61,7 @@ const reducer = <T>(state: UndoState<T>, action: UndoAction<T>) => {
 
 export const useUndo = <T>(initialPresent: T) => {
     const [state, dispatch] = useReducer<
-        (state: UndoState<T>, action: UndoAction<T>) => UndoState<T>
+        (state: State<T>, action: Action<T>) => State<T>
     >(reducer, {
         past: [],
         present: initialPresent,
