@@ -6,6 +6,7 @@ export * from './lib/useMemoizedFn'
 export * from './lib/useMount'
 export * from './lib/useObjectState'
 export * from './lib/useUndo'
+export * from './lib/useUnmountedRef'
 export * from './lib/useUrlState'
 
 // request hooks

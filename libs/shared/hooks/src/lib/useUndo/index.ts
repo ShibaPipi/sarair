@@ -1,5 +1,7 @@
-import { useCallback, useMemo, useReducer } from 'react'
+import { useMemo, useReducer } from 'react'
 import { last } from 'ramda'
+
+import { useMemoizedFn } from '../useMemoizedFn'
 
 interface State<T> {
     past: T[]
@@ -74,15 +76,13 @@ export const useUndo = <T>(initialPresent: T) => {
         [state.future.length]
     )
 
-    const undo = useCallback(() => dispatch({ type: UNDO }), [])
-    const redo = useCallback(() => dispatch({ type: REDO }), [])
-    const set = useCallback(
-        (newPresent: T) => dispatch({ type: 'SET', newPresent }),
-        []
+    const undo = useMemoizedFn(() => dispatch({ type: UNDO }))
+    const redo = useMemoizedFn(() => dispatch({ type: REDO }))
+    const set = useMemoizedFn((newPresent: T) =>
+        dispatch({ type: 'SET', newPresent })
     )
-    const reset = useCallback(
-        (newPresent: T) => dispatch({ type: 'RESET', newPresent }),
-        []
+    const reset = useMemoizedFn((newPresent: T) =>
+        dispatch({ type: 'RESET', newPresent })
     )
 
     return {
