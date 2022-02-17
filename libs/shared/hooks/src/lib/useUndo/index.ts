@@ -3,6 +3,11 @@ import { last } from 'ramda'
 
 import { useMemoizedFn } from '../useMemoizedFn'
 
+const UNDO = 'UNDO'
+const REDO = 'REDO'
+const SET = 'SET'
+const RESET = 'RESET'
+
 interface State<T> {
     past: T[]
     present: T
@@ -14,17 +19,12 @@ interface Action<T> {
     newPresent?: T
 }
 
-const UNDO = 'UNDO'
-const REDO = 'REDO'
-const SET = 'SET'
-const RESET = 'RESET'
-
 const reducer = <T>(state: State<T>, action: Action<T>) => {
     const { past, present, future } = state
     const { newPresent, type } = action
 
     switch (type) {
-        case 'UNDO':
+        case UNDO:
             if (past.length === 0) return state
 
             return {
@@ -32,7 +32,7 @@ const reducer = <T>(state: State<T>, action: Action<T>) => {
                 past: past.slice(0, past.length - 1),
                 future: [present, ...future]
             }
-        case 'REDO':
+        case REDO:
             if (future.length !== 0) return state
 
             return {
@@ -40,7 +40,7 @@ const reducer = <T>(state: State<T>, action: Action<T>) => {
                 past: [...past, present],
                 future: future.slice(1)
             }
-        case 'SET':
+        case SET:
             if (newPresent === present) return state
 
             return {
@@ -48,7 +48,7 @@ const reducer = <T>(state: State<T>, action: Action<T>) => {
                 present: newPresent,
                 future: []
             }
-        case 'RESET':
+        case RESET:
             if (newPresent === present) return state
 
             return {
@@ -62,9 +62,7 @@ const reducer = <T>(state: State<T>, action: Action<T>) => {
 }
 
 export const useUndo = <T>(initialPresent: T) => {
-    const [state, dispatch] = useReducer<
-        (state: State<T>, action: Action<T>) => State<T>
-    >(reducer, {
+    const [state, dispatch] = useReducer(reducer, {
         past: [],
         present: initialPresent,
         future: []
@@ -79,10 +77,10 @@ export const useUndo = <T>(initialPresent: T) => {
     const undo = useMemoizedFn(() => dispatch({ type: UNDO }))
     const redo = useMemoizedFn(() => dispatch({ type: REDO }))
     const set = useMemoizedFn((newPresent: T) =>
-        dispatch({ type: 'SET', newPresent })
+        dispatch({ type: SET, newPresent })
     )
     const reset = useMemoizedFn((newPresent: T) =>
-        dispatch({ type: 'RESET', newPresent })
+        dispatch({ type: RESET, newPresent })
     )
 
     return {
