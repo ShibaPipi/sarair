@@ -3,7 +3,7 @@ import React, { useState } from 'react'
 import styled from '@emotion/styled'
 
 // Component / UI imports
-import { Button, Card, Divider, Typography } from '@sarair/desktop/shared/ui'
+import { Button, Card, Divider, ErrorBox } from '@sarair/desktop/shared/ui'
 import { Login } from './components/Login'
 import { Register } from './components/Register'
 
@@ -22,11 +22,7 @@ export const UnauthenticatedApp: React.FC = () => {
             <Background />
             <ShadowCard>
                 <Title>{isRegister ? '请注册' : '请登录'}</Title>
-                {error ? (
-                    <Typography.Text type={'danger'}>
-                        {error.message}
-                    </Typography.Text>
-                ) : null}
+                <ErrorBox error={error} />
                 {isRegister ? (
                     <Register onError={setError} />
                 ) : (

@@ -7,11 +7,7 @@ import { useUserList } from '../../hooks/useUserList'
 import { useProjectUrlState } from '../../hooks/useProjectUrlState'
 import { useProjectDrawer } from '../../hooks/useProjectDrawer'
 
-import {
-    ButtonNoPadding,
-    SarairRow,
-    Typography
-} from '@sarair/desktop/shared/ui'
+import { ButtonNoPadding, ErrorBox, SarairRow } from '@sarair/desktop/shared/ui'
 import { SearchPanel } from './components/SearchPanel'
 import { List } from './components/List'
 
@@ -40,9 +36,7 @@ export const ProjectListScreen: React.FC = () => {
                 </ButtonNoPadding>
             </SarairRow>
             <SearchPanel param={param} setParam={setParam} />
-            {error ? (
-                <Typography.Text type="danger">{error.message}</Typography.Text>
-            ) : null}
+            <ErrorBox error={error} />
             <List
                 dataSource={list}
                 loading={loading || usersLoading}
