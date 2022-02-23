@@ -1,13 +1,18 @@
 import React from 'react'
-import { Provider } from 'react-redux'
+import { QueryClientProvider, useQueryClient } from 'react-query'
+// import { Provider } from 'react-redux'
 
 import { AuthProvider } from './auth'
-import { store } from '../store'
+// import { store } from '../store'
 
 export const AppProviders: React.FC = ({ children }) => {
+    const client = useQueryClient()
+
     return (
-        <Provider store={store}>
+        // <Provider store={store}>
+        <QueryClientProvider client={client}>
             <AuthProvider children={children} />
-        </Provider>
+        </QueryClientProvider>
+        // </Provider>
     )
 }
