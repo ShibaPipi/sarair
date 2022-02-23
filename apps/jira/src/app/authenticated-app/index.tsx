@@ -1,75 +1,32 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { Route, BrowserRouter as Router, Routes } from 'react-router-dom'
 import styled from '@emotion/styled'
 
-import { useMemoizedFn } from '@sarair/shared/hooks'
 import { ProjectListScreen } from '../../screens/project-list'
 import { ProjectScreen } from '../../screens/project'
 
-import { ButtonNoPadding } from '@sarair/desktop/shared/ui'
 import { Header } from './components/Header'
 import { ProjectDrawer } from './components/ProjectDrawer'
 
 export const AuthenticatedApp: React.FC = () => {
-    const [drawerVisible, setDrawerVisible] = useState<boolean>(false)
-
-    const handleShowProjectDrawer = useMemoizedFn(() => setDrawerVisible(true))
-
     return (
         <Container>
             <Router>
-                <Header
-                    projectDrawerButton={
-                        <ButtonNoPadding
-                            type="link"
-                            onClick={handleShowProjectDrawer}
-                        >
-                            创建项目
-                        </ButtonNoPadding>
-                    }
-                />
+                <Header />
                 <Main>
                     <Routes>
                         <Route
                             path={`/projects`}
-                            element={
-                                <ProjectListScreen
-                                    projectDrawerButton={
-                                        <ButtonNoPadding
-                                            type="link"
-                                            onClick={handleShowProjectDrawer}
-                                        >
-                                            创建项目
-                                        </ButtonNoPadding>
-                                    }
-                                />
-                            }
+                            element={<ProjectListScreen />}
                         />
                         <Route
                             path={`/projects/:id/*`}
                             element={<ProjectScreen />}
                         />
-                        <Route
-                            path="*"
-                            element={
-                                <ProjectListScreen
-                                    projectDrawerButton={
-                                        <ButtonNoPadding
-                                            type="link"
-                                            onClick={handleShowProjectDrawer}
-                                        >
-                                            创建项目
-                                        </ButtonNoPadding>
-                                    }
-                                />
-                            }
-                        />
+                        <Route path="*" element={<ProjectListScreen />} />
                     </Routes>
                 </Main>
-                <ProjectDrawer
-                    visible={drawerVisible}
-                    onClose={() => setDrawerVisible(false)}
-                />
+                <ProjectDrawer />
             </Router>
         </Container>
     )

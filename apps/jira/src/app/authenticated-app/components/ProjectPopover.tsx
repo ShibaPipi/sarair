@@ -1,9 +1,12 @@
 import React, { useMemo } from 'react'
+import { useDispatch } from 'react-redux'
 import styled from '@emotion/styled'
 
 import { useProjectList } from '../../../hooks/useProjectList'
+import { showProjectDrawer } from '../../../store/project.slice'
 
 import {
+    ButtonNoPadding,
     Divider,
     List,
     ListItem,
@@ -12,13 +15,9 @@ import {
     TypographyText
 } from '@sarair/desktop/shared/ui'
 
-interface ProjectPopoverProps {
-    projectDrawerButton: JSX.Element
-}
+export const ProjectPopover: React.FC = () => {
+    const dispatch = useDispatch()
 
-export const ProjectPopover: React.FC<ProjectPopoverProps> = ({
-    projectDrawerButton
-}) => {
     const { list } = useProjectList()
 
     const pinnedProjects = useMemo(() => list.filter(item => item.pin), [list])
@@ -37,7 +36,12 @@ export const ProjectPopover: React.FC<ProjectPopoverProps> = ({
                         ))}
                     </List>
                     <Divider />
-                    {projectDrawerButton}
+                    <ButtonNoPadding
+                        type="link"
+                        onClick={() => dispatch(showProjectDrawer())}
+                    >
+                        创建项目
+                    </ButtonNoPadding>
                 </ContentContainer>
             }
         >

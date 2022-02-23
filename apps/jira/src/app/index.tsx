@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { useAuth } from '@sarair/shared/context'
+import { useAuth } from '../hooks/useAuth'
 
 import { ErrorBoundary } from '@sarair/shared/ui'
 import { FullPageErrorCallback } from '@sarair/desktop/shared/ui'

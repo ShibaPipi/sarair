@@ -3,7 +3,7 @@ import * as ReactDOM from 'react-dom'
 
 import './styles.css'
 
-import { AppProviders } from './context'
+import { AppProviders } from './providers/app'
 import { App } from './app'
 
 ReactDOM.render(

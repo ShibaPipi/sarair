@@ -1,6 +1,9 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
 import dayjs from 'dayjs'
+
+import { showProjectDrawer } from '../../../store/project.slice'
 
 import {
     ButtonNoPadding,
@@ -19,15 +22,15 @@ import type { Project } from '../../../types/project'
 interface ListProps extends TableProps<Project> {
     users: User[]
     onPinChange: (id: number, pin: boolean) => void
-    projectDrawerButton: JSX.Element
 }
 
 export const List: React.FC<ListProps> = ({
     users,
     onPinChange,
-    projectDrawerButton,
     ...tableProps
 }) => {
+    const dispatch = useDispatch()
+
     const columns: ColumnProps<Project>[] = [
         {
             title: <Pin checked={true} disabled />,
@@ -68,7 +71,14 @@ export const List: React.FC<ListProps> = ({
                     overlay={
                         <Menu>
                             <MenuItem key="edit">
-                                {projectDrawerButton}
+                                <ButtonNoPadding
+                                    type="link"
+                                    onClick={() =>
+                                        dispatch(showProjectDrawer())
+                                    }
+                                >
+                                    编辑
+                                </ButtonNoPadding>
                             </MenuItem>
                         </Menu>
                     }

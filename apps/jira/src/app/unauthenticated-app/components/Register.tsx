@@ -1,6 +1,7 @@
 import React from 'react'
 
-import { AuthForm, useAuth } from '@sarair/shared/context'
+import { AuthForm } from '@sarair/shared/context'
+import { useAuth } from '../../../hooks/useAuth'
 
 import { Form, Input } from '@sarair/desktop/shared/ui'
 import { LongButton } from '../index'

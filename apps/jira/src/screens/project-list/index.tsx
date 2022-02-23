@@ -1,22 +1,24 @@
 import React from 'react'
+import { useDispatch } from 'react-redux'
 import styled from '@emotion/styled'
 
 import { useDebounce } from '@sarair/shared/hooks'
 import { useProjectList } from '../../hooks/useProjectList'
 import { useUserList } from '../../hooks/useUserList'
 import { useProjectUrlState } from '../../hooks/useProjectUrlState'
+import { showProjectDrawer } from '../../store/project.slice'
 
-import { SarairRow, Typography } from '@sarair/desktop/shared/ui'
+import {
+    ButtonNoPadding,
+    SarairRow,
+    Typography
+} from '@sarair/desktop/shared/ui'
 import { SearchPanel } from './components/SearchPanel'
 import { List } from './components/List'
 
-interface ProjectListScreenProps {
-    projectDrawerButton: JSX.Element
-}
+export const ProjectListScreen: React.FC = () => {
+    const dispatch = useDispatch()
 
-export const ProjectListScreen: React.FC<ProjectListScreenProps> = ({
-    projectDrawerButton
-}) => {
     const [param, setParam] = useProjectUrlState()
     const debouncedParam = useDebounce(param, { wait: 500 })
     const {
@@ -32,7 +34,12 @@ export const ProjectListScreen: React.FC<ProjectListScreenProps> = ({
         <Container>
             <SarairRow between>
                 <h1>项目列表</h1>
-                {projectDrawerButton}
+                <ButtonNoPadding
+                    type="link"
+                    onClick={() => dispatch(showProjectDrawer())}
+                >
+                    创建项目
+                </ButtonNoPadding>
             </SarairRow>
             <SearchPanel param={param} setParam={setParam} />
             {error ? (
@@ -43,7 +50,6 @@ export const ProjectListScreen: React.FC<ProjectListScreenProps> = ({
                 loading={loading || usersLoading}
                 users={users}
                 onPinChange={updatePin}
-                projectDrawerButton={projectDrawerButton}
             />
         </Container>
     )

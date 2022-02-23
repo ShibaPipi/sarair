@@ -1,20 +1,25 @@
 import React from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+
+import { useMemoizedFn } from '@sarair/shared/hooks'
+import {
+    hideProjectDrawer,
+    selectProjectDrawerVisible
+} from '../../../store/project.slice'
 
 import { Button, Drawer } from '@sarair/desktop/shared/ui'
 
-interface ProjectDrawerProps {
-    visible: boolean
-    onClose: () => void
-}
+export const ProjectDrawer: React.FC = () => {
+    const dispatch = useDispatch()
 
-export const ProjectDrawer: React.FC<ProjectDrawerProps> = ({
-    visible,
-    onClose
-}) => {
+    const visible = useSelector(selectProjectDrawerVisible)
+
+    const handleClose = useMemoizedFn(() => dispatch(hideProjectDrawer()))
+
     return (
-        <Drawer width="100%" visible={visible} onClose={onClose}>
+        <Drawer width="100%" visible={visible} onClose={handleClose}>
             <h1>Project Modal</h1>
-            <Button onClick={onClose}>关闭</Button>
+            <Button onClick={handleClose}>关闭</Button>
         </Drawer>
     )
 }

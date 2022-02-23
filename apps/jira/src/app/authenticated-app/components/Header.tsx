@@ -1,8 +1,8 @@
 import React from 'react'
 import styled from '@emotion/styled'
 
-import { useAuth } from '@sarair/shared/context'
 import { resetRoute } from '@sarair/shared/utils'
+import { useAuth } from '../../../hooks/useAuth'
 
 import {
     Button,
@@ -16,11 +16,7 @@ import { ProjectPopover } from './ProjectPopover'
 
 import { ReactComponent as SoftwareLogo } from '../../../assets/software-logo.svg'
 
-interface HeaderProps {
-    projectDrawerButton: JSX.Element
-}
-
-export const Header: React.FC<HeaderProps> = ({ projectDrawerButton }) => {
+export const Header: React.FC = () => {
     const {
         user,
         methods: { logout }
@@ -32,7 +28,7 @@ export const Header: React.FC<HeaderProps> = ({ projectDrawerButton }) => {
                 <ButtonNoPadding type="link" onClick={resetRoute}>
                     <SoftwareLogo width="18rem" color={'rgb(38, 132, 255)'} />
                 </ButtonNoPadding>
-                <ProjectPopover projectDrawerButton={projectDrawerButton} />
+                <ProjectPopover />
                 <h2>用户</h2>
             </HeaderLeft>
             <HeaderRight>
