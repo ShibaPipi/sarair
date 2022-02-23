@@ -1,12 +1,11 @@
 import React from 'react'
-import { useDispatch } from 'react-redux'
 import styled from '@emotion/styled'
 
 import { useDebounce } from '@sarair/shared/hooks'
 import { useProjectList } from '../../hooks/useProjectList'
 import { useUserList } from '../../hooks/useUserList'
 import { useProjectUrlState } from '../../hooks/useProjectUrlState'
-import { showProjectDrawer } from '../../store/project.slice'
+import { useProjectDrawer } from '../../hooks/useProjectDrawer'
 
 import {
     ButtonNoPadding,
@@ -17,7 +16,9 @@ import { SearchPanel } from './components/SearchPanel'
 import { List } from './components/List'
 
 export const ProjectListScreen: React.FC = () => {
-    const dispatch = useDispatch()
+    const {
+        methods: { show }
+    } = useProjectDrawer()
 
     const [param, setParam] = useProjectUrlState()
     const debouncedParam = useDebounce(param, { wait: 500 })
@@ -34,10 +35,7 @@ export const ProjectListScreen: React.FC = () => {
         <Container>
             <SarairRow between>
                 <h1>项目列表</h1>
-                <ButtonNoPadding
-                    type="link"
-                    onClick={() => dispatch(showProjectDrawer())}
-                >
+                <ButtonNoPadding type="link" onClick={show}>
                     创建项目
                 </ButtonNoPadding>
             </SarairRow>

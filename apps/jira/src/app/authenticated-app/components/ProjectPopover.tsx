@@ -1,9 +1,8 @@
 import React, { useMemo } from 'react'
-import { useDispatch } from 'react-redux'
 import styled from '@emotion/styled'
 
 import { useProjectList } from '../../../hooks/useProjectList'
-import { showProjectDrawer } from '../../../store/project.slice'
+import { useProjectDrawer } from '../../../hooks/useProjectDrawer'
 
 import {
     ButtonNoPadding,
@@ -16,7 +15,9 @@ import {
 } from '@sarair/desktop/shared/ui'
 
 export const ProjectPopover: React.FC = () => {
-    const dispatch = useDispatch()
+    const {
+        methods: { show }
+    } = useProjectDrawer()
 
     const { list } = useProjectList()
 
@@ -36,10 +37,7 @@ export const ProjectPopover: React.FC = () => {
                         ))}
                     </List>
                     <Divider />
-                    <ButtonNoPadding
-                        type="link"
-                        onClick={() => dispatch(showProjectDrawer())}
-                    >
+                    <ButtonNoPadding type="link" onClick={show}>
                         创建项目
                     </ButtonNoPadding>
                 </ContentContainer>
