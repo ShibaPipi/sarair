@@ -1,4 +1,4 @@
-import { createContext, useContext } from 'react'
+import { createContext } from 'react'
 
 export interface User {
     id: number
@@ -26,13 +26,3 @@ interface AuthContextValue {
 export const AuthContext = createContext<AuthContextValue | undefined>(
     undefined
 )
-
-export const useAuth = () => {
-    const authContext = useContext(AuthContext)
-
-    if (!authContext) {
-        throw new Error('the hook useAuth must be used in AuthProvider.')
-    }
-
-    return authContext
-}
