@@ -1,20 +1,30 @@
 import { useMemoizedFn, useUrlState } from '@sarair/shared/hooks'
+import { useProjectDetail } from './useProjectDetail'
 
 export const useProjectDrawer = () => {
-    const [{ projectCreate }, showProjectDrawer] = useUrlState({
+    const [{ projectCreate }, setProjectCreate] = useUrlState({
         projectCreate: ''
     })
+    const [{ editId }, setEditId] = useUrlState({
+        editId: ''
+    })
+    const show = useMemoizedFn(() => setProjectCreate({ projectCreate: true }))
+    const close = useMemoizedFn(() => {
+        setProjectCreate({ projectCreate: undefined })
+        setEditId({ editId: undefined })
+    })
+    const handleEdit = useMemoizedFn((id: number) => setEditId({ editId: id }))
 
-    const show = useMemoizedFn(() => showProjectDrawer({ projectCreate: true }))
-    const close = useMemoizedFn(() =>
-        showProjectDrawer({ projectCreate: undefined })
-    )
+    const { loading, data: project } = useProjectDetail(editId)
 
     return {
         visible: projectCreate === 'true',
+        project,
+        loading,
         methods: {
             show,
-            close
+            close,
+            handleEdit
         }
     }
 }
