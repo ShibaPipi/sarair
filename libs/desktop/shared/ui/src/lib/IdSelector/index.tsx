@@ -11,8 +11,8 @@ interface IdSelectorProps
         ComponentProps<typeof Select>,
         'value' | 'onChange' | 'options'
     > {
-    value: Raw | null | undefined
-    onChange: (value?: number) => void
+    value?: Raw | null | undefined
+    onChange?: (value?: number) => void
     defaultOptionLabel?: string
     options?: Array<{ id: number; name: string }>
 }
@@ -40,7 +40,7 @@ export const IdSelector: React.FC<IdSelectorProps> = ({
     return (
         <Select
             value={options?.length ? convertToNumber(value) : 0}
-            onChange={value => onChange(convertToNumber(value) || undefined)}
+            onChange={value => onChange?.(convertToNumber(value) || undefined)}
             {...extraProps}
         >
             {defaultOptionLabel ? (
