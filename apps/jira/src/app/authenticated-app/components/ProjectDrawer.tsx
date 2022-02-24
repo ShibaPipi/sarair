@@ -1,19 +1,110 @@
-import React from 'react'
+import React, { useEffect } from 'react'
+import styled from '@emotion/styled'
 
+import { useMemoizedFn } from '@sarair/shared/hooks'
 import { useProjectDrawer } from '../../../hooks/projects'
 
-import { Button, Drawer } from '@sarair/desktop/shared/ui'
+import {
+    Button,
+    Drawer,
+    ErrorBox,
+    Form,
+    FormItem,
+    Input,
+    Spin,
+    useForm
+} from '@sarair/desktop/shared/ui'
+import { UserSelector } from '../../../features/user-selector'
 
 export const ProjectDrawer: React.FC = () => {
     const {
         visible,
-        methods: { close }
+        loading,
+        detail,
+        isEditing,
+        error,
+        methods: { close, create, update }
     } = useProjectDrawer()
 
+    const [form] = useForm()
+    const onFinish = useMemoizedFn(formData => {
+        ;(isEditing ? update : create)(formData).then(() => {
+            form.resetFields()
+            close()
+        })
+    })
+    useEffect(() => {
+        isEditing ? form.setFieldsValue(detail) : form.resetFields()
+    }, [detail, form, isEditing])
+
     return (
-        <Drawer width="100%" visible={visible} onClose={close}>
-            <h1>Project Modal</h1>
-            <Button onClick={close}>关闭</Button>
+        <Drawer
+            width="100%"
+            visible={visible}
+            onClose={close}
+            getContainer={false}
+        >
+            <Container>
+                {loading ? (
+                    <Spin size="large" />
+                ) : (
+                    <>
+                        <h1>{isEditing ? '编辑项目' : '创建项目'}</h1>
+                        <ErrorBox error={error} />
+                        <Form
+                            layout="vertical"
+                            form={form}
+                            style={{ width: '40rem' }}
+                            onFinish={onFinish}
+                        >
+                            <FormItem
+                                label="名称"
+                                name="name"
+                                rules={[
+                                    {
+                                        required: true,
+                                        message: '请输入项目名称'
+                                    }
+                                ]}
+                            >
+                                <Input placeholder="请输入项目名称" />
+                            </FormItem>
+                            <FormItem
+                                label="部门"
+                                name="organization"
+                                rules={[
+                                    {
+                                        required: true,
+                                        message: '请输入部门名称'
+                                    }
+                                ]}
+                            >
+                                <Input placeholder="请输入部门名称" />
+                            </FormItem>
+                            <FormItem label="负责人" name="personId">
+                                <UserSelector defaultOptionLabel="负责人" />
+                            </FormItem>
+                            <FormItem style={{ textAlign: 'center' }}>
+                                <Button
+                                    loading={loading}
+                                    type="primary"
+                                    htmlType="submit"
+                                >
+                                    提交
+                                </Button>
+                            </FormItem>
+                        </Form>
+                    </>
+                )}
+            </Container>
         </Drawer>
     )
 }
+
+const Container = styled.div`
+    height: 80vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+`

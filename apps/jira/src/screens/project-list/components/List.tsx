@@ -2,8 +2,6 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import dayjs from 'dayjs'
 
-import { useProjectDrawer } from '../../../hooks/projects'
-
 import {
     ButtonNoPadding,
     ColumnProps,
@@ -21,17 +19,17 @@ import type { Project } from '../../../types/project'
 interface ListProps extends TableProps<Project> {
     users: User[]
     onPinChange: (id: number, pin: boolean) => void
+    showEdit: (id: number) => void
+    remove: (id: number) => Promise<unknown>
 }
 
 export const List: React.FC<ListProps> = ({
     users,
     onPinChange,
+    showEdit,
+    remove,
     ...tableProps
 }) => {
-    const {
-        methods: { show }
-    } = useProjectDrawer()
-
     const columns: ColumnProps<Project>[] = [
         {
             title: <Pin checked={true} disabled />,
@@ -54,7 +52,7 @@ export const List: React.FC<ListProps> = ({
         {
             title: '负责人',
             dataIndex: 'personId',
-            render: (personId: Project['personId']) => (
+            render: personId => (
                 <span>
                     {users.find(user => user.id === personId)?.name || '未知'}
                 </span>
@@ -63,17 +61,29 @@ export const List: React.FC<ListProps> = ({
         {
             title: '创建时间',
             dataIndex: 'created',
-            render: (created: Project['created']) =>
+            render: created =>
                 created ? dayjs(created).format('YYYY-MM-DD') : '无'
         },
         {
-            render: () => (
+            dataIndex: 'id',
+            render: id => (
                 <Dropdown
                     overlay={
                         <Menu>
                             <MenuItem key="edit">
-                                <ButtonNoPadding type="link" onClick={show}>
+                                <ButtonNoPadding
+                                    type="link"
+                                    onClick={() => showEdit(id)}
+                                >
                                     编辑
+                                </ButtonNoPadding>
+                            </MenuItem>
+                            <MenuItem key="delete">
+                                <ButtonNoPadding
+                                    type="link"
+                                    onClick={() => remove(id)}
+                                >
+                                    删除
                                 </ButtonNoPadding>
                             </MenuItem>
                         </Menu>

@@ -11,27 +11,27 @@ export const useProjectList = (params?: Partial<Project>) => {
     )
     useEffect(() => {
         getList()
-    }, [getList, params])
+    }, [getList, params?.name, params?.personId])
 
     const manualOptions = { onSuccess: getList }
-    const { loading: createLoading, runAsync: create } = useManualRequest(
-        (params: Partial<Project>) => sarairRequest.post('projects', params),
-        manualOptions
-    )
     const { loading: updatePinLoading, runAsync: updatePin } = useManualRequest(
         (id: number, pin: boolean) =>
             sarairRequest.patch(`projects/${id}`, { pin }),
         manualOptions
     )
+    const { loading: removeLoading, runAsync: remove } = useManualRequest(
+        (id: number) => sarairRequest.delete(`projects/${id}`),
+        manualOptions
+    )
 
     return {
         list,
-        loading: loading || createLoading || updatePinLoading,
+        loading: loading || updatePinLoading || removeLoading,
         error,
         methods: {
             getList,
-            create,
-            updatePin
+            updatePin,
+            remove
         }
     }
 }

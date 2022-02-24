@@ -12,7 +12,7 @@ import { List } from './components/List'
 
 export const ProjectListScreen: React.FC = () => {
     const {
-        methods: { show }
+        methods: { showCreate, showEdit }
     } = useProjectDrawer()
 
     const [param, setParam] = useProjectUrlState()
@@ -21,7 +21,7 @@ export const ProjectListScreen: React.FC = () => {
         list,
         loading,
         error,
-        methods: { updatePin }
+        methods: { updatePin, remove }
     } = useProjectList(debouncedParam)
 
     const { list: users, loading: usersLoading } = useUserList()
@@ -30,7 +30,7 @@ export const ProjectListScreen: React.FC = () => {
         <Container>
             <SarairRow between>
                 <h1>项目列表</h1>
-                <ButtonNoPadding type="link" onClick={show}>
+                <ButtonNoPadding type="link" onClick={showCreate}>
                     创建项目
                 </ButtonNoPadding>
             </SarairRow>
@@ -41,6 +41,8 @@ export const ProjectListScreen: React.FC = () => {
                 loading={loading || usersLoading}
                 users={users}
                 onPinChange={updatePin}
+                showEdit={showEdit}
+                remove={remove}
             />
         </Container>
     )

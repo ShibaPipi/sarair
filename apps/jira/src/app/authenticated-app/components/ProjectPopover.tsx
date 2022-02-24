@@ -15,7 +15,7 @@ import {
 
 export const ProjectPopover: React.FC = () => {
     const {
-        methods: { show }
+        methods: { showCreate }
     } = useProjectDrawer()
 
     const { list } = useProjectList()
@@ -36,7 +36,7 @@ export const ProjectPopover: React.FC = () => {
                         ))}
                     </List>
                     <Divider />
-                    <ButtonNoPadding type="link" onClick={show}>
+                    <ButtonNoPadding type="link" onClick={showCreate}>
                         创建项目
                     </ButtonNoPadding>
                 </ContentContainer>

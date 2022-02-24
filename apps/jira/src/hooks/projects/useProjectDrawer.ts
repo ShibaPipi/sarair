@@ -1,30 +1,44 @@
+import { useMemo } from 'react'
+
 import { useMemoizedFn, useUrlState } from '@sarair/shared/hooks'
 import { useProjectDetail } from './useProjectDetail'
+import { useProjectCreate } from './useProjectCreate'
 
 export const useProjectDrawer = () => {
-    const [{ projectCreate }, setProjectCreate] = useUrlState({
+    const [{ projectCreate, editId }, setUrlState] = useUrlState({
+        editId: '',
         projectCreate: ''
     })
-    const [{ editId }, setEditId] = useUrlState({
-        editId: ''
-    })
-    const show = useMemoizedFn(() => setProjectCreate({ projectCreate: true }))
+    const showCreate = useMemoizedFn(() => setUrlState({ projectCreate: true }))
     const close = useMemoizedFn(() => {
-        setProjectCreate({ projectCreate: undefined })
-        setEditId({ editId: undefined })
+        setUrlState({ editId: undefined, projectCreate: undefined })
     })
-    const handleEdit = useMemoizedFn((id: number) => setEditId({ editId: id }))
+    const showEdit = useMemoizedFn((id: number) => setUrlState({ editId: id }))
 
-    const { loading, data: project } = useProjectDetail(editId)
+    const {
+        loading,
+        error,
+        methods: { create }
+    } = useProjectCreate()
+    const {
+        loading: updateLoading,
+        detail,
+        error: updateError,
+        methods: { update }
+    } = useProjectDetail(editId)
 
     return {
-        visible: projectCreate === 'true',
-        project,
-        loading,
+        visible: projectCreate === 'true' || !!editId,
+        detail,
+        isEditing: !!editId,
+        loading: loading || updateLoading,
+        error: error || updateError,
         methods: {
-            show,
+            showCreate,
+            showEdit,
             close,
-            handleEdit
+            create,
+            update
         }
     }
 }
