@@ -1,8 +1,7 @@
 import React, { useMemo } from 'react'
 import styled from '@emotion/styled'
 
-import { useProjectList } from '../../../hooks/useProjectList'
-import { useProjectDrawer } from '../../../hooks/useProjectDrawer'
+import { useProjectDrawer, useProjectList } from '../../../hooks/projects'
 
 import {
     ButtonNoPadding,

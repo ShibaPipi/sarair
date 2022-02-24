@@ -3,7 +3,7 @@ import { useEffect } from 'react'
 import { useListRequest, useManualRequest } from '@sarair/shared/hooks'
 import { sarairRequest } from '@sarair/shared/request'
 
-import type { Project } from '../types/project'
+import type { Project } from '../../types/project'
 
 export const useProjectList = (params?: Partial<Project>) => {
     const { list, loading, error, getList } = useListRequest(() =>

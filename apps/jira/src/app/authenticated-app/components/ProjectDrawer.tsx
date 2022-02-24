@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { useProjectDrawer } from '../../../hooks/useProjectDrawer'
+import { useProjectDrawer } from '../../../hooks/projects'
 
 import { Button, Drawer } from '@sarair/desktop/shared/ui'
 

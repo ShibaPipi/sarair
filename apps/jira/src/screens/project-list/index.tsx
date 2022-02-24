@@ -2,10 +2,9 @@ import React from 'react'
 import styled from '@emotion/styled'
 
 import { useDebounce } from '@sarair/shared/hooks'
-import { useProjectList } from '../../hooks/useProjectList'
+import { useProjectList, useProjectDrawer } from '../../hooks/projects'
 import { useUserList } from '../../hooks/useUserList'
 import { useProjectUrlState } from '../../hooks/useProjectUrlState'
-import { useProjectDrawer } from '../../hooks/useProjectDrawer'
 
 import { ButtonNoPadding, ErrorBox, SarairRow } from '@sarair/desktop/shared/ui'
 import { SearchPanel } from './components/SearchPanel'

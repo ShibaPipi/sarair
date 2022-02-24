@@ -2,7 +2,7 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import dayjs from 'dayjs'
 
-import { useProjectDrawer } from '../../../hooks/useProjectDrawer'
+import { useProjectDrawer } from '../../../hooks/projects'
 
 import {
     ButtonNoPadding,
