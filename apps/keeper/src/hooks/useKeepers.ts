@@ -26,7 +26,7 @@ export const useKeepers = (currentKeeper: KeeperEnum) => {
     } = useManualRequest(
         (formData: HealthFormData) =>
             sarairRequest.post<Health>('keepers', formData),
-        { onSuccess: getList }
+        { onSuccess: () => getList() }
     )
 
     const list = useMemo(

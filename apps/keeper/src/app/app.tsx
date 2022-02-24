@@ -218,7 +218,7 @@ const App: React.FC = () => {
                                         disabledDate={date =>
                                             recordedDates.includes(
                                                 date.format('YYYY-MM-DD')
-                                            ) || date > dayjs(now)
+                                            ) || date > dayjs(now).add(1, 'd')
                                         }
                                         {...formItemProps}
                                     />
