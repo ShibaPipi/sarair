@@ -1,35 +1,39 @@
-import { useEffect } from 'react'
+import { useQueryClient } from 'react-query'
 
-import { useListRequest, useManualRequest } from '@sarair/shared/hooks'
+import { useListQuery, useMutation } from '@sarair/shared/hooks'
 import { sarairRequest } from '@sarair/shared/request'
+import { PROJECT_LIST_CACHE_KEY } from '.'
 
 import type { Project } from '../../types/project'
 
 export const useProjectList = (params?: Partial<Project>) => {
-    const { list, loading, error, getList } = useListRequest(() =>
-        sarairRequest.get<Project[]>('projects', params)
-    )
-    useEffect(() => {
-        getList()
-    }, [getList, params?.name, params?.personId])
+    const queryClient = useQueryClient()
+    const mutationOptions = {
+        onSuccess: () => queryClient.invalidateQueries(PROJECT_LIST_CACHE_KEY)
+    }
 
-    const manualOptions = { onSuccess: getList }
-    const { loading: updatePinLoading, runAsync: updatePin } = useManualRequest(
-        (id: number, pin: boolean) =>
-            sarairRequest.patch(`projects/${id}`, { pin }),
-        manualOptions
+    const { isLoading, error, list } = useListQuery(
+        [PROJECT_LIST_CACHE_KEY, params],
+        () => sarairRequest.get<Project[]>('projects', params)
     )
-    const { loading: removeLoading, runAsync: remove } = useManualRequest(
+
+    const { isLoading: isUpdatePinLoading, mutateAsync: updatePin } =
+        useMutation(
+            (params: Partial<Project>) =>
+                sarairRequest.patch(`projects/${params.id}`, params),
+            mutationOptions
+        )
+
+    const { isLoading: isRemoveLoading, mutateAsync: remove } = useMutation(
         (id: number) => sarairRequest.delete(`projects/${id}`),
-        manualOptions
+        mutationOptions
     )
 
     return {
         list,
-        loading: loading || updatePinLoading || removeLoading,
+        isLoading: isLoading || isUpdatePinLoading || isRemoveLoading,
         error,
         methods: {
-            getList,
             updatePin,
             remove
         }

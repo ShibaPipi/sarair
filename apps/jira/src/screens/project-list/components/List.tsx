@@ -18,7 +18,7 @@ import type { Project } from '../../../types/project'
 
 interface ListProps extends TableProps<Project> {
     users: User[]
-    onPinChange: (id: number, pin: boolean) => void
+    onPinChange: (params: Partial<Project>) => void
     showEdit: (id: number) => void
     remove: (id: number) => Promise<unknown>
 }
@@ -36,7 +36,7 @@ export const List: React.FC<ListProps> = ({
             render: (_, { id, pin }) => (
                 <Pin
                     checked={pin}
-                    onCheckedChange={pin => onPinChange(id, pin)}
+                    onCheckedChange={pin => onPinChange({ id, pin })}
                 />
             )
         },

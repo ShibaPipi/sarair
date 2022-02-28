@@ -19,7 +19,7 @@ export const ProjectListScreen: React.FC = () => {
     const debouncedParam = useDebounce(param, { wait: 500 })
     const {
         list,
-        loading,
+        isLoading,
         error,
         methods: { updatePin, remove }
     } = useProjectList(debouncedParam)
@@ -38,7 +38,7 @@ export const ProjectListScreen: React.FC = () => {
             <ErrorBox error={error} />
             <List
                 dataSource={list}
-                loading={loading || usersLoading}
+                loading={isLoading || usersLoading}
                 users={users}
                 onPinChange={updatePin}
                 showEdit={showEdit}

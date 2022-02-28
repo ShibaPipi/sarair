@@ -19,7 +19,7 @@ import { UserSelector } from '../../../features/user-selector'
 export const ProjectDrawer: React.FC = () => {
     const {
         visible,
-        loading,
+        isLoading,
         detail,
         isEditing,
         error,
@@ -45,57 +45,53 @@ export const ProjectDrawer: React.FC = () => {
             getContainer={false}
         >
             <Container>
-                {loading ? (
-                    <Spin size="large" />
-                ) : (
-                    <>
-                        <h1>{isEditing ? '编辑项目' : '创建项目'}</h1>
-                        <ErrorBox error={error} />
-                        <Form
-                            layout="vertical"
-                            form={form}
-                            style={{ width: '40rem' }}
-                            onFinish={onFinish}
+                <Spin size="large" spinning={isLoading}>
+                    <h1>{isEditing ? '编辑项目' : '创建项目'}</h1>
+                    <ErrorBox error={error} />
+                    <Form
+                        layout="vertical"
+                        form={form}
+                        style={{ width: '40rem' }}
+                        onFinish={onFinish}
+                    >
+                        <FormItem
+                            label="名称"
+                            name="name"
+                            rules={[
+                                {
+                                    required: true,
+                                    message: '请输入项目名称'
+                                }
+                            ]}
                         >
-                            <FormItem
-                                label="名称"
-                                name="name"
-                                rules={[
-                                    {
-                                        required: true,
-                                        message: '请输入项目名称'
-                                    }
-                                ]}
+                            <Input placeholder="请输入项目名称" />
+                        </FormItem>
+                        <FormItem
+                            label="部门"
+                            name="organization"
+                            rules={[
+                                {
+                                    required: true,
+                                    message: '请输入部门名称'
+                                }
+                            ]}
+                        >
+                            <Input placeholder="请输入部门名称" />
+                        </FormItem>
+                        <FormItem label="负责人" name="personId">
+                            <UserSelector defaultOptionLabel="负责人" />
+                        </FormItem>
+                        <FormItem style={{ textAlign: 'center' }}>
+                            <Button
+                                loading={isLoading}
+                                type="primary"
+                                htmlType="submit"
                             >
-                                <Input placeholder="请输入项目名称" />
-                            </FormItem>
-                            <FormItem
-                                label="部门"
-                                name="organization"
-                                rules={[
-                                    {
-                                        required: true,
-                                        message: '请输入部门名称'
-                                    }
-                                ]}
-                            >
-                                <Input placeholder="请输入部门名称" />
-                            </FormItem>
-                            <FormItem label="负责人" name="personId">
-                                <UserSelector defaultOptionLabel="负责人" />
-                            </FormItem>
-                            <FormItem style={{ textAlign: 'center' }}>
-                                <Button
-                                    loading={loading}
-                                    type="primary"
-                                    htmlType="submit"
-                                >
-                                    提交
-                                </Button>
-                            </FormItem>
-                        </Form>
-                    </>
-                )}
+                                提交
+                            </Button>
+                        </FormItem>
+                    </Form>
+                </Spin>
             </Container>
         </Drawer>
     )

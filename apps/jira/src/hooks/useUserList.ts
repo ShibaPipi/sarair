@@ -9,8 +9,9 @@ export const useUserList = () => {
         loading,
         error,
         run: getList
-    } = useListRequest((params?: Partial<User>) =>
-        sarairRequest.get<User[]>('users', params)
+    } = useListRequest(
+        (params?: Partial<User>) => sarairRequest.get<User[]>('users', params),
+        { cacheKey: 'user-list', manual: false }
     )
 
     return {

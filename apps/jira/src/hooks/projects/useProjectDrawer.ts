@@ -1,8 +1,5 @@
-import { useMemo } from 'react'
-
 import { useMemoizedFn, useUrlState } from '@sarair/shared/hooks'
-import { useProjectDetail } from './useProjectDetail'
-import { useProjectCreate } from './useProjectCreate'
+import { useProjectStore } from './useProjectStore'
 
 export const useProjectDrawer = () => {
     const [{ projectCreate, editId }, setUrlState] = useUrlState({
@@ -16,23 +13,18 @@ export const useProjectDrawer = () => {
     const showEdit = useMemoizedFn((id: number) => setUrlState({ editId: id }))
 
     const {
-        loading,
-        error,
-        methods: { create }
-    } = useProjectCreate()
-    const {
-        loading: updateLoading,
+        isLoading,
         detail,
-        error: updateError,
-        methods: { update }
-    } = useProjectDetail(editId)
+        error,
+        methods: { create, update }
+    } = useProjectStore(editId)
 
     return {
         visible: projectCreate === 'true' || !!editId,
         detail,
         isEditing: !!editId,
-        loading: loading || updateLoading,
-        error: error || updateError,
+        isLoading,
+        error,
         methods: {
             showCreate,
             showEdit,
