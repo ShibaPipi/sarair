@@ -23,7 +23,7 @@
       "name": "骑手管理",
       "personId": 1,
       "organization": "外卖组",
-      "pin": true,
+      "pin": false,
       "created": 1604989757139
     },
     {
@@ -49,11 +49,6 @@
       "organization": "外卖组",
       "pin": true,
       "created": 1546900800000
-    },
-    {
-      "name": "Pdrol",
-      "organization": "Pdrol",
-      "id": 6
     }
   ],
   "keepers": [
