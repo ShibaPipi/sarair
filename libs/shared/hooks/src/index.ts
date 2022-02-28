@@ -9,5 +9,8 @@ export * from './lib/useUndo'
 export * from './lib/useUnmountedRef'
 export * from './lib/useUrlState'
 
+// react-query hooks
+export * from './lib/query'
+
 // request hooks
 export * from './lib/request'
