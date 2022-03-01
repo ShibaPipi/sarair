@@ -11,6 +11,7 @@ export * from './lib/useUrlState'
 
 // react-query hooks
 export * from './lib/query'
+export * from './lib/query-optimistic-options'
 
 // request hooks
 export * from './lib/request'
