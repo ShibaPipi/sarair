@@ -1,52 +1,44 @@
 import { useMemo } from 'react'
-import { useQueryClient } from 'react-query'
 
-import { useDetailQuery, useMutation } from '@sarair/shared/hooks'
+import {
+    useCreateQueryConfig,
+    useDetailQuery,
+    useMutation,
+    useUpdateQueryConfig
+} from '@sarair/shared/hooks'
 import { sarairRequest } from '@sarair/shared/request'
+import { useProjectUrlState } from '../useProjectUrlState'
 import { PROJECT_CACHE_KEY, PROJECT_LIST_CACHE_KEY } from './'
 
 import type { Project } from '../../types/project'
 
 export const useProjectStore = (id?: number) => {
+    const [params] = useProjectUrlState()
+    const queryKey = useMemo(() => [PROJECT_LIST_CACHE_KEY, params], [params])
+
     const url = useMemo(() => `projects/${id}`, [id])
 
-    const {
-        detail,
-        isLoading,
-        error: detailError
-    } = useDetailQuery(
+    const { detail, isLoading, error } = useDetailQuery(
         [PROJECT_CACHE_KEY, { id }],
         () => sarairRequest.get<Project>(url),
         { enabled: !!id }
     )
 
-    const queryClient = useQueryClient()
-    const mutationOptions = {
-        onSuccess: () => queryClient.invalidateQueries(PROJECT_LIST_CACHE_KEY)
-    }
-
-    const {
-        isLoading: isCreateLoading,
-        error: createError,
-        mutateAsync: create
-    } = useMutation(
+    const { isLoading: isCreateLoading, mutateAsync: create } = useMutation(
         (params: Partial<Project>) => sarairRequest.post('projects', params),
-        mutationOptions
+        useCreateQueryConfig(queryKey)
     )
 
-    const {
-        isLoading: isUpdateLoading,
-        error: updateError,
-        mutateAsync: update
-    } = useMutation(
+    const { isLoading: isUpdateLoading, mutateAsync: update } = useMutation(
         (formData: Partial<Project>) => sarairRequest.patch(url, formData),
-        mutationOptions
+        useUpdateQueryConfig(queryKey)
     )
 
     return {
-        isLoading: isLoading || isCreateLoading || isUpdateLoading,
+        isLoading: isLoading,
+        isMutateLoading: isCreateLoading || isUpdateLoading,
         detail,
-        error: detailError || createError || updateError,
+        error,
         methods: { create, update }
     }
 }

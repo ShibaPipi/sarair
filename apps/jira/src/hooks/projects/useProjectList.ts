@@ -1,37 +1,37 @@
-import { useQueryClient } from 'react-query'
+import { useMemo } from 'react'
 
-import { useListQuery, useMutation } from '@sarair/shared/hooks'
+import {
+    useDeleteQueryConfig,
+    useListQuery,
+    useMutation,
+    useUpdateQueryConfig
+} from '@sarair/shared/hooks'
 import { sarairRequest } from '@sarair/shared/request'
 import { PROJECT_LIST_CACHE_KEY } from '.'
 
 import type { Project } from '../../types/project'
 
 export const useProjectList = (params?: Partial<Project>) => {
-    const queryClient = useQueryClient()
-    const mutationOptions = {
-        onSuccess: () => queryClient.invalidateQueries(PROJECT_LIST_CACHE_KEY)
-    }
+    const queryKey = useMemo(() => [PROJECT_LIST_CACHE_KEY, params], [params])
 
-    const { isLoading, error, list } = useListQuery(
-        [PROJECT_LIST_CACHE_KEY, params],
-        () => sarairRequest.get<Project[]>('projects', params)
+    const { isLoading, error, list } = useListQuery(queryKey, () =>
+        sarairRequest.get<Project[]>('projects', params)
     )
 
-    const { isLoading: isUpdatePinLoading, mutateAsync: updatePin } =
-        useMutation(
-            (params: Partial<Project>) =>
-                sarairRequest.patch(`projects/${params.id}`, params),
-            mutationOptions
-        )
+    const { mutateAsync: updatePin } = useMutation(
+        (params: Partial<Project>) =>
+            sarairRequest.patch(`projects/${params.id}`, params),
+        useUpdateQueryConfig(queryKey)
+    )
 
-    const { isLoading: isRemoveLoading, mutateAsync: remove } = useMutation(
-        (id: number) => sarairRequest.delete(`projects/${id}`),
-        mutationOptions
+    const { mutateAsync: remove } = useMutation(
+        ({ id }: { id: number }) => sarairRequest.delete(`projects/${id}`),
+        useDeleteQueryConfig(queryKey)
     )
 
     return {
         list,
-        isLoading: isLoading || isUpdatePinLoading || isRemoveLoading,
+        isLoading,
         error,
         methods: {
             updatePin,

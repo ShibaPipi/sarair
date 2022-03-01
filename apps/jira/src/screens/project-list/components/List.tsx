@@ -2,9 +2,12 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import dayjs from 'dayjs'
 
+import { useMemoizedFn } from '@sarair/shared/hooks'
+
 import {
     ButtonNoPadding,
     ColumnProps,
+    ConfirmModal,
     Dropdown,
     Menu,
     MenuItem,
@@ -20,7 +23,7 @@ interface ListProps extends TableProps<Project> {
     users: User[]
     onPinChange: (params: Partial<Project>) => void
     showEdit: (id: number) => void
-    remove: (id: number) => Promise<unknown>
+    remove: ({ id }: { id: number }) => Promise<unknown>
 }
 
 export const List: React.FC<ListProps> = ({
@@ -30,6 +33,16 @@ export const List: React.FC<ListProps> = ({
     remove,
     ...tableProps
 }) => {
+    const handleRemoveItem = useMemoizedFn((id: number) => {
+        ConfirmModal({
+            title: '确定删除这个项目吗？',
+            content: '点击确定删除',
+            okText: '确定',
+            onOk: () => remove({ id }),
+            cancelText: '删除'
+        })
+    })
+
     const columns: ColumnProps<Project>[] = [
         {
             title: <Pin checked={true} disabled />,
@@ -81,7 +94,7 @@ export const List: React.FC<ListProps> = ({
                             <MenuItem key="delete">
                                 <ButtonNoPadding
                                     type="link"
-                                    onClick={() => remove(id)}
+                                    onClick={() => handleRemoveItem(id)}
                                 >
                                     删除
                                 </ButtonNoPadding>

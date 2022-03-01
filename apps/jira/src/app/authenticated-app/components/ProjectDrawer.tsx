@@ -20,6 +20,7 @@ export const ProjectDrawer: React.FC = () => {
     const {
         visible,
         isLoading,
+        isMutateLoading,
         detail,
         isEditing,
         error,
@@ -83,7 +84,7 @@ export const ProjectDrawer: React.FC = () => {
                         </FormItem>
                         <FormItem style={{ textAlign: 'center' }}>
                             <Button
-                                loading={isLoading}
+                                loading={isMutateLoading}
                                 type="primary"
                                 htmlType="submit"
                             >

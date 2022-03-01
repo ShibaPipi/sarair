@@ -14,6 +14,7 @@ export const useProjectDrawer = () => {
 
     const {
         isLoading,
+        isMutateLoading,
         detail,
         error,
         methods: { create, update }
@@ -24,6 +25,7 @@ export const useProjectDrawer = () => {
         detail,
         isEditing: !!editId,
         isLoading,
+        isMutateLoading,
         error,
         methods: {
             showCreate,
