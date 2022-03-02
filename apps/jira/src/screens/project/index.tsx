@@ -13,7 +13,7 @@ export const ProjectScreen: React.FC = () => {
             <Routes>
                 <Route path="/board" element={<BoardScreen />} />
                 <Route path="/epic" element={<EpicScreen />} />
-                <Route path="*" element={<BoardScreen />} />
+                <Route index element={<BoardScreen />} />
             </Routes>
         </div>
     )

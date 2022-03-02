@@ -56,7 +56,9 @@ export const List: React.FC<ListProps> = ({
         {
             title: '名称',
             sorter: (a: Project, b: Project) => a.name.localeCompare(b.name),
-            render: (_, { id, name }) => <Link to={String(id)}>{name}</Link>
+            render: (_, { id, name }) => (
+                <Link to={`/projects/${id}`}>{name}</Link>
+            )
         },
         {
             title: '部门',

@@ -7,8 +7,11 @@ import {
     useUpdateQueryConfig
 } from '@sarair/shared/hooks'
 import { sarairRequest } from '@sarair/shared/request'
-import { useProjectUrlState } from '../useProjectUrlState'
-import { PROJECT_CACHE_KEY, PROJECT_LIST_CACHE_KEY } from './'
+import {
+    PROJECT_CACHE_KEY,
+    PROJECT_LIST_CACHE_KEY,
+    useProjectUrlState
+} from './'
 
 import type { Project } from '../../types/project'
 

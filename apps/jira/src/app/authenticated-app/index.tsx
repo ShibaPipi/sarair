@@ -1,5 +1,10 @@
 import React from 'react'
-import { Route, BrowserRouter as Router, Routes } from 'react-router-dom'
+import {
+    Route,
+    BrowserRouter as Router,
+    Routes,
+    Navigate
+} from 'react-router-dom'
 import styled from '@emotion/styled'
 
 import { ProjectListScreen } from '../../screens/project-list'
@@ -16,14 +21,14 @@ export const AuthenticatedApp: React.FC = () => {
                 <Main>
                     <Routes>
                         <Route
-                            path={`/projects`}
+                            path="/projects"
                             element={<ProjectListScreen />}
                         />
                         <Route
-                            path={`/projects/:id/*`}
+                            path="/projects/:id/*"
                             element={<ProjectScreen />}
                         />
-                        <Route path="*" element={<ProjectListScreen />} />
+                        <Route index element={<ProjectListScreen />} />
                     </Routes>
                 </Main>
                 <ProjectDrawer />
