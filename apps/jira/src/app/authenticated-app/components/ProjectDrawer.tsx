@@ -28,21 +28,25 @@ export const ProjectDrawer: React.FC = () => {
     } = useProjectDrawer()
 
     const [form] = useForm()
+    const handleDrawerClose = useMemoizedFn(() => {
+        form.resetFields()
+        close()
+    })
     const onFinish = useMemoizedFn(formData => {
         ;(isEditing ? update : create)(formData).then(() => {
             form.resetFields()
-            close()
+            handleDrawerClose()
         })
     })
     useEffect(() => {
-        isEditing ? form.setFieldsValue(detail) : form.resetFields()
+        isEditing && form.setFieldsValue(detail)
     }, [detail, form, isEditing])
 
     return (
         <Drawer
             width="100%"
             visible={visible}
-            onClose={close}
+            onClose={handleDrawerClose}
             getContainer={false}
         >
             <Container>

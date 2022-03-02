@@ -1,4 +1,5 @@
 import React, { ReactNode, useState } from 'react'
+import { useQueryClient } from 'react-query'
 // import { useDispatch } from 'react-redux'
 
 import * as auth from '@sarair/shared/auth'
@@ -17,13 +18,18 @@ export const bootstrapUser = async () => {
 }
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
+    const queryClient = useQueryClient()
     // 使用 context
     const [user, setUser] = useState<User | null>(null)
 
     // point free
     const login = (form: AuthForm) => auth.login(form).then(setUser)
     const register = (form: AuthForm) => auth.register(form).then(setUser)
-    const logout = () => auth.logout().then(() => setUser(null))
+    const logout = () =>
+        auth.logout().then(() => {
+            setUser(null)
+            queryClient.clear()
+        })
 
     useMount(() => {
         bootstrapUser().then(setUser)

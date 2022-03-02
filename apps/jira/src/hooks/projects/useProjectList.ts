@@ -11,6 +11,7 @@ import { PROJECT_LIST_CACHE_KEY } from '.'
 
 import type { Project } from '../../types/project'
 
+// TODO: projects api 一直在多次请求，存在性能问题
 export const useProjectList = (params?: Partial<Project>) => {
     const queryKey = useMemo(() => [PROJECT_LIST_CACHE_KEY, params], [params])
 
