@@ -47,7 +47,7 @@ export const ProjectDrawer: React.FC = () => {
             width="100%"
             visible={visible}
             onClose={handleDrawerClose}
-            getContainer={false}
+            forceRender
         >
             <Container>
                 <Spin size="large" spinning={isLoading}>

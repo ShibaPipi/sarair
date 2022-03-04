@@ -20,7 +20,7 @@ export const ProjectPopover: React.FC = () => {
 
     const { list } = useProjectList()
 
-    const pinnedProjects = useMemo(() => list.filter(item => item.pin), [list])
+    const pinnedProjects = useMemo(() => list?.filter(item => item.pin), [list])
 
     return (
         <Popover
@@ -29,7 +29,7 @@ export const ProjectPopover: React.FC = () => {
                 <ContentContainer>
                     <TypographyText type="secondary">收藏项目</TypographyText>
                     <List>
-                        {pinnedProjects.map(({ id, name }) => (
+                        {pinnedProjects?.map(({ id, name }) => (
                             <ListItem key={id}>
                                 <ListItemMeta title={name} />
                             </ListItem>

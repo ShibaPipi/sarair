@@ -48,7 +48,10 @@ export const AuthenticatedApp: React.FC = () => {
  * 从布局出发，用grid
  */
 
-const Main = styled.main``
+const Main = styled.main`
+    display: flex;
+    overflow: hidden;
+`
 
 const Container = styled.div`
     display: grid;

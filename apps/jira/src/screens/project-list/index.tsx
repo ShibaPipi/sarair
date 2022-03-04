@@ -1,11 +1,11 @@
 import React from 'react'
 import styled from '@emotion/styled'
 
-import { useDebounce } from '@sarair/shared/hooks'
+import { useDebounce, useDocumentTitle } from '@sarair/shared/hooks'
 import {
     useProjectList,
     useProjectDrawer,
-    useProjectUrlState
+    useProjectSearchParams
 } from '../../hooks/projects'
 import { useUserList } from '../../hooks/useUserList'
 
@@ -14,11 +14,13 @@ import { SearchPanel } from './components/SearchPanel'
 import { List } from './components/List'
 
 export const ProjectListScreen: React.FC = () => {
+    useDocumentTitle('项目列表', true)
+
     const {
         methods: { showCreate, showEdit }
     } = useProjectDrawer()
 
-    const [param, setParam] = useProjectUrlState()
+    const [param, setParam] = useProjectSearchParams()
     const debouncedParam = useDebounce(param, { wait: 500 })
     const {
         list,
@@ -53,4 +55,5 @@ export const ProjectListScreen: React.FC = () => {
 
 const Container = styled.div`
     padding: 3.2rem;
+    width: 100%;
 `

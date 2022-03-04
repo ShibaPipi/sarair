@@ -10,15 +10,14 @@ import { sarairRequest } from '@sarair/shared/request'
 import {
     PROJECT_CACHE_KEY,
     PROJECT_LIST_CACHE_KEY,
-    useProjectUrlState
+    useProjectSearchParams
 } from './'
 
 import type { Project } from '../../types/project'
 
 export const useProjectStore = (id?: number) => {
-    const [params] = useProjectUrlState()
+    const [params] = useProjectSearchParams()
     const queryKey = useMemo(() => [PROJECT_LIST_CACHE_KEY, params], [params])
-
     const url = useMemo(() => `projects/${id}`, [id])
 
     const { detail, isLoading, error } = useDetailQuery(
