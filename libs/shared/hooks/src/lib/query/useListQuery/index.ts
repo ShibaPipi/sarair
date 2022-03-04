@@ -13,8 +13,7 @@ export const useListQuery = <
         'queryKey' | 'queryFn'
     >
 ) => {
-    const list: TQueryFnData[] = []
     const res = useQuery(queryKey, queryFn, options)
 
-    return { ...res, list: res.data || list }
+    return { ...res, list: res.data }
 }
