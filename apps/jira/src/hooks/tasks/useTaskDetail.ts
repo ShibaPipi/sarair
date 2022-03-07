@@ -1,6 +1,7 @@
 import { useMemo } from 'react'
 
 import {
+    useDeleteQueryConfig,
     useDetailQuery,
     useMutation,
     useUpdateQueryConfig
@@ -23,10 +24,15 @@ export const useTaskDetail = (id: number) => {
         useUpdateQueryConfig(queryKey)
     )
 
+    const { mutateAsync: remove } = useMutation(
+        ({ id }: { id: number }) => sarairRequest.delete(`tasks/${id}`),
+        useDeleteQueryConfig(queryKey)
+    )
+
     return {
         detail,
         isLoading,
         isUpdateLoading,
-        methods: { update }
+        methods: { update, remove }
     }
 }

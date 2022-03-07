@@ -7,7 +7,7 @@ import { useMemoizedFn } from '@sarair/shared/hooks'
 import {
     ButtonNoPadding,
     ColumnProps,
-    ConfirmModal,
+    confirmModal,
     Dropdown,
     Menu,
     MenuItem,
@@ -34,7 +34,7 @@ export const List: React.FC<ListProps> = ({
     ...tableProps
 }) => {
     const handleRemoveItem = useMemoizedFn((id: number) => {
-        ConfirmModal({
+        confirmModal({
             title: '确定删除这个项目吗？',
             content: '点击确定删除',
             okText: '确定',

@@ -8,7 +8,7 @@ export const useTaskModal = () => {
         detail,
         isLoading,
         isUpdateLoading,
-        methods: { update }
+        methods: { update, remove }
     } = useTaskDetail(editingTaskId)
 
     const close = useMemoizedFn(() => setUrlState({ editingTaskId: undefined }))
@@ -24,7 +24,8 @@ export const useTaskModal = () => {
         methods: {
             show,
             close,
-            update
+            update,
+            remove
         }
     }
 }

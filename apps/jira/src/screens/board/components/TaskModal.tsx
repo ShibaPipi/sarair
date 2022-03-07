@@ -4,6 +4,8 @@ import { useMemoizedFn } from '@sarair/shared/hooks'
 import { useTaskModal } from '../../../hooks/tasks'
 
 import {
+    Button,
+    confirmModal,
     Form,
     FormItem,
     Input,
@@ -21,9 +23,8 @@ export const TaskModal: React.FC = () => {
     const {
         editingTaskId,
         detail,
-        isLoading,
         isUpdateLoading,
-        methods: { close, update }
+        methods: { close, update, remove }
     } = useTaskModal()
 
     const [form] = useForm()
@@ -39,6 +40,15 @@ export const TaskModal: React.FC = () => {
 
     const handleSubmit = useMemoizedFn(() => {
         update(form.getFieldsValue()).then(close)
+    })
+
+    const handleDelete = useMemoizedFn((id: number) => {
+        confirmModal({
+            okText: '确定',
+            cancelText: '取消',
+            title: '确定删除任务吗',
+            onOk: () => remove({ id }).then(close)
+        })
     })
 
     return (
@@ -67,6 +77,15 @@ export const TaskModal: React.FC = () => {
                     <TaskTypeSelector defaultOptionLabel="类型" />
                 </FormItem>
             </Form>
+            <div style={{ textAlign: 'right' }}>
+                <Button
+                    style={{ fontSize: 14 }}
+                    size="small"
+                    onClick={() => handleDelete(editingTaskId)}
+                >
+                    删除
+                </Button>
+            </div>
         </Modal>
     )
 }

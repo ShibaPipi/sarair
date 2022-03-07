@@ -1,13 +1,11 @@
-import { useMemo } from 'react'
-
-import { BOARD_LIST_CACHE_KEY } from './index'
-
-import type { Board } from '../../types/board'
 import { useListQuery } from '@sarair/shared/hooks'
 import { sarairRequest } from '@sarair/shared/request'
 
+import type { Board } from '../../types/board'
+import { useBoardListQueryKey } from './useBoardListQueryKey'
+
 export const useBoardList = (params?: Partial<Board>) => {
-    const queryKey = useMemo(() => [BOARD_LIST_CACHE_KEY, params], [params])
+    const queryKey = useBoardListQueryKey()
 
     const { isLoading, error, list } = useListQuery(queryKey, () =>
         sarairRequest.get<Board[]>('boards', params)
@@ -16,7 +14,6 @@ export const useBoardList = (params?: Partial<Board>) => {
     return {
         list,
         isLoading,
-        error,
-        methods: {}
+        error
     }
 }
