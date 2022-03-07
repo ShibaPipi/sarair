@@ -69,21 +69,6 @@
     },
     {
       "name": "待完成",
-      "id": 4,
-      "projectId": 2
-    },
-    {
-      "name": "开发中",
-      "id": 5,
-      "projectId": 2
-    },
-    {
-      "name": "已完成",
-      "id": 6,
-      "projectId": 2
-    },
-    {
-      "name": "待完成",
       "id": 7,
       "projectId": 3
     },
@@ -233,6 +218,13 @@
       "name": "自测",
       "id": 7,
       "projectId": 1
+    },
+    {
+      "projectId": 1,
+      "name": "2222",
+      "boardId": 13,
+      "typeId": 1,
+      "id": 8
     }
   ],
   "epics": [
