@@ -8,17 +8,17 @@ const Modal: React.FC<PropsWithChildren<ModalProps>> = ({
     ...props
 }) => <BaseModal maskClosable={false} {...props} children={children} />
 
-const ConfirmModal = BaseModal.confirm
-const ErrorModal = BaseModal.error
-const InfoModal = BaseModal.info
-const SuccessModal = BaseModal.success
-const WarningModal = BaseModal.warning
+const confirmModal = BaseModal.confirm
+const errorModal = BaseModal.error
+const infoModal = BaseModal.info
+const successModal = BaseModal.success
+const warningModal = BaseModal.warning
 
 export {
-    ConfirmModal,
-    ErrorModal,
-    InfoModal,
-    SuccessModal,
-    WarningModal,
+    confirmModal,
+    errorModal,
+    infoModal,
+    successModal,
+    warningModal,
     Modal
 }
