@@ -15,5 +15,5 @@ export const useListQuery = <
 ) => {
     const res = useQuery(queryKey, queryFn, options)
 
-    return { ...res, list: res.data }
+    return { ...res, list: res.data || [] }
 }
