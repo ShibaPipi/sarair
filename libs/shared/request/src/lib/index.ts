@@ -7,14 +7,14 @@ const sarairRequest = new SarairRequest({
     baseURL: BASE_URL,
     timeout: TIMEOUT,
     interceptors: {
-        request: (config) => {
+        request: config => {
             // console.log('instance request interceptor')
             const token = getToken()
             token && (config.headers.Authorization = `bearer ${token}`)
 
             return config
         },
-        response: (res) => {
+        response: res => {
             // console.log('instance response interceptor')
             return res.data
         }
