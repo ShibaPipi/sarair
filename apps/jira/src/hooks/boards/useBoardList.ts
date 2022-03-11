@@ -1,8 +1,8 @@
-import { useListQuery } from '@sarair/shared/hooks'
+import { useListQuery, useMutation } from '@sarair/shared/hooks'
 import { sarairRequest } from '@sarair/shared/request'
+import { useBoardListQueryKey, useBoardReorderConfig } from '.'
 
-import type { Board } from '../../types/board'
-import { useBoardListQueryKey } from './useBoardListQueryKey'
+import type { Board, SortProps } from '../../types'
 
 export const useBoardList = (params?: Partial<Board>) => {
     const queryKey = useBoardListQueryKey()
@@ -11,9 +11,15 @@ export const useBoardList = (params?: Partial<Board>) => {
         sarairRequest.get<Board[]>('boards', params)
     )
 
+    const { mutateAsync: reorder } = useMutation(
+        (params: SortProps) => sarairRequest.post('board/reorder', params),
+        useBoardReorderConfig(queryKey)
+    )
+
     return {
         list,
         isLoading,
-        error
+        error,
+        methods: { reorder }
     }
 }

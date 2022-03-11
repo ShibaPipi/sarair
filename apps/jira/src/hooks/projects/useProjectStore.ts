@@ -13,7 +13,7 @@ import {
     useProjectSearchParams
 } from './'
 
-import type { Project } from '../../types/project'
+import type { Project } from '../../types'
 
 export const useProjectStore = (id?: number) => {
     const [params] = useProjectSearchParams()

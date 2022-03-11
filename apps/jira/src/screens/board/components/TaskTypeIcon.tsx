@@ -1,6 +1,6 @@
 import React, { useMemo } from 'react'
 
-import { useTaskTypeList } from '../../../hooks/tasks/useTaskTypeList'
+import { useTaskTypeList } from '../../../hooks/tasks'
 
 import taskIcon from '../assets/task.svg'
 import bugIcon from '../assets/bug.svg'

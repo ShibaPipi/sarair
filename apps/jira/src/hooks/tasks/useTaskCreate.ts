@@ -2,7 +2,7 @@ import { useCreateQueryConfig, useMutation } from '@sarair/shared/hooks'
 import { sarairRequest } from '@sarair/shared/request'
 import { useTaskListQueryKey } from '.'
 
-import type { Task } from '../../types/task'
+import type { Task } from '../../types'
 
 export const useTaskCreate = () => {
     const queryKey = useTaskListQueryKey()

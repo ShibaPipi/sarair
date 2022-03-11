@@ -1,9 +1,9 @@
 import React from 'react'
 
 import { Form, Input } from '@sarair/desktop/shared/ui'
-import { UserSelector } from '../../../features/user-selector'
+import { UserSelector } from '../../../features'
 
-import type { Param } from '../../../types/project'
+import type { Param } from '../../../types'
 
 interface SearchPanelProps {
     param: Partial<Param>

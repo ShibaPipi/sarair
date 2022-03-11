@@ -9,7 +9,7 @@ import {
 import { sarairRequest } from '@sarair/shared/request'
 import { TASK_CACHE_KEY, useTaskListQueryKey } from '.'
 
-import type { Task } from '../../types/task'
+import type { Task } from '../../types'
 
 export const useTaskDetail = (id: number) => {
     const queryKey = useTaskListQueryKey()

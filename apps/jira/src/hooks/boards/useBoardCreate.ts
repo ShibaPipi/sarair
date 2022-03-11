@@ -4,7 +4,7 @@ import { sarairRequest } from '@sarair/shared/request'
 import { useCreateQueryConfig, useMutation } from '@sarair/shared/hooks'
 import { BOARD_LIST_CACHE_KEY, useBoardSearchParams } from '.'
 
-import type { Board } from '../../types/board'
+import type { Board } from '../../types'
 
 export const useBoardCreate = () => {
     const params = useBoardSearchParams()

@@ -17,7 +17,7 @@ import {
 
 import type { User } from '@sarair/shared/context'
 import type { TableProps } from '@sarair/desktop/shared/ui'
-import type { Project } from '../../../types/project'
+import type { Project } from '../../../types'
 
 interface ListProps extends TableProps<Project> {
     users: User[]

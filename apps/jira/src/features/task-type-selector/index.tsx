@@ -1,6 +1,6 @@
 import React, { ComponentProps } from 'react'
 
-import { useTaskTypeList } from '../../hooks/tasks/useTaskTypeList'
+import { useTaskTypeList } from '../../hooks/tasks'
 
 import { IdSelector } from '@sarair/desktop/shared/ui'
 

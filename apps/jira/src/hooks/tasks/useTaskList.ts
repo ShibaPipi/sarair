@@ -1,8 +1,8 @@
-import { useListQuery } from '@sarair/shared/hooks'
+import { useListQuery, useMutation } from '@sarair/shared/hooks'
 import { sarairRequest } from '@sarair/shared/request'
-import { useTaskListQueryKey } from './index'
+import { useTaskListQueryKey, useTaskReorderConfig } from '.'
 
-import type { Task } from '../../types/task'
+import type { SortProps, Task } from '../../types'
 
 export const useTaskList = (params?: Partial<Task>) => {
     const queryKey = useTaskListQueryKey()
@@ -11,9 +11,15 @@ export const useTaskList = (params?: Partial<Task>) => {
         sarairRequest.get<Task[]>('tasks', params)
     )
 
+    const { mutateAsync: reorder } = useMutation(
+        (params: SortProps) => sarairRequest.post('tasks/reorder', params),
+        useTaskReorderConfig(queryKey)
+    )
+
     return {
         list,
         isLoading,
-        error
+        error,
+        methods: { reorder }
     }
 }
