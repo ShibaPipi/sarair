@@ -1,6 +1,9 @@
 // antd component exports
 export * from './lib/antd'
 
+// react-beautiful-dnd component exports
+export * from './lib/drag-and-drop'
+
 // custom component exports
 export * from './lib/ButtonNoPadding'
 export * from './lib/ErrorBox'
