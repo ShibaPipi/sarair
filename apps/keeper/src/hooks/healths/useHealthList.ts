@@ -1,43 +1,49 @@
 import { useMemo } from 'react'
-import { sort } from 'ramda'
+import dayjs from 'dayjs'
+import { max, min, pluck, reduce, sort } from 'ramda'
 
-import { useListQuery, useManualRequest } from '@sarair/shared/hooks'
-import request from '../request'
+import {
+    useCreateQueryConfig,
+    useListQuery,
+    useMutation
+} from '@sarair/shared/hooks'
+import request from '../../request'
+import { useHealthListQueryKey } from './useHealthListQueryKey'
 
-import type { Health, HealthFormData, KeeperEnum } from '../models/health'
+import type { Health, HealthFormData } from '../../models'
 
-export const useKeepers = (currentKeeper: KeeperEnum) => {
+const uri = 'healths'
+
+export const useHealthList = (params?: Partial<Health>) => {
+    const queryKey = useHealthListQueryKey()
+
     const {
-        list: res,
+        list,
         isLoading,
         error: listError
-    } = useListQuery(
-        (params?: Partial<Health>) =>
-            request
-                .get<Health[]>('healths', params)
-                .then(res => {
-                    console.log(res)
-                    return res
-                })
-                .then(sort((prev, next) => prev.created - next.created)) // DTO
-    )
+    } = useListQuery(queryKey, () => request.get<Health[]>(uri, params))
 
     const {
-        loading: createLoading,
+        isLoading: isCreateLoading,
         error: createError,
-        runAsync: create
-    } = useManualRequest(
-        (formData: HealthFormData) => request.post<Health>('keepers', formData),
-        { onSuccess: () => getList() }
+        mutateAsync: create
+    } = useMutation(
+        (formData: HealthFormData) => request.post<Health>(uri, formData),
+        useCreateQueryConfig(queryKey)
     )
 
-    const list = useMemo(
-        () => res.filter(({ name }) => name === currentKeeper),
-        [currentKeeper, res]
-    )
+    const lostWeight = useMemo(() => {
+        const weights = pluck('weight', list)
+
+        return (
+            reduce<number, number>(max, 0, weights) -
+            reduce<number, number>(min, weights[0], weights)
+        ).toFixed(1)
+    }, [list])
 
     return {
-        list,
+        list: sort((a, b) => dayjs(a.date).unix() - dayjs(b.date).unix(), list),
+        lostWeight,
         isLoading,
         isCreateLoading,
         error: listError || createError,

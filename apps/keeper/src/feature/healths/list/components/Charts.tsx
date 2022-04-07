@@ -16,11 +16,12 @@ import { UniversalTransition } from 'echarts/features'
 import { CanvasRenderer } from 'echarts/renderers'
 
 // Types Imports
-import type { Health } from '../../models/health'
+import type { Health } from '../../../../models'
 
 // UI Imports
-import { Col, Empty, Row, Spin } from '@sarair/desktop/shared/ui'
+import { Col, Empty, Row, Spin, TabPane, Tabs } from '@sarair/desktop/shared/ui'
 import { Chart } from './Chart'
+import { HealthFieldForCharts } from '../../../../models'
 
 interface ChartProps {
     loading: boolean

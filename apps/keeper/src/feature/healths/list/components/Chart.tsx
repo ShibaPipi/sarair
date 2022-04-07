@@ -1,12 +1,11 @@
 import React, { useCallback, useEffect, useMemo, useRef } from 'react'
-import dayjs from 'dayjs'
-import { map, pluck } from 'ramda'
+import { pluck } from 'ramda'
 import * as echarts from 'echarts/core'
 
 import { getRandomColor } from '@sarair/shared/utils'
-import { healthFieldsMap } from '../../models/health'
+import { healthFieldsMap } from '../../../../models'
 
-import type { Health, HealthFieldForCharts } from '../../models/health'
+import type { Health, HealthFieldForCharts } from '../../../../models'
 
 interface ChartProps {
     height?: string | number
@@ -48,9 +47,7 @@ const generateData = (
         xAxis: {
             type: 'category',
             boundaryGap: false,
-            data: map(item => dayjs(item as number).format('YYYY/MM/DD'))(
-                pluck('created')(record)
-            )
+            data: pluck('date')(record)
         },
         yAxis: {
             type: 'value',

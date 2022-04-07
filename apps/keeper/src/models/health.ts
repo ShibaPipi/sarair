@@ -5,7 +5,6 @@ export enum KeeperEnum {
 
 interface BaseHealth {
     name: string
-    created: number
     weight: number
     bmi: number
     bodyFatRate: number
@@ -20,6 +19,7 @@ interface BaseHealth {
     weightWithoutFat: number
     skeletalMuscleRate: number
     score: number
+    date: string
 }
 
 export type HealthFormData = BaseHealth
@@ -42,23 +42,23 @@ export type HealthFieldForCharts = keyof Pick<
 >
 
 interface HealthFieldItem {
-    key: string
+    key: keyof Health
     name: string
     suffix?: string
 }
 
 const healthFields: HealthFieldItem[] = [
-    { key: 'created', name: '日期' },
+    { key: 'date', name: '日期' },
     { key: 'weight', name: '体重', suffix: 'kg' },
     { key: 'score', name: '分数' },
-    { key: 'bmi', name: 'BMI' },
+    { key: 'bmi', name: 'BMI', suffix: 'kg/m²' },
     { key: 'bodyFatRate', name: '体脂率', suffix: '%' },
     { key: 'bodyAge', name: '身体年龄', suffix: '岁' },
     { key: 'muscle', name: '肌肉', suffix: 'kg' },
     { key: 'boneMass', name: '骨量', suffix: 'kg' },
     { key: 'water', name: '水分', suffix: '%' },
     { key: 'visceralFat', name: '内脏脂肪' },
-    { key: 'bmr', name: '基础代谢' },
+    { key: 'bmr', name: '基础代谢', suffix: 'kJ/(m²·h)' },
     { key: 'protein', name: '蛋白质', suffix: '%' },
     { key: 'subcutaneousFat', name: '皮下脂肪', suffix: '%' },
     { key: 'weightWithoutFat', name: '去脂体重', suffix: 'kg' },
