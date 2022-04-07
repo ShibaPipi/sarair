@@ -1,21 +1,24 @@
 import { useMemo } from 'react'
 import { sort } from 'ramda'
 
-import { useListRequest, useManualRequest } from '@sarair/shared/hooks'
-import { sarairRequest } from '@sarair/shared/request'
+import { useListQuery, useManualRequest } from '@sarair/shared/hooks'
+import request from '../request'
 
 import type { Health, HealthFormData, KeeperEnum } from '../models/health'
 
 export const useKeepers = (currentKeeper: KeeperEnum) => {
     const {
         list: res,
-        loading: listLoading,
-        error: listError,
-        getList
-    } = useListRequest(
+        isLoading,
+        error: listError
+    } = useListQuery(
         (params?: Partial<Health>) =>
-            sarairRequest
-                .get<Health[]>('keepers', params)
+            request
+                .get<Health[]>('healths', params)
+                .then(res => {
+                    console.log(res)
+                    return res
+                })
                 .then(sort((prev, next) => prev.created - next.created)) // DTO
     )
 
@@ -24,8 +27,7 @@ export const useKeepers = (currentKeeper: KeeperEnum) => {
         error: createError,
         runAsync: create
     } = useManualRequest(
-        (formData: HealthFormData) =>
-            sarairRequest.post<Health>('keepers', formData),
+        (formData: HealthFormData) => request.post<Health>('keepers', formData),
         { onSuccess: () => getList() }
     )
 
@@ -36,7 +38,8 @@ export const useKeepers = (currentKeeper: KeeperEnum) => {
 
     return {
         list,
-        loading: listLoading || createLoading,
+        isLoading,
+        isCreateLoading,
         error: listError || createError,
         methods: { create }
     }

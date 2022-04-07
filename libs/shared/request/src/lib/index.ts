@@ -21,4 +21,4 @@ const sarairRequest = new SarairRequest({
     }
 })
 
-export { sarairRequest }
+export { sarairRequest, SarairRequest as Request }
