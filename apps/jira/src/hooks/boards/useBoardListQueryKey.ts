@@ -1,7 +1,6 @@
 import { useMemo } from 'react'
 
-import { BOARD_LIST_CACHE_KEY } from '.'
-import { useBoardSearchParams } from './useBoardSearchParams'
+import { BOARD_LIST_CACHE_KEY, useBoardSearchParams } from '.'
 
 export const useBoardListQueryKey = () => {
     const params = useBoardSearchParams()

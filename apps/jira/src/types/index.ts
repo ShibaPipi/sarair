@@ -10,5 +10,6 @@ export interface SortProps {
 }
 
 export * from './board'
+export * from './epic'
 export * from './project'
 export * from './task'
