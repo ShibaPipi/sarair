@@ -27,6 +27,9 @@
         ]
     },
     "projects": {
+        "2048-puzzle": {
+            "tags": []
+        },
         "desktop-shared-ui": {
             "tags": []
         },
@@ -73,9 +76,6 @@
             "tags": []
         },
         "shared-utils": {
-            "tags": []
-        },
-        "two-zero-four-eight": {
             "tags": []
         }
     }

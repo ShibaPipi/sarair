@@ -1,6 +1,77 @@
 {
     "version": 2,
     "projects": {
+        "2048-puzzle": {
+            "root": "apps/2048-puzzle",
+            "sourceRoot": "apps/2048-puzzle/src",
+            "projectType": "application",
+            "targets": {
+                "build": {
+                    "executor": "@nrwl/web:build",
+                    "outputs": ["{options.outputPath}"],
+                    "options": {
+                        "outputPath": "dist/apps/2048-puzzle",
+                        "index": "apps/2048-puzzle/src/index.html",
+                        "main": "apps/2048-puzzle/src/main.tsx",
+                        "polyfills": "apps/2048-puzzle/src/polyfills.ts",
+                        "tsConfig": "apps/2048-puzzle/tsconfig.app.json",
+                        "assets": [
+                            "apps/2048-puzzle/src/favicon.ico",
+                            "apps/2048-puzzle/src/assets"
+                        ],
+                        "styles": [],
+                        "scripts": [],
+                        "webpackConfig": "@nrwl/react/plugins/webpack"
+                    },
+                    "configurations": {
+                        "production": {
+                            "fileReplacements": [
+                                {
+                                    "replace": "apps/2048-puzzle/src/environments/environment.ts",
+                                    "with": "apps/2048-puzzle/src/environments/environment.prod.ts"
+                                }
+                            ],
+                            "optimization": true,
+                            "outputHashing": "all",
+                            "sourceMap": false,
+                            "extractCss": true,
+                            "namedChunks": false,
+                            "extractLicenses": true,
+                            "vendorChunk": false,
+                            "budgets": [
+                                {
+                                    "type": "initial",
+                                    "maximumWarning": "500kb",
+                                    "maximumError": "1mb"
+                                }
+                            ]
+                        }
+                    }
+                },
+                "serve": {
+                    "executor": "@nrwl/web:dev-server",
+                    "options": {
+                        "buildTarget": "2048-puzzle:build",
+                        "hmr": true
+                    },
+                    "configurations": {
+                        "production": {
+                            "buildTarget": "2048-puzzle:build:production",
+                            "hmr": false
+                        }
+                    }
+                },
+                "lint": {
+                    "executor": "@nrwl/linter:eslint",
+                    "outputs": ["{options.outputFile}"],
+                    "options": {
+                        "lintFilePatterns": [
+                            "apps/2048-puzzle/**/*.{ts,tsx,js,jsx}"
+                        ]
+                    }
+                }
+            }
+        },
         "desktop-shared-ui": {
             "root": "libs/desktop/shared/ui",
             "sourceRoot": "libs/desktop/shared/ui/src",
@@ -517,77 +588,6 @@
                     "options": {
                         "jestConfig": "libs/shared/utils/jest.config.js",
                         "passWithNoTests": true
-                    }
-                }
-            }
-        },
-        "two-zero-four-eight": {
-            "root": "apps/two-zero-four-eight",
-            "sourceRoot": "apps/two-zero-four-eight/src",
-            "projectType": "application",
-            "targets": {
-                "build": {
-                    "executor": "@nrwl/web:build",
-                    "outputs": ["{options.outputPath}"],
-                    "options": {
-                        "outputPath": "dist/apps/two-zero-four-eight",
-                        "index": "apps/two-zero-four-eight/src/index.html",
-                        "main": "apps/two-zero-four-eight/src/main.tsx",
-                        "polyfills": "apps/two-zero-four-eight/src/polyfills.ts",
-                        "tsConfig": "apps/two-zero-four-eight/tsconfig.app.json",
-                        "assets": [
-                            "apps/two-zero-four-eight/src/favicon.ico",
-                            "apps/two-zero-four-eight/src/assets"
-                        ],
-                        "styles": [],
-                        "scripts": [],
-                        "webpackConfig": "@nrwl/react/plugins/webpack"
-                    },
-                    "configurations": {
-                        "production": {
-                            "fileReplacements": [
-                                {
-                                    "replace": "apps/two-zero-four-eight/src/environments/environment.ts",
-                                    "with": "apps/two-zero-four-eight/src/environments/environment.prod.ts"
-                                }
-                            ],
-                            "optimization": true,
-                            "outputHashing": "all",
-                            "sourceMap": false,
-                            "extractCss": true,
-                            "namedChunks": false,
-                            "extractLicenses": true,
-                            "vendorChunk": false,
-                            "budgets": [
-                                {
-                                    "type": "initial",
-                                    "maximumWarning": "500kb",
-                                    "maximumError": "1mb"
-                                }
-                            ]
-                        }
-                    }
-                },
-                "serve": {
-                    "executor": "@nrwl/web:dev-server",
-                    "options": {
-                        "buildTarget": "two-zero-four-eight:build",
-                        "hmr": true
-                    },
-                    "configurations": {
-                        "production": {
-                            "buildTarget": "two-zero-four-eight:build:production",
-                            "hmr": false
-                        }
-                    }
-                },
-                "lint": {
-                    "executor": "@nrwl/linter:eslint",
-                    "outputs": ["{options.outputFile}"],
-                    "options": {
-                        "lintFilePatterns": [
-                            "apps/two-zero-four-eight/**/*.{ts,tsx,js,jsx}"
-                        ]
                     }
                 }
             }

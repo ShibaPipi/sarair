@@ -150,7 +150,7 @@ export const App = () => {
     })
 
     const canMoveLeft = useMemoizedFn(() =>
-        cellDigit.some(valueArray =>
+        cellDigit.some((valueArray) =>
             valueArray.some(
                 (value, x) =>
                     0 !== x &&
@@ -180,7 +180,7 @@ export const App = () => {
     })
 
     const canMoveRight = useMemoizedFn(() =>
-        cellDigit.some(valueArray =>
+        cellDigit.some((valueArray) =>
             valueArray.some(
                 (value: number, x: number) =>
                     3 !== x &&
@@ -281,7 +281,7 @@ export const App = () => {
     })
 
     const hasSpace = useMemoizedFn(() =>
-        cellDigit.some(valueArray => valueArray.some(value => 0 === value))
+        cellDigit.some((valueArray) => valueArray.some((value) => 0 === value))
     )
 
     const randomCoordinate = useMemoizedFn(() => Math.floor(Math.random() * 4))
