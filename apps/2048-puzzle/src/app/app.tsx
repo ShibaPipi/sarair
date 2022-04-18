@@ -1,301 +1,356 @@
-import { useState } from 'react'
+import { clone } from 'ramda'
 
-import { useEventListener, useMemoizedFn, useMount } from '@sarair/shared/hooks'
+import {
+    useEventListener,
+    useMemoizedFn,
+    useMount,
+    useSetState,
+    useThrottleFn,
+    useWhyDidYouUpdate
+} from '@sarair/shared/hooks'
+
+import {
+    animateDurationShift,
+    initState,
+    actionNewGameThrottleTime,
+    actionShiftThrottleTime
+} from '../config'
+import { CellData, CellDigits } from '../models'
+import { getRandomPos } from '../utils/position'
+import {
+    canShiftDown,
+    canShiftLeft,
+    canShiftRight,
+    canShiftUp,
+    noBlockHorizontally,
+    noBlockVertically,
+    noSpace
+} from '../utils/shift'
 
 import { Board } from './components/Board'
 import { Panel } from './components/Panel'
+import { Test } from './components/Test'
 
 export const App = () => {
-    const [score, setScore] = useState(0)
-    const [cellDigit, setCellDigit] = useState<number[][]>([[]])
+    const [{ score, cellDigits }, setData] = useSetState<{
+        score: number
+        cellDigits: CellDigits
+    }>(initState())
 
-    const handleNewGame = useMemoizedFn(() =>
-        Promise.resolve()
-            .then(resetBoard)
-            .then(() => {
-                randomNumber()
-                randomNumber()
-            })
+    // useWhyDidYouUpdate('App', { cellDigits })
+    console.log(cellDigits)
+    const resetBoard = useMemoizedFn(async () => {
+        setData(initState())
+
+        /**
+         * 调试用数据
+         */
+        // const prevData = [
+        //     [2, 0, 4, 16],
+        //     [0, 0, 0, 0],
+        //     [4, 0, 0, 0],
+        //     [16, 0, 0, 0]
+        // ].map(row =>
+        //     row.map(value => ({
+        //         value,
+        //         toRow: null,
+        //         toCol: null,
+        //         random: false
+        //     }))
+        // )
+
+        // setData({ cellDigits: prevData })
+    })
+
+    const resetCellAnimation = useMemoizedFn(async () => {
+        setData({
+            cellDigits: cellDigits.map(row =>
+                row.map(col => ({
+                    ...col,
+                    random: !!col.value
+                }))
+            )
+        })
+    })
+    const randomOneNumber = useMemoizedFn(async () => {
+        if (noSpace(cellDigits)) {
+            return
+        }
+        // 重置数据的 random 属性
+        await resetCellAnimation()
+        // 随机一个位置
+        let top = getRandomPos()
+        let left = getRandomPos()
+        // let top = 3
+        // let left = 3
+
+        while (cellDigits[top][left].value !== 0) {
+            top = getRandomPos()
+            left = getRandomPos()
+        }
+
+        // 随机一个数字，并显示这个数字
+        cellDigits[top][left].value = Math.random() > 0.5 ? 2 : 4
+        cellDigits[top][left].random = true
+
+        setData({ cellDigits })
+    })
+
+    const { run: handleNewGame } = useThrottleFn(
+        async () => {
+            await resetBoard()
+            await randomOneNumber()
+            await randomOneNumber()
+        },
+        { wait: actionNewGameThrottleTime }
     )
     useMount(() => {
         handleNewGame()
     })
 
-    const onKeyDown = useMemoizedFn(
-        ({ code }: { code: KeyboardEvent['code'] }) => {
+    const handleAfterShift = useMemoizedFn(
+        (data: readonly [CellDigits, CellDigits]) => {
+            const [digitsForAnimation, digitsForUpdate] = data
+
+            setData({ cellDigits: digitsForAnimation })
+
+            setTimeout(() => {
+                setData(() => ({ cellDigits: digitsForUpdate }))
+                randomOneNumber()
+            }, animateDurationShift)
+        }
+    )
+    const { run: onKeyDown } = useThrottleFn(
+        async ({ code }: { code: KeyboardEvent['code'] }) => {
             switch (code) {
-                case 'ArrowLeft': // left
-                    canMoveLeft() &&
-                        Promise.resolve()
-                            .then(() => handleMoveLeft())
-                            .then(() => randomNumber())
+                case 'ArrowLeft':
+                    if (canShiftLeft(cellDigits)) {
+                        const newData = handleShiftLeft()
+                        setTimeout(() => {
+                            setData(() => ({ cellDigits: newData }))
+                            randomOneNumber()
+                        }, animateDurationShift)
+                    }
                     break
-                case 'ArrowUp': // up
-                    canMoveUp() &&
-                        Promise.resolve()
-                            .then(() => handleMoveUp())
-                            .then(() => randomNumber())
+                case 'ArrowRight':
+                    if (canShiftRight(cellDigits)) {
+                        const newData = handleShiftRight()
+                        setTimeout(() => {
+                            setData(() => ({ cellDigits: newData }))
+                            randomOneNumber()
+                        }, animateDurationShift)
+                    }
                     break
-                case 'ArrowRight': // right
-                    canMoveRight() &&
-                        Promise.resolve()
-                            .then(() => handleMoveRight())
-                            .then(() => randomNumber())
+                case 'ArrowUp':
+                    if (canShiftUp(cellDigits)) {
+                        const newData = handleShiftUp()
+                        setTimeout(async () => {
+                            setData(() => ({ cellDigits: newData }))
+                            await randomOneNumber()
+                        }, animateDurationShift)
+                    }
                     break
-                case 'ArrowDown': // down
-                    canMoveDown() &&
-                        Promise.resolve()
-                            .then(() => handleMoveDown())
-                            .then(() => randomNumber())
+                case 'ArrowDown':
+                    if (canShiftDown(cellDigits)) {
+                        const newData = handleShiftDown()
+                        setTimeout(() => {
+                            setData(() => ({ cellDigits: newData }))
+                            randomOneNumber()
+                        }, animateDurationShift)
+                    }
                     break
                 default:
                     return
             }
 
             isGameOver()
-        }
+        },
+        { wait: actionShiftThrottleTime }
     )
     useEventListener('keydown', onKeyDown)
 
-    const handleMoveLeft = useMemoizedFn(() => {
-        for (let y = 0; y < 4; y++) {
-            for (let x = 1; x < 4; x++) {
-                if (0 !== cellDigit[y][x]) {
-                    for (let m = 0; m < x; m++) {
-                        if (0 === cellDigit[y][m] && canThroughLeft(y, m, x)) {
-                            cellDigit[y][m] = cellDigit[y][x]
-                            cellDigit[y][x] = 0
-                        } else if (
-                            cellDigit[y][m] === cellDigit[y][x] &&
-                            canThroughLeft(y, m, x)
-                        ) {
-                            cellDigit[y][m] += cellDigit[y][x]
-                            cellDigit[y][x] = 0
+    /**
+     * 对数字左边的每一个位置都进行判断，是否能成为落脚点
+     * 落脚位置是否为 0
+     * 落脚位置数字和 value 是否相等
+     * 移动路径上是否有障碍物
+     */
+    const handleShiftLeft = useMemoizedFn(() => {
+        const digitsForAnimation = clone(cellDigits)
+
+        for (let i = 0; i < 4; i++) {
+            for (let j = 1; j < 4; j++) {
+                if (cellDigits[i][j].value !== 0) {
+                    for (let k = 0; k < j; k++) {
+                        if (noBlockHorizontally(i, k, j, cellDigits)) {
+                            if (cellDigits[i][k].value === 0) {
+                                digitsForAnimation[i][j].toCol = k
+
+                                cellDigits[i][k].value = cellDigits[i][j].value
+                                cellDigits[i][j].value = 0
+
+                                break
+                            } else if (
+                                cellDigits[i][k].value ===
+                                cellDigits[i][j].value
+                            ) {
+                                digitsForAnimation[i][j].toCol = k
+
+                                cellDigits[i][k].value =
+                                    cellDigits[i][j].value +
+                                    cellDigits[i][k].value
+                                cellDigits[i][j].value = 0
+
+                                break
+                            }
                         }
                     }
                 }
             }
         }
 
-        setCellDigit(cellDigit)
+        setData({ cellDigits: digitsForAnimation })
+
+        return cellDigits
     })
 
-    const handleMoveUp = useMemoizedFn(() => {
-        for (let y = 1; y < 4; y++) {
-            for (let x = 0; x < 4; x++) {
-                if (0 !== cellDigit[y][x]) {
-                    for (let n = 0; n < y; n++) {
-                        if (0 === cellDigit[n][x] && canThroughUp(x, n, y)) {
-                            cellDigit[n][x] = cellDigit[y][x]
-                            cellDigit[y][x] = 0
-                        } else if (
-                            cellDigit[n][x] === cellDigit[y][x] &&
-                            canThroughUp(x, n, y)
-                        ) {
-                            cellDigit[n][x] += cellDigit[y][x]
-                            cellDigit[y][x] = 0
+    /**
+     * 对数字右边的每一个位置都进行判断，是否能成为落脚点
+     * 落脚位置是否为 0
+     * 落脚位置数字和 value 是否相等
+     * 移动路径上是否有障碍物
+     */
+    const handleShiftRight = useMemoizedFn(() => {
+        const digitsForAnimation = clone(cellDigits)
+
+        for (let i = 0; i < 4; i++) {
+            for (let j = 2; j >= 0; j--) {
+                if (cellDigits[i][j].value !== 0) {
+                    for (let k = 3; k > j; k--) {
+                        if (noBlockHorizontally(i, j, k, cellDigits)) {
+                            if (cellDigits[i][k].value === 0) {
+                                digitsForAnimation[i][j].toCol = k
+
+                                cellDigits[i][k].value = cellDigits[i][j].value
+                                cellDigits[i][j].value = 0
+
+                                break
+                            } else if (
+                                cellDigits[i][k].value ===
+                                cellDigits[i][j].value
+                            ) {
+                                digitsForAnimation[i][j].toCol = k
+
+                                cellDigits[i][k].value =
+                                    cellDigits[i][j].value +
+                                    cellDigits[i][k].value
+                                cellDigits[i][j].value = 0
+
+                                break
+                            }
                         }
                     }
                 }
             }
         }
 
-        setCellDigit(cellDigit)
+        setData({ cellDigits: digitsForAnimation })
+
+        return cellDigits
     })
 
-    const handleMoveRight = useMemoizedFn(() => {
-        for (let y = 0; y < 4; y++) {
-            for (let x = 2; x >= 0; x--) {
-                if (0 !== cellDigit[y][x]) {
-                    for (let m = 3; m > x; m--) {
-                        if (0 === cellDigit[y][m] && canThroughRight(y, m, x)) {
-                            cellDigit[y][m] = cellDigit[y][x]
-                            cellDigit[y][x] = 0
-                        } else if (
-                            cellDigit[y][m] === cellDigit[y][x] &&
-                            canThroughRight(y, m, x)
-                        ) {
-                            cellDigit[y][m] += cellDigit[y][x]
-                            cellDigit[y][x] = 0
+    /**
+     * 对数字上边的每一个位置都进行判断，是否能成为落脚点
+     * 落脚位置是否为 0
+     * 落脚位置数字和 value 是否相等
+     * 移动路径上是否有障碍物
+     */
+    const handleShiftUp = useMemoizedFn(() => {
+        const digitsForAnimation = clone(cellDigits)
+
+        for (let j = 0; j < 4; j++) {
+            for (let i = 1; i < 4; i++) {
+                if (cellDigits[i][j].value !== 0) {
+                    for (let k = 0; k < i; k++) {
+                        if (noBlockVertically(j, k, i, cellDigits)) {
+                            if (cellDigits[k][j].value === 0) {
+                                digitsForAnimation[i][j].toRow = k
+
+                                cellDigits[k][j].value = cellDigits[i][j].value
+                                cellDigits[i][j].value = 0
+
+                                break
+                            } else if (
+                                cellDigits[k][j].value ===
+                                cellDigits[i][j].value
+                            ) {
+                                digitsForAnimation[i][j].toRow = k
+
+                                cellDigits[k][j].value += cellDigits[i][j].value
+                                cellDigits[i][j].value = 0
+
+                                break
+                            }
                         }
                     }
                 }
             }
         }
 
-        setCellDigit(cellDigit)
+        setData({ cellDigits: digitsForAnimation })
+
+        return cellDigits
     })
 
-    const handleMoveDown = useMemoizedFn(() => {
-        for (let y = 2; y >= 0; y--) {
-            for (let x = 0; x < 4; x++) {
-                if (0 !== cellDigit[y][x]) {
-                    for (let n = 3; n > y; n--) {
-                        if (0 === cellDigit[n][x] && canThroughDown(x, n, y)) {
-                            cellDigit[n][x] = cellDigit[y][x]
-                            cellDigit[y][x] = 0
-                        } else if (
-                            cellDigit[n][x] === cellDigit[y][x] &&
-                            canThroughDown(x, n, y)
-                        ) {
-                            cellDigit[n][x] += cellDigit[y][x]
-                            cellDigit[y][x] = 0
+    /**
+     * 对数字下边的每一个位置都进行判断，是否能成为落脚点
+     * 落脚位置是否为 0
+     * 落脚位置数字和 value 是否相等
+     * 移动路径上是否有障碍物
+     */
+    const handleShiftDown = useMemoizedFn(() => {
+        const digitsForAnimation = clone(cellDigits)
+
+        for (let j = 0; j < 4; j++) {
+            for (let i = 2; i >= 0; i--) {
+                if (cellDigits[i][j].value !== 0) {
+                    for (let k = 3; k > i; k--) {
+                        if (noBlockVertically(j, i, k, cellDigits)) {
+                            if (cellDigits[k][j].value === 0) {
+                                digitsForAnimation[i][j].toRow = k
+
+                                cellDigits[k][j].value = cellDigits[i][j].value
+                                cellDigits[i][j].value = 0
+
+                                break
+                            } else if (
+                                cellDigits[k][j].value ===
+                                cellDigits[i][j].value
+                            ) {
+                                digitsForAnimation[i][j].toRow = k
+
+                                cellDigits[k][j].value = +cellDigits[i][j].value
+                                cellDigits[i][j].value = 0
+
+                                break
+                            }
                         }
                     }
                 }
             }
         }
 
-        setCellDigit(cellDigit)
-    })
+        setData({ cellDigits: digitsForAnimation })
 
-    const canMoveLeft = useMemoizedFn(() =>
-        cellDigit.some((valueArray) =>
-            valueArray.some(
-                (value, x) =>
-                    0 !== x &&
-                    0 !== value &&
-                    (0 === valueArray[x - 1] ||
-                        valueArray[x - 1] === valueArray[x])
-            )
-        )
-    )
-
-    const canMoveUp = useMemoizedFn(() => {
-        console.log('up')
-
-        for (let x = 0; x < 4; x++) {
-            for (let y = 1; y < 4; y++) {
-                if (
-                    0 !== cellDigit[y][x] &&
-                    (0 === cellDigit[y - 1][x] ||
-                        cellDigit[y - 1][x] === cellDigit[y][x])
-                ) {
-                    return true
-                }
-            }
-        }
-
-        return false
-    })
-
-    const canMoveRight = useMemoizedFn(() =>
-        cellDigit.some((valueArray) =>
-            valueArray.some(
-                (value: number, x: number) =>
-                    3 !== x &&
-                    0 !== value &&
-                    (0 === valueArray[x + 1] ||
-                        valueArray[x + 1] === valueArray[x])
-            )
-        )
-    )
-
-    const canMoveDown = useMemoizedFn(() => {
-        for (let y = 2; y >= 0; y--) {
-            for (let x = 0; x < 4; x++) {
-                if (
-                    0 !== cellDigit[y][x] &&
-                    (0 === cellDigit[y + 1][x] ||
-                        cellDigit[y + 1][x] === cellDigit[y][x])
-                ) {
-                    return true
-                }
-            }
-        }
-
-        return false
-    })
-
-    const canThroughLeft = useMemoizedFn((y: number, m: number, x: number) => {
-        for (let i = m + 1; i < x; i++) {
-            if (0 !== cellDigit[y][i]) {
-                return false
-            }
-        }
-
-        return true
-    })
-
-    const canThroughUp = useMemoizedFn((x: number, n: number, y: number) => {
-        for (let j = n + 1; j < y; j++) {
-            if (0 !== cellDigit[x][j]) {
-                return false
-            }
-        }
-
-        return true
-    })
-
-    const canThroughRight = useMemoizedFn((y: number, m: number, x: number) => {
-        for (let i = m + 1; i < x; i++) {
-            if (0 !== cellDigit[y][i]) {
-                return false
-            }
-        }
-
-        return true
-    })
-
-    const canThroughDown = useMemoizedFn((x: number, n: number, y: number) => {
-        for (let j = n + 1; j < y; j++) {
-            if (0 !== cellDigit[x][j]) {
-                return false
-            }
-        }
-
-        return true
+        return cellDigits
     })
 
     const isGameOver = useMemoizedFn(() => void 0)
-
-    const resetBoard = useMemoizedFn(() => {
-        const prevData = [
-            [8, 0, 2, 0],
-            [4, 0, 16, 0],
-            [4, 0, 2, 0],
-            [4, 0, 0, 0]
-        ]
-
-        setScore(0)
-        setCellDigit(prevData)
-    })
-
-    const randomNumber = useMemoizedFn(() => {
-        if (!hasSpace()) {
-            return
-        }
-
-        // 随机一个位置
-        let x = randomCoordinate()
-        let y = randomCoordinate()
-
-        while (0 !== cellDigit[y][x]) {
-            x = randomCoordinate()
-            y = randomCoordinate()
-        }
-        // 随机一个数字，并显示这个数字
-        cellDigit[y][x] = Math.random() > 0.5 ? 2 : 4
-
-        setCellDigit(cellDigit)
-    })
-
-    const hasSpace = useMemoizedFn(() =>
-        cellDigit.some((valueArray) => valueArray.some((value) => 0 === value))
-    )
-
-    const randomCoordinate = useMemoizedFn(() => Math.floor(Math.random() * 4))
-
-    const initialize2DArray = useMemoizedFn((x: number, y: number, value = 0) =>
-        Array(y)
-            .fill(0)
-            .map(() => Array(x).fill(value))
-    )
-
     return (
         <div>
             <Panel score={score} onNewGame={handleNewGame} />
-            {cellDigit && <Board cellDigit={cellDigit} />}
+            {cellDigits && <Board cellDigits={cellDigits} />}
+            {/* <Test /> */}
         </div>
     )
 }
