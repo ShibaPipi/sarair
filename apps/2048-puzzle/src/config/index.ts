@@ -2,11 +2,10 @@ import { CellData } from '../models'
 
 export const responseIntervalTime = 150
 
-export const actionNewGameThrottleTime = responseIntervalTime + 50
-export const actionShiftThrottleTime = responseIntervalTime * 2
-
 export const animateDurationAppear = responseIntervalTime
 export const animateDurationShift = responseIntervalTime
+
+export const intervalIsGameOver = 300
 
 export const initState = () => ({
     score: 0,
