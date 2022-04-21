@@ -1,24 +1,30 @@
-import { CellData } from '../models'
+export const randNumLoopMaxTime = 50
 
-export const responseIntervalTime = 150
+export const responseIntervalTime = 100
 
 export const animateDurationAppear = responseIntervalTime
 export const animateDurationShift = responseIntervalTime
 
-export const intervalIsGameOver = 300
+export const intervalIsGameOver = animateDurationAppear + animateDurationShift
 
 export const initState = () => ({
     score: 0,
-    cellDigits: Array(4)
-        .fill([])
-        .map(() =>
-            Array<CellData>(4)
-                .fill({} as CellData)
-                .map(() => ({
-                    toRow: null,
-                    toCol: null,
-                    value: 0,
-                    random: false
-                }))
-        )
+    cellDigits: [
+        [0, 0, 0, 0],
+        [0, 0, 0, 0],
+        [0, 0, 0, 0],
+        [0, 0, 0, 0]
+    ].map(row =>
+        row.map(value => ({
+            value,
+            toRow: null,
+            toCol: null,
+            random: false
+        }))
+    )
 })
+
+export const initMerged = () =>
+    Array(4)
+        .fill([])
+        .map(() => Array(4).fill(false))

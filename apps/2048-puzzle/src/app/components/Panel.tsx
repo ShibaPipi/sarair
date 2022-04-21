@@ -35,7 +35,7 @@ const NewGame = styled.button`
 const PanelWrapper = styled.div`
     display: block;
     margin: 0 auto;
-    width: 50rem;
+    width: 100%;
     text-align: center;
 
     h1 {

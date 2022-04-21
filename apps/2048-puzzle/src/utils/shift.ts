@@ -1,4 +1,5 @@
 import { all, map, slice, compose, clone } from 'ramda'
+import { initMerged } from '../config'
 
 import { CellData, CellDigits } from '../models'
 
@@ -6,10 +7,13 @@ import { CellData, CellDigits } from '../models'
  * 对数字左边的每一个位置都进行判断，是否能成为落脚点
  * 落脚位置是否为 0
  * 落脚位置数字和 value 是否相等
+ * 落脚位置是否已经发生过一次数字叠加
  * 移动路径上是否有障碍物
  */
 export const calcDataShiftLeft = (cellDigits: CellDigits) => {
+    let score = 0
     const digitsForAnimation = clone(cellDigits)
+    const merged = initMerged()
 
     for (let i = 0; i < 4; i++) {
         for (let j = 1; j < 4; j++) {
@@ -20,6 +24,15 @@ export const calcDataShiftLeft = (cellDigits: CellDigits) => {
                             cellDigits[i][k].value === 0 ||
                             cellDigits[i][k].value === cellDigits[i][j].value
                         ) {
+                            if (cellDigits[i][k].value !== 0) {
+                                if (merged[i][k]) {
+                                    continue
+                                } else {
+                                    merged[i][k] = true
+                                }
+                                score += cellDigits[i][k].value * 2
+                            }
+
                             digitsForAnimation[i][j].toCol = k
 
                             cellDigits[i][k].value += cellDigits[i][j].value
@@ -33,17 +46,20 @@ export const calcDataShiftLeft = (cellDigits: CellDigits) => {
         }
     }
 
-    return [digitsForAnimation, cellDigits] as const
+    return [digitsForAnimation, cellDigits, score] as const
 }
 
 /**
  * 对数字右边的每一个位置都进行判断，是否能成为落脚点
  * 落脚位置是否为 0
  * 落脚位置数字和 value 是否相等
+ * 落脚位置是否已经发生过一次数字叠加
  * 移动路径上是否有障碍物
  */
 export const calcDataShiftRight = (cellDigits: CellDigits) => {
+    let score = 0
     const digitsForAnimation = clone(cellDigits)
+    const merged = initMerged()
 
     for (let i = 0; i < 4; i++) {
         for (let j = 2; j >= 0; j--) {
@@ -54,6 +70,15 @@ export const calcDataShiftRight = (cellDigits: CellDigits) => {
                             cellDigits[i][k].value === 0 ||
                             cellDigits[i][k].value === cellDigits[i][j].value
                         ) {
+                            if (cellDigits[i][k].value !== 0) {
+                                if (merged[i][k]) {
+                                    continue
+                                } else {
+                                    merged[i][k] = true
+                                }
+                                score += cellDigits[i][k].value * 2
+                            }
+
                             digitsForAnimation[i][j].toCol = k
 
                             cellDigits[i][k].value += cellDigits[i][j].value
@@ -67,17 +92,20 @@ export const calcDataShiftRight = (cellDigits: CellDigits) => {
         }
     }
 
-    return [digitsForAnimation, cellDigits] as const
+    return [digitsForAnimation, cellDigits, score] as const
 }
 
 /**
  * 对数字上边的每一个位置都进行判断，是否能成为落脚点
  * 落脚位置是否为 0
  * 落脚位置数字和 value 是否相等
+ * 落脚位置是否已经发生过一次数字叠加
  * 移动路径上是否有障碍物
  */
 export const calcDataShiftUp = (cellDigits: CellDigits) => {
+    let score = 0
     const digitsForAnimation = clone(cellDigits)
+    const merged = initMerged()
 
     for (let j = 0; j < 4; j++) {
         for (let i = 1; i < 4; i++) {
@@ -88,6 +116,15 @@ export const calcDataShiftUp = (cellDigits: CellDigits) => {
                             cellDigits[k][j].value === 0 ||
                             cellDigits[k][j].value === cellDigits[i][j].value
                         ) {
+                            if (cellDigits[k][j].value !== 0) {
+                                if (merged[k][j]) {
+                                    continue
+                                } else {
+                                    merged[k][j] = true
+                                }
+                                score += cellDigits[k][j].value * 2
+                            }
+
                             digitsForAnimation[i][j].toRow = k
 
                             cellDigits[k][j].value += cellDigits[i][j].value
@@ -101,17 +138,20 @@ export const calcDataShiftUp = (cellDigits: CellDigits) => {
         }
     }
 
-    return [digitsForAnimation, cellDigits] as const
+    return [digitsForAnimation, cellDigits, score] as const
 }
 
 /**
  * 对数字下边的每一个位置都进行判断，是否能成为落脚点
  * 落脚位置是否为 0
  * 落脚位置数字和 value 是否相等
+ * 落脚位置是否已经发生过一次数字叠加
  * 移动路径上是否有障碍物
  */
 export const calcDataShiftDown = (cellDigits: CellDigits) => {
+    let score = 0
     const digitsForAnimation = clone(cellDigits)
+    const merged = initMerged()
 
     for (let j = 0; j < 4; j++) {
         for (let i = 2; i >= 0; i--) {
@@ -122,6 +162,15 @@ export const calcDataShiftDown = (cellDigits: CellDigits) => {
                             cellDigits[k][j].value === 0 ||
                             cellDigits[k][j].value === cellDigits[i][j].value
                         ) {
+                            if (cellDigits[k][j].value !== 0) {
+                                if (merged[k][j]) {
+                                    continue
+                                } else {
+                                    merged[k][j] = true
+                                }
+                                score += cellDigits[k][j].value * 2
+                            }
+
                             digitsForAnimation[i][j].toRow = k
 
                             cellDigits[k][j].value += cellDigits[i][j].value
@@ -135,7 +184,7 @@ export const calcDataShiftDown = (cellDigits: CellDigits) => {
         }
     }
 
-    return [digitsForAnimation, cellDigits] as const
+    return [digitsForAnimation, cellDigits, score] as const
 }
 
 export const cannotShift = (cellDigits: CellDigits) =>
