@@ -96,6 +96,77 @@
                 }
             }
         },
+        "heart-520": {
+            "root": "apps/heart-520",
+            "sourceRoot": "apps/heart-520/src",
+            "projectType": "application",
+            "targets": {
+                "build": {
+                    "executor": "@nrwl/web:build",
+                    "outputs": ["{options.outputPath}"],
+                    "options": {
+                        "outputPath": "dist/apps/heart-520",
+                        "index": "apps/heart-520/src/index.html",
+                        "main": "apps/heart-520/src/main.tsx",
+                        "polyfills": "apps/heart-520/src/polyfills.ts",
+                        "tsConfig": "apps/heart-520/tsconfig.app.json",
+                        "assets": [
+                            "apps/heart-520/src/favicon.ico",
+                            "apps/heart-520/src/assets"
+                        ],
+                        "styles": ["libs/shared/ui/src/reset.css"],
+                        "scripts": [],
+                        "webpackConfig": "@nrwl/react/plugins/webpack"
+                    },
+                    "configurations": {
+                        "production": {
+                            "fileReplacements": [
+                                {
+                                    "replace": "apps/heart-520/src/environments/environment.ts",
+                                    "with": "apps/heart-520/src/environments/environment.prod.ts"
+                                }
+                            ],
+                            "optimization": true,
+                            "outputHashing": "all",
+                            "sourceMap": false,
+                            "extractCss": true,
+                            "namedChunks": false,
+                            "extractLicenses": true,
+                            "vendorChunk": false,
+                            "budgets": [
+                                {
+                                    "type": "initial",
+                                    "maximumWarning": "500kb",
+                                    "maximumError": "1mb"
+                                }
+                            ]
+                        }
+                    }
+                },
+                "serve": {
+                    "executor": "@nrwl/web:dev-server",
+                    "options": {
+                        "buildTarget": "heart-520:build",
+                        "hmr": true
+                    },
+                    "configurations": {
+                        "production": {
+                            "buildTarget": "heart-520:build:production",
+                            "hmr": false
+                        }
+                    }
+                },
+                "lint": {
+                    "executor": "@nrwl/linter:eslint",
+                    "outputs": ["{options.outputFile}"],
+                    "options": {
+                        "lintFilePatterns": [
+                            "apps/heart-520/**/*.{ts,tsx,js,jsx}"
+                        ]
+                    }
+                }
+            }
+        },
         "jira": {
             "root": "apps/jira",
             "sourceRoot": "apps/jira/src",
