@@ -12,6 +12,12 @@ const App: FC = () => {
     )
 }
 
-const StyledApp = styled.div``
+const StyledApp = styled.div`
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+`
 
 export default App
