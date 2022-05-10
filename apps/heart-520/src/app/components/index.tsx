@@ -1,2 +1,2 @@
 export * from './Countdown'
-export * from './HeartCanvas'
+export * from './HeartPage'

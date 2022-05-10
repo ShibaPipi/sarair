@@ -1,15 +1,13 @@
 import { FC } from 'react'
 import styled from '@emotion/styled'
 
-import { Countdown, HeartCanvas } from './components'
+import { Countdown, HeartPage } from './components'
+import { useTime } from '../api'
 
 const App: FC = () => {
-    return (
-        <StyledApp>
-            <Countdown />
-            <HeartCanvas />
-        </StyledApp>
-    )
+    const { timeup } = useTime()
+
+    return <StyledApp>{timeup ? <HeartPage /> : <Countdown />}</StyledApp>
 }
 
 const StyledApp = styled.div`
