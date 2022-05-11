@@ -39,10 +39,6 @@
         "jira": {
             "tags": []
         },
-        "jira-e2e": {
-            "tags": [],
-            "implicitDependencies": ["jira"]
-        },
         "keeper": {
             "tags": []
         },

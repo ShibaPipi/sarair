@@ -244,32 +244,6 @@
                 }
             }
         },
-        "jira-e2e": {
-            "root": "apps/jira-e2e",
-            "sourceRoot": "apps/jira-e2e/src",
-            "projectType": "application",
-            "targets": {
-                "e2e": {
-                    "executor": "@nrwl/cypress:cypress",
-                    "options": {
-                        "cypressConfig": "apps/jira-e2e/cypress.json",
-                        "devServerTarget": "jira:serve"
-                    },
-                    "configurations": {
-                        "production": {
-                            "devServerTarget": "jira:serve:production"
-                        }
-                    }
-                },
-                "lint": {
-                    "executor": "@nrwl/linter:eslint",
-                    "outputs": ["{options.outputFile}"],
-                    "options": {
-                        "lintFilePatterns": ["apps/jira-e2e/**/*.{js,ts}"]
-                    }
-                }
-            }
-        },
         "keeper": {
             "root": "apps/keeper",
             "sourceRoot": "apps/keeper/src",
