@@ -1,6 +1,11 @@
-import React from 'react'
+import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import dayjs from 'dayjs'
+
+import { useDocumentTitle } from '@sarair/shared/hooks'
+import { useProjectStore } from '../../hooks/projects'
+import { useEpicList, useEpicSearchParams } from '../../hooks/epics'
+import { useTaskList } from '../../hooks/tasks'
 
 import {
     Button,
@@ -10,10 +15,7 @@ import {
     PageContainer,
     SarairRow
 } from '@sarair/desktop/shared/ui'
-import { useDocumentTitle } from '@sarair/shared/hooks'
-import { useProjectStore } from '../../hooks/projects'
-import { useEpicList, useEpicSearchParams } from '../../hooks/epics'
-import { useTaskList } from '../../hooks/tasks'
+import { CreateEpic } from './components/CreateEpic'
 
 export const EpicScreen = () => {
     useDocumentTitle('任务组列表', true)
@@ -26,12 +28,21 @@ export const EpicScreen = () => {
     } = useEpicList({ projectId })
     const { list: taskList } = useTaskList({ projectId })
 
+    const [createDrawerVisible, setCreateDrawerVisible] =
+        useState<boolean>(false)
+
     return (
         <PageContainer>
-            <h1>{detail?.name}任务组</h1>
+            <SarairRow between>
+                <h1>{detail?.name}任务组</h1>
+                <Button onClick={() => setCreateDrawerVisible(true)}>
+                    创建任务组
+                </Button>
+            </SarairRow>
             <List
                 dataSource={epicList}
                 itemLayout="vertical"
+                style={{ overflow: 'scroll' }}
                 renderItem={({ id, name, startTime, endTime }) => (
                     <ListItem>
                         <ListItemMeta
@@ -73,6 +84,10 @@ export const EpicScreen = () => {
                         </div>
                     </ListItem>
                 )}
+            />
+            <CreateEpic
+                visible={createDrawerVisible}
+                onClose={() => setCreateDrawerVisible(false)}
             />
         </PageContainer>
     )

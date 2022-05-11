@@ -10,13 +10,18 @@ export const useEpicCreate = () => {
     const params = useEpicSearchParams()
     const queryKey = useMemo(() => [EPIC_LIST_CACHE_KEY, params], [params])
 
-    const { isLoading, mutateAsync: create } = useMutation(
+    const {
+        isLoading,
+        error,
+        mutateAsync: create
+    } = useMutation(
         (params: Partial<Epic>) => sarairRequest.post('epics', params),
         useCreateQueryConfig(queryKey)
     )
 
     return {
         isLoading,
+        error,
         methods: { create }
     }
 }

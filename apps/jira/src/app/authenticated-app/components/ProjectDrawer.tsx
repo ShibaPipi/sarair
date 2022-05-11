@@ -1,5 +1,4 @@
 import { FC, useEffect } from 'react'
-import styled from '@emotion/styled'
 
 import { useMemoizedFn } from '@sarair/shared/hooks'
 import { useProjectDrawer } from '../../../hooks/projects'
@@ -14,6 +13,7 @@ import {
     Spin,
     useForm
 } from '@sarair/desktop/shared/ui'
+import { DrawerContainer } from '../../../components'
 import { UserSelector } from '../../../features/user-selector'
 
 export const ProjectDrawer: FC = () => {
@@ -49,7 +49,7 @@ export const ProjectDrawer: FC = () => {
             onClose={handleDrawerClose}
             forceRender
         >
-            <Container>
+            <DrawerContainer>
                 <Spin size="large" spinning={isLoading}>
                     <h1>{isEditing ? '编辑项目' : '创建项目'}</h1>
                     <ErrorBox error={error} />
@@ -97,15 +97,7 @@ export const ProjectDrawer: FC = () => {
                         </FormItem>
                     </Form>
                 </Spin>
-            </Container>
+            </DrawerContainer>
         </Drawer>
     )
 }
-
-const Container = styled.div`
-    height: 80vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-`
