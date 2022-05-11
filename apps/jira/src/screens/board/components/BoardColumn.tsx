@@ -1,4 +1,4 @@
-import React, { forwardRef } from 'react'
+import { FC, forwardRef } from 'react'
 import styled from '@emotion/styled'
 
 import { useDebounce, useMemoizedFn } from '@sarair/shared/hooks'
@@ -32,7 +32,7 @@ interface BoardColumnProps {
     board: Board
 }
 
-export const BoardColumn: React.FC<BoardColumnProps> = forwardRef<
+export const BoardColumn: FC<BoardColumnProps> = forwardRef<
     HTMLDivElement,
     BoardColumnProps
 >(({ board, ...props }, ref) => {

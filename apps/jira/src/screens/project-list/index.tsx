@@ -1,4 +1,4 @@
-import React from 'react'
+import { FC } from 'react'
 import styled from '@emotion/styled'
 
 import { useDebounce, useDocumentTitle } from '@sarair/shared/hooks'
@@ -13,7 +13,7 @@ import { ButtonNoPadding, ErrorBox, SarairRow } from '@sarair/desktop/shared/ui'
 import { SearchPanel } from './components/SearchPanel'
 import { List } from './components/List'
 
-export const ProjectListScreen: React.FC = () => {
+export const ProjectListScreen: FC = () => {
     useDocumentTitle('项目列表', true)
 
     const {

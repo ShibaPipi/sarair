@@ -1,11 +1,11 @@
-import React from 'react'
+import { FC } from 'react'
 import { QueryClient, QueryClientProvider } from 'react-query'
 // import { Provider } from 'react-redux'
 
 import { AuthProvider } from './auth'
 // import { store } from '../store'
 
-export const AppProviders: React.FC = ({ children }) => {
+export const AppProviders: FC = ({ children }) => {
     const client = new QueryClient()
 
     return (

@@ -1,4 +1,4 @@
-import React from 'react'
+import { FC } from 'react'
 
 import { AuthForm } from '@sarair/shared/context'
 import { useAuth } from '../../../hooks/useAuth'
@@ -10,7 +10,7 @@ interface LoginProps {
     onError: (error: Error) => void
 }
 
-export const Login: React.FC<LoginProps> = ({ onError }) => {
+export const Login: FC<LoginProps> = ({ onError }) => {
     const {
         user,
         methods: { login }

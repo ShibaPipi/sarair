@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import { FC, useEffect } from 'react'
 import styled from '@emotion/styled'
 
 import { useMemoizedFn } from '@sarair/shared/hooks'
@@ -16,7 +16,7 @@ import {
 } from '@sarair/desktop/shared/ui'
 import { UserSelector } from '../../../features/user-selector'
 
-export const ProjectDrawer: React.FC = () => {
+export const ProjectDrawer: FC = () => {
     const {
         visible,
         isLoading,

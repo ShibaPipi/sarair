@@ -1,4 +1,4 @@
-import React from 'react'
+import { FC } from 'react'
 
 import { useAuth } from '../hooks/useAuth'
 
@@ -7,7 +7,7 @@ import { FullPageErrorCallback } from '@sarair/desktop/shared/ui'
 import { AuthenticatedApp } from './authenticated-app'
 import { UnauthenticatedApp } from './unauthenticated-app'
 
-export const App: React.FC = () => {
+export const App: FC = () => {
     const { user } = useAuth()
 
     return (

@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react'
+import { FC, useMemo } from 'react'
 import styled from '@emotion/styled'
 
 import { useProjectDrawer, useProjectList } from '../../../hooks/projects'
@@ -13,7 +13,7 @@ import {
     TypographyText
 } from '@sarair/desktop/shared/ui'
 
-export const ProjectPopover: React.FC = () => {
+export const ProjectPopover: FC = () => {
     const {
         methods: { showCreate }
     } = useProjectDrawer()

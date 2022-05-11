@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import { FC, useEffect, useState } from 'react'
 
 import { useMemoizedFn } from '@sarair/shared/hooks'
 import { useProjectIdInRouteParams } from '../../../hooks/projects'
@@ -10,7 +10,7 @@ interface CreateTaskProps {
     boardId: number
 }
 
-export const CreateTask: React.FC<CreateTaskProps> = ({ boardId }) => {
+export const CreateTask: FC<CreateTaskProps> = ({ boardId }) => {
     const projectId = useProjectIdInRouteParams()
 
     const [name, setName] = useState('')

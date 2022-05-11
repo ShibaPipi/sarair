@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react'
+import { FC, useMemo } from 'react'
 
 import { useTaskTypeList } from '../../../hooks/tasks'
 
@@ -9,7 +9,7 @@ interface TaskTypeIconProps {
     id: number
 }
 
-export const TaskTypeIcon: React.FC<TaskTypeIconProps> = ({ id }) => {
+export const TaskTypeIcon: FC<TaskTypeIconProps> = ({ id }) => {
     const { list } = useTaskTypeList()
 
     const name = useMemo(

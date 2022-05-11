@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import { FC, useState } from 'react'
 
 import { useMemoizedFn } from '@sarair/shared/hooks'
 import { useBoardCreate } from '../../../hooks/boards'
@@ -7,7 +7,7 @@ import { useProjectIdInRouteParams } from '../../../hooks/projects'
 import { Input } from '@sarair/desktop/shared/ui'
 import { ColumnContainer } from './ColumnContainer'
 
-export const CreateBoard: React.FC = () => {
+export const CreateBoard: FC = () => {
     const [name, setName] = useState('')
 
     const projectId = useProjectIdInRouteParams()

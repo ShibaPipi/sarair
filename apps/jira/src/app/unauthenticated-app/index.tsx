@@ -1,5 +1,5 @@
 // Framework imports
-import React, { useState } from 'react'
+import { FC, useState } from 'react'
 import styled from '@emotion/styled'
 
 // Component / UI imports
@@ -12,7 +12,7 @@ import logo from '../../assets/logo.svg'
 import left from '../../assets/left.svg'
 import right from '../../assets/right.svg'
 
-export const UnauthenticatedApp: React.FC = () => {
+export const UnauthenticatedApp: FC = () => {
     const [isRegister, setIsRegister] = useState<boolean>(false)
     const [error, setError] = useState<Error | null>(null)
 

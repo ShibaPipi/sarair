@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import { FC, useEffect } from 'react'
 
 import { useMemoizedFn } from '@sarair/shared/hooks'
 import { useTaskModal } from '../../../hooks/tasks'
@@ -19,7 +19,7 @@ const layout = {
     wrapperCol: { span: 16 }
 }
 
-export const TaskModal: React.FC = () => {
+export const TaskModal: FC = () => {
     const {
         editingTaskId,
         detail,

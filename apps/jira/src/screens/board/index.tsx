@@ -1,4 +1,4 @@
-import React from 'react'
+import { FC } from 'react'
 import { DragDropContext, DropResult } from 'react-beautiful-dnd'
 
 import { useDocumentTitle, useMemoizedFn } from '@sarair/shared/hooks'
@@ -22,7 +22,7 @@ import {
     TaskModal
 } from './components'
 
-export const BoardScreen: React.FC = () => {
+export const BoardScreen: FC = () => {
     useDocumentTitle('看板列表', true)
 
     const { projectId } = useBoardSearchParams()

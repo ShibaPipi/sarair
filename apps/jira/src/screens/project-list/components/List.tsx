@@ -1,4 +1,4 @@
-import React from 'react'
+import { FC } from 'react'
 import { Link } from 'react-router-dom'
 import dayjs from 'dayjs'
 
@@ -26,7 +26,7 @@ interface ListProps extends TableProps<Project> {
     remove: ({ id }: { id: number }) => Promise<unknown>
 }
 
-export const List: React.FC<ListProps> = ({
+export const List: FC<ListProps> = ({
     users,
     onPinChange,
     showEdit,

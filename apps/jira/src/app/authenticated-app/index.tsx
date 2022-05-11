@@ -1,4 +1,4 @@
-import React from 'react'
+import { FC } from 'react'
 import {
     Route,
     BrowserRouter as Router,
@@ -13,7 +13,7 @@ import { ProjectScreen } from '../../screens/project'
 import { Header } from './components/Header'
 import { ProjectDrawer } from './components/ProjectDrawer'
 
-export const AuthenticatedApp: React.FC = () => {
+export const AuthenticatedApp: FC = () => {
     return (
         <Container>
             <Router>

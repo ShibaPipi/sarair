@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react'
+import { FC, useMemo } from 'react'
 import { Link, Route, Routes, useLocation } from 'react-router-dom'
 import styled from '@emotion/styled'
 
@@ -7,7 +7,7 @@ import { Menu, MenuItem } from '@sarair/desktop/shared/ui'
 import { BoardScreen } from '../board'
 import { EpicScreen } from '../epic'
 
-export const ProjectScreen: React.FC = () => {
+export const ProjectScreen: FC = () => {
     const { pathname } = useLocation()
     const selectedKey = useMemo(() => {
         const units = pathname.split('/')

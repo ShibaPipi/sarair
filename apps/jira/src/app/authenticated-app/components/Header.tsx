@@ -1,4 +1,4 @@
-import React from 'react'
+import { FC } from 'react'
 import styled from '@emotion/styled'
 
 import { resetRoute } from '@sarair/shared/utils'
@@ -16,7 +16,7 @@ import { ProjectPopover } from './ProjectPopover'
 
 import { ReactComponent as SoftwareLogo } from '../../../assets/software-logo.svg'
 
-export const Header: React.FC = () => {
+export const Header: FC = () => {
     const {
         user,
         methods: { logout }

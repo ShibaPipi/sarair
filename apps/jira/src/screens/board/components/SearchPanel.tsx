@@ -1,4 +1,4 @@
-import React from 'react'
+import { FC } from 'react'
 
 import { useMemoizedFn } from '@sarair/shared/hooks'
 import { useTaskSearchParams } from '../../../hooks/tasks'
@@ -6,7 +6,7 @@ import { useTaskSearchParams } from '../../../hooks/tasks'
 import { Button, Input, SarairRow } from '@sarair/desktop/shared/ui'
 import { TaskTypeSelector, UserSelector } from '../../../features'
 
-export const SearchPanel: React.FC = () => {
+export const SearchPanel: FC = () => {
     const [{ name, typeId, processorId }, setUrlState] = useTaskSearchParams()
     const reset = useMemoizedFn(() =>
         setUrlState({

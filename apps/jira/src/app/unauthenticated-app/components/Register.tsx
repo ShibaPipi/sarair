@@ -1,4 +1,4 @@
-import React from 'react'
+import { FC } from 'react'
 
 import { AuthForm } from '@sarair/shared/context'
 import { useAuth } from '../../../hooks/useAuth'
@@ -10,7 +10,7 @@ interface RegisterProps {
     onError: (error: Error) => void
 }
 
-export const Register: React.FC<RegisterProps> = ({ onError }) => {
+export const Register: FC<RegisterProps> = ({ onError }) => {
     const {
         methods: { register }
     } = useAuth()
