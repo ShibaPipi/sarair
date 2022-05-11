@@ -13,6 +13,7 @@ import {
     SarairRow
 } from '@sarair/desktop/shared/ui'
 import { ProjectPopover } from './ProjectPopover'
+import { UserPopover } from './UserPopover'
 
 import { ReactComponent as SoftwareLogo } from '../../../assets/software-logo.svg'
 
@@ -29,7 +30,7 @@ export const Header: FC = () => {
                     <SoftwareLogo width="18rem" color={'rgb(38, 132, 255)'} />
                 </ButtonNoPadding>
                 <ProjectPopover />
-                <h2>用户</h2>
+                <UserPopover />
             </HeaderLeft>
             <HeaderRight>
                 <Dropdown

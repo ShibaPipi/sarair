@@ -15,7 +15,7 @@ import type { Project } from '../../types'
 export const useProjectList = (params?: Partial<Project>) => {
     const queryKey = useMemo(() => [PROJECT_LIST_CACHE_KEY, params], [params])
 
-    const { isLoading, error, list } = useListQuery(queryKey, () =>
+    const { isLoading, error, list, refetch } = useListQuery(queryKey, () =>
         sarairRequest.get<Project[]>('projects', params)
     )
 
@@ -35,6 +35,7 @@ export const useProjectList = (params?: Partial<Project>) => {
         isLoading,
         error,
         methods: {
+            refetch,
             updatePin,
             remove
         }

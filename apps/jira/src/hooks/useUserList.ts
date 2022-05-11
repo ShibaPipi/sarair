@@ -1,25 +1,22 @@
-import { useListRequest } from '@sarair/shared/hooks'
+import { useMemo } from 'react'
+
+import { useListQuery } from '@sarair/shared/hooks'
 import { sarairRequest } from '@sarair/shared/request'
 
 import type { User } from '@sarair/shared/context'
 
-export const useUserList = () => {
-    const {
-        list,
-        loading,
-        error,
-        run: getList
-    } = useListRequest(
-        (params?: Partial<User>) => sarairRequest.get<User[]>('users', params),
-        { cacheKey: 'user-list', manual: false }
+const USER_LIST_CACHE_KEY = 'user-list'
+
+export const useUserList = (params?: Partial<User>) => {
+    const queryKey = useMemo(() => [USER_LIST_CACHE_KEY, params], [params])
+
+    const { list, isLoading, error } = useListQuery(queryKey, () =>
+        sarairRequest.get<User[]>('users', params)
     )
 
     return {
         list,
-        loading,
-        error,
-        methods: {
-            getList
-        }
+        isLoading,
+        error
     }
 }

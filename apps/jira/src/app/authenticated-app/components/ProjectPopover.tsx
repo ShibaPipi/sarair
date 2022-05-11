@@ -12,13 +12,17 @@ import {
     Popover,
     TypographyText
 } from '@sarair/desktop/shared/ui'
+import { PopoverContentContainer } from '../../../components'
 
 export const ProjectPopover: FC = () => {
     const {
         methods: { showCreate }
     } = useProjectDrawer()
 
-    const { list } = useProjectList()
+    const {
+        list,
+        methods: { refetch }
+    } = useProjectList()
 
     const pinnedProjects = useMemo(() => list?.filter(item => item.pin), [list])
 
@@ -26,7 +30,7 @@ export const ProjectPopover: FC = () => {
         <Popover
             placement="bottom"
             content={
-                <ContentContainer>
+                <PopoverContentContainer>
                     <TypographyText type="secondary">收藏项目</TypographyText>
                     <List>
                         {pinnedProjects?.map(({ id, name }) => (
@@ -39,14 +43,11 @@ export const ProjectPopover: FC = () => {
                     <ButtonNoPadding type="link" onClick={showCreate}>
                         创建项目
                     </ButtonNoPadding>
-                </ContentContainer>
+                </PopoverContentContainer>
             }
+            onVisibleChange={() => refetch()}
         >
             <span>项目</span>
         </Popover>
     )
 }
-
-const ContentContainer = styled.div`
-    min-width: 30rem;
-`

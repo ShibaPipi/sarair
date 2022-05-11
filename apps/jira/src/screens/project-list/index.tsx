@@ -29,7 +29,7 @@ export const ProjectListScreen: FC = () => {
         methods: { updatePin, remove }
     } = useProjectList(debouncedParam)
 
-    const { list: users, loading: usersLoading } = useUserList()
+    const { list: users, isLoading: isUsersLoading } = useUserList()
 
     return (
         <Container>
@@ -43,7 +43,7 @@ export const ProjectListScreen: FC = () => {
             <ErrorBox error={error} />
             <List
                 dataSource={list}
-                loading={isLoading || usersLoading}
+                loading={isLoading || isUsersLoading}
                 users={users}
                 onPinChange={updatePin}
                 showEdit={showEdit}
