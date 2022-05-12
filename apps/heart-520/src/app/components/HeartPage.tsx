@@ -166,3 +166,5 @@ const TextWrapper = styled.div`
 const PageWrapper = styled.div`
     position: relative;
 `
+
+export default HeartPage

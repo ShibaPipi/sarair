@@ -31,3 +31,5 @@ const CountdownWrapper = styled.div`
         font-size: 24px;
     }
 `
+
+export default Countdown
