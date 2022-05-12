@@ -1,11 +1,14 @@
 import { FC } from 'react'
 import styled from '@emotion/styled'
 
+import { useDocumentTitle } from '@sarair/shared/hooks'
+
 import { Countdown, HeartPage } from './components'
 import { useTime } from '../api'
 
 const App: FC = () => {
     const { timeup } = useTime()
+    useDocumentTitle('520 🥰🥰🥰', true)
 
     return <StyledApp>{timeup ? <HeartPage /> : <Countdown />}</StyledApp>
 }
