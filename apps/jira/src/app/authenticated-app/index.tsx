@@ -58,3 +58,5 @@ const Container = styled.div`
     grid-template-rows: 6rem 1fr;
     height: 100vh;
 `
+
+export default AuthenticatedApp

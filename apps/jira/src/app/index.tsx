@@ -1,11 +1,12 @@
-import { FC } from 'react'
+import { FC, lazy, Suspense } from 'react'
 
 import { useAuth } from '../hooks/useAuth'
 
-import { ErrorBoundary } from '@sarair/shared/ui'
-import { FullPageErrorCallback } from '@sarair/desktop/shared/ui'
-import { AuthenticatedApp } from './authenticated-app'
-import { UnauthenticatedApp } from './unauthenticated-app'
+import { ErrorBoundary, FullPage } from '@sarair/shared/ui'
+import { FullPageErrorCallback, Spin } from '@sarair/desktop/shared/ui'
+
+const AuthenticatedApp = lazy(() => import('./authenticated-app'))
+const UnauthenticatedApp = lazy(() => import('./unauthenticated-app'))
 
 export const App: FC = () => {
     const { user } = useAuth()
@@ -13,7 +14,15 @@ export const App: FC = () => {
     return (
         <div className="App">
             <ErrorBoundary fallbackRender={FullPageErrorCallback}>
-                {user ? <AuthenticatedApp /> : <UnauthenticatedApp />}
+                <Suspense
+                    fallback={
+                        <FullPage>
+                            <Spin spinning />
+                        </FullPage>
+                    }
+                >
+                    {user ? <AuthenticatedApp /> : <UnauthenticatedApp />}
+                </Suspense>
             </ErrorBoundary>
         </div>
     )
