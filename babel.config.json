@@ -1,3 +1,13 @@
 {
-    "babelrcRoots": ["*"]
+    "babelrcRoots": ["*"],
+    "plugins": [
+        [
+            "import",
+            {
+                "libraryName": "@ant-design/icons",
+                "libraryDirectory": "es",
+                "style": "css"
+            }
+        ]
+    ]
 }
