@@ -1,10 +1,6 @@
 import { useEffect } from 'react'
+import { useEventListener, useMount, useWhyDidYouUpdate } from 'ahooks'
 
-import {
-    useEventListener,
-    useMount,
-    useWhyDidYouUpdate
-} from '@sarair/shared/hooks'
 import { useData } from '../api/useData'
 import { intervalIsGameOver } from '../config'
 
