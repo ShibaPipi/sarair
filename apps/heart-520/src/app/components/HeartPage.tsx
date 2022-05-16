@@ -1,21 +1,16 @@
 import { FC, useState } from 'react'
+import { useInterval } from 'ahooks'
 import dayjs, { Dayjs } from 'dayjs'
 import styled from '@emotion/styled'
 
-import { useInterval } from '@sarair/shared/hooks'
+import { HISTORY } from '../../config'
 
-import {
-    Avatar,
-    Carousel,
-    Image,
-    TypographyText
-} from '@sarair/desktop/shared/ui'
+import { Avatar, Carousel, Image } from 'antd'
 import { HeartCanvas } from './HeartCanvas'
 import { HeartWind } from './HeartWind'
 
 import lyy from '../../assets/lyy.jpg'
 import syp from '../../assets/syp.jpg'
-import { HISTORY } from '../../config'
 
 const dateTogether = dayjs('2019-02-19')
 

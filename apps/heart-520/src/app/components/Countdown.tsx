@@ -4,7 +4,7 @@ import styled from '@emotion/styled'
 import { useTime } from '../../api'
 import { TIMEUP } from '../../config'
 
-import { StatisticCountdown } from '@sarair/desktop/shared/ui'
+import { Statistic } from 'antd'
 import { HeartWind } from './HeartWind'
 
 export const Countdown: FC = () => {
@@ -15,7 +15,7 @@ export const Countdown: FC = () => {
     return (
         <CountdownWrapper>
             <HeartWind />
-            <StatisticCountdown
+            <Statistic.Countdown
                 title="距离 2022 年 520 告白日还有"
                 value={TIMEUP}
                 format="D 天 H 时 m 分 s 秒 SSS ..."

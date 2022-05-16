@@ -1,6 +1,6 @@
 import { FC, MutableRefObject, useEffect, useRef } from 'react'
+import { useEventListener, useMemoizedFn } from 'ahooks'
 
-import { useEventListener, useMemoizedFn } from '@sarair/shared/hooks'
 import { ERROR_MSG } from '../../config'
 
 const vertexSource = `

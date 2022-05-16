@@ -1,18 +1,18 @@
 import { FC, lazy, Suspense } from 'react'
+import { useTitle } from 'ahooks'
 import styled from '@emotion/styled'
 
-import { useDocumentTitle } from '@sarair/shared/hooks'
 import { useTime } from '../api'
 
+import { Spin } from 'antd'
 import { FullPage } from '@sarair/shared/ui'
-import { Spin } from '@sarair/desktop/shared/ui'
 
 const Countdown = lazy(() => import('./components/Countdown'))
 const HeartPage = lazy(() => import('./components/HeartPage'))
 
 const App: FC = () => {
     const { timeup } = useTime()
-    useDocumentTitle('520 🥰🥰🥰', true)
+    useTitle('520 🥰🥰🥰', { restoreOnUnmount: true })
 
     return (
         <StyledApp>

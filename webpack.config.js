@@ -6,16 +6,14 @@ const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer')
 module.exports = config => {
     nxBaseConfig(config)
 
-    const customConfig = process.env.NODE_ENV === 'production' ? {
+    const customConfig = process.argv.includes('--report') ? {
         plugins: [
-             [
-                new BundleAnalyzerPlugin({
-                    analyzerMode: 'static',
-                    reportFilename: 'report.html',
-                    defaultSizes: 'parsed',
-                    openAnalyzer: true
-                })
-            ]
+            new BundleAnalyzerPlugin({
+                analyzerMode: 'static',
+                reportFilename: 'report.html',
+                defaultSizes: 'parsed',
+                openAnalyzer: true
+            })
         ]
     } : {}
 
