@@ -14,8 +14,8 @@
             "import",
             {
                 "libraryName": "@ant-design/icons",
-                "libraryDirectory": "es",
-                "style": "css"
+                "libraryDirectory": "",
+                "camel2DashComponentName": false
             },
             "@ant-design/icons"
         ]
