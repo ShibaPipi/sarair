@@ -1,6 +1,6 @@
 import { ComponentProps, FC } from 'react'
 
-import Icon from '@ant-design/icons'
+import Icon from '@ant-design/icons/es/components/Icon'
 
 const HeartSvg = () => (
     <svg width="1em" height="1em" fill="currentColor" viewBox="0 0 1024 1024">
