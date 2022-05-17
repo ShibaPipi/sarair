@@ -1,11 +1,13 @@
 import { FC, useState } from 'react'
-import { useInterval } from 'ahooks'
+import { useInterval, useMemoizedFn } from 'ahooks'
 import dayjs, { Dayjs } from 'dayjs'
 import styled from '@emotion/styled'
 
 import { HISTORY } from '../../config'
 
 import { Avatar, Carousel, Image } from 'antd'
+import createFromIconfontCN from '@ant-design/icons/es/components/IconFont'
+import { SarairRow } from '@sarair/desktop/shared/ui'
 import { HeartCanvas } from './HeartCanvas'
 import { HeartWind } from './HeartWind'
 
@@ -14,52 +16,105 @@ import syp from '../../assets/syp.jpg'
 
 const dateTogether = dayjs('2019-02-19')
 
+const IconFont = createFromIconfontCN({
+    scriptUrl: '//at.alicdn.com/t/font_3406918_yj87cwkdb.js'
+})
+
 export const HeartPage: FC = () => {
+    const [clicked, setClicked] = useState<boolean>(false)
+    const [iconType, setIconType] = useState<
+        'icon-valentine_-lock-heart-love-key' | 'icon-heartbeat'
+    >('icon-valentine_-lock-heart-love-key')
+
     const [now, setNow] = useState<Dayjs>(dayjs())
     const [text, setText] = useState<string | undefined>(
         HISTORY.find(({ year }) => 2019 === year)?.text
     )
 
+    const handleIconClick = useMemoizedFn(() => {
+        setIconType('icon-heartbeat')
+        setTimeout(() => setClicked(true), 800)
+    })
+
     useInterval(() => setNow(dayjs()), 1000)
 
     return (
         <PageWrapper>
-            <HeartCanvas />
-            <HeartWind />
-            <TextWrapper>
-                <TextTitle>小宝贝儿，这是我们在一起的</TextTitle>
-                <Text>
-                    {now.diff(dateTogether, 'day')} 天 {now.hour()} 时{' '}
-                    {now.minute()} 分 {now.second()} 秒
-                </Text>
-            </TextWrapper>
-            <Lyy src={lyy} size={160} />
-            <Syp src={syp} size={160} />
-            <Together>
-                <Carousel
-                    autoplay
-                    dotPosition="left"
-                    beforeChange={(_, to) =>
-                        setText(
-                            HISTORY.find(({ year }) => 2019 + to === year)?.text
-                        )
-                    }
-                >
-                    {HISTORY.map(({ year, src }) => (
-                        <div key={year}>
-                            <Image src={src} preview={false} width={160} />
-                        </div>
-                    ))}
-                </Carousel>
-                <ImageText>
-                    {text?.split('|').map(phrase => (
-                        <div>{phrase}</div>
-                    ))}
-                </ImageText>
-            </Together>
+            <div style={{ display: clicked ? 'block' : 'none' }}>
+                <HeartCanvas />
+                <HeartWind />
+                <TextWrapper>
+                    <TextTitle>小宝贝儿，这是我们在一起的</TextTitle>
+                    <Text>
+                        {now.diff(dateTogether, 'day')} <Unit>天</Unit>{' '}
+                        {now.hour()} <Unit>时</Unit> {now.minute()}{' '}
+                        <Unit>分</Unit> {now.second()} <Unit>秒</Unit>
+                    </Text>
+                </TextWrapper>
+                <Lyy>
+                    <Avatar src={lyy} size={160} />
+                </Lyy>
+                <Syp>
+                    <Avatar src={syp} size={160} />
+                </Syp>
+                <Together>
+                    <Carousel
+                        autoplay
+                        dotPosition="left"
+                        beforeChange={(_, to) =>
+                            setText(
+                                HISTORY.find(({ year }) => 2019 + to === year)
+                                    ?.text
+                            )
+                        }
+                    >
+                        {HISTORY.map(({ year, src }) => (
+                            <div key={year}>
+                                <Image src={src} preview={false} width={160} />
+                            </div>
+                        ))}
+                    </Carousel>
+                    <ImageText>
+                        {text?.split('|').map(phrase => (
+                            <div key={phrase}>{phrase}</div>
+                        ))}
+                    </ImageText>
+                </Together>
+            </div>
+            <div style={{ display: clicked ? 'none' : 'flex' }}>
+                <ClickText>点击进入 &gt; &gt; &gt;</ClickText>
+                <ClickIcon type={iconType} onClick={handleIconClick} />
+            </div>
         </PageWrapper>
     )
 }
+
+const ClickText = styled.div`
+    margin: 16px;
+    color: #ff7875;
+    font-size: 20px;
+`
+
+const ClickIcon = styled(IconFont)`
+    svg {
+        width: 48px;
+        height: 48px;
+
+        animation: zoom 2.4s infinite;
+
+        @keyframes zoom {
+            0%,
+            100% {
+                width: 48px;
+                height: 48px;
+            }
+            50% {
+                width: 60px;
+                height: 60px;
+            }
+        }
+    }
+`
 
 const ImageText = styled.div`
     margin-top: 16px;
@@ -91,7 +146,7 @@ const Together = styled.div`
     }
 `
 
-const Syp = styled(Avatar)`
+const Syp = styled.div`
     position: absolute;
     right: 15%;
     top: 35%;
@@ -101,6 +156,8 @@ const Syp = styled(Avatar)`
     @keyframes move-left {
         0% {
             right: 15%;
+        }
+        50% {
             opacity: 1;
         }
         100% {
@@ -110,7 +167,7 @@ const Syp = styled(Avatar)`
     }
 `
 
-const Lyy = styled(Avatar)`
+const Lyy = styled.div`
     position: absolute;
     left: 15%;
     top: 35%;
@@ -120,6 +177,8 @@ const Lyy = styled(Avatar)`
     @keyframes move-right {
         0% {
             left: 15%;
+        }
+        50% {
             opacity: 1;
         }
         100% {
@@ -129,8 +188,13 @@ const Lyy = styled(Avatar)`
     }
 `
 
+const Unit = styled.span`
+    margin: 4px;
+    font-size: 24px;
+`
+
 const Text = styled.div`
-    font-size: 32px;
+    font-size: 36px;
     animation: shine 2.4s infinite;
 
     @keyframes shine {

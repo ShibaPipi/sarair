@@ -6,9 +6,9 @@ import { useTime } from '../api'
 
 import { Spin } from 'antd'
 import { FullPage } from '@sarair/shared/ui'
+import HeartPage from './components/HeartPage'
 
 const Countdown = lazy(() => import('./components/Countdown'))
-const HeartPage = lazy(() => import('./components/HeartPage'))
 
 const App: FC = () => {
     const { timeup } = useTime()
