@@ -2,7 +2,7 @@ import axios from 'axios'
 
 import { cleanObjectNilValue, CommonObject } from '@sarair/shared/utils'
 
-import { message } from '@sarair/desktop/shared/ui'
+import { message } from 'antd'
 
 import type { AxiosInstance } from 'axios'
 import type { SarairInterceptorManager, SarairRequestConfig } from './type'

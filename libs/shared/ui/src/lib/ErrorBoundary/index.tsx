@@ -1,11 +1,11 @@
-import React, { PropsWithChildren } from 'react'
+import { Component, PropsWithChildren } from 'react'
 
 import type { ErrorBoundaryType } from '@sarair/shared/types'
 
 type FallbackRender = React.FC<ErrorBoundaryType>
 type ErrorBoundaryProps = PropsWithChildren<{ fallbackRender: FallbackRender }>
 
-export class ErrorBoundary extends React.Component<
+export class ErrorBoundary extends Component<
     ErrorBoundaryProps,
     ErrorBoundaryType
 > {

@@ -18,6 +18,15 @@
                 "camel2DashComponentName": false
             },
             "@ant-design/icons"
+        ],
+        [
+            "import",
+            {
+                "libraryName": "@mui/material",
+                "libraryDirectory": "",
+                "camel2DashComponentName": false
+            },
+            "@mui/material"
         ]
     ]
 }

@@ -1,6 +1,6 @@
 import React, { ComponentProps } from 'react'
 
-import { Rate } from '../antd'
+import { Rate } from 'antd'
 
 interface PinProps extends ComponentProps<typeof Rate> {
     checked: boolean

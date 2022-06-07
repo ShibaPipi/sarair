@@ -1,4 +1,4 @@
-import React from 'react'
+import { FC } from 'react'
 import styled from '@emotion/styled'
 
 import { healthFieldsMap, tips } from '../../../../models'
@@ -10,13 +10,13 @@ interface CellProps {
     tipKey: TipKey
 }
 
-export const Cell: React.FC<CellProps> = ({ value, tipKey }) => {
+export const Cell: FC<CellProps> = ({ value, tipKey }) => {
     const color = tips[tipKey].getColor?.(value).color as string
 
     return (
         <Span color={color}>
             {value}
-            {healthFieldsMap[tipKey]?.suffix}
+            {healthFieldsMap[tipKey]?.unit}
         </Span>
     )
 }

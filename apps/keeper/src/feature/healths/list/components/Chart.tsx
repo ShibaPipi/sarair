@@ -1,6 +1,6 @@
-import React, { useCallback, useEffect, useMemo, useRef } from 'react'
+import { FC, useCallback, useEffect, useMemo, useRef } from 'react'
 import { pluck } from 'ramda'
-import * as echarts from 'echarts/core'
+import { dispose, getInstanceByDom, init } from 'echarts/core'
 
 import { getRandomColor } from '@sarair/shared/utils'
 import { healthFieldsMap } from '../../../../models'
@@ -69,7 +69,7 @@ const generateData = (
     }
 }
 
-export const Chart: React.FC<ChartProps> = ({ height, data, field }) => {
+export const Chart: FC<ChartProps> = ({ height, data, field }) => {
     const chartDOMRef = useRef<HTMLDivElement | null>(null)
     const option = useMemo(() => {
         return generateData(
@@ -82,9 +82,9 @@ export const Chart: React.FC<ChartProps> = ({ height, data, field }) => {
     const renderChart = useCallback(() => {
         if (!chartDOMRef.current) return
 
-        let chartInstance = echarts.getInstanceByDom(chartDOMRef.current)
+        let chartInstance = getInstanceByDom(chartDOMRef.current)
         if (!chartInstance) {
-            chartInstance = echarts.init(chartDOMRef.current)
+            chartInstance = init(chartDOMRef.current)
         }
 
         chartInstance.clear()
@@ -92,15 +92,15 @@ export const Chart: React.FC<ChartProps> = ({ height, data, field }) => {
         chartInstance.resize()
     }, [option])
 
-    const dispose = useCallback(() => {
-        chartDOMRef.current && echarts.dispose(chartDOMRef.current)
+    const disposeChart = useCallback(() => {
+        chartDOMRef.current && dispose(chartDOMRef.current)
     }, [chartDOMRef])
 
     useEffect(() => {
         renderChart()
 
-        return () => dispose()
-    }, [dispose, renderChart])
+        return () => disposeChart()
+    }, [disposeChart, renderChart])
 
     return <div ref={chartDOMRef} style={{ height: height || '20rem' }} />
 }

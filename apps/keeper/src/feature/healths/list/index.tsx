@@ -1,30 +1,28 @@
-import React, { useMemo, useState } from 'react'
+import { FC, useMemo, useState } from 'react'
+import { useMemoizedFn } from 'ahooks'
 import { pluck } from 'ramda'
 import dayjs from 'dayjs'
 import styled from '@emotion/styled'
 
-import { useMemoizedFn } from '@sarair/shared/hooks'
 import { useHealthList, useHealthSearchParams } from '../../../hooks'
 import { healthFieldsMap, KeeperEnum } from '../../../models/health'
-
-import { InputNumberProps, Spin } from '@sarair/desktop/shared/ui'
-import type { HealthFormData } from '../../../models/health'
 
 import {
     Button,
     Col,
     DatePicker,
     Form,
-    FormItem,
     InputNumber,
     Modal,
     PageHeader,
     Row,
-    Select,
-    useForm
-} from '@sarair/desktop/shared/ui'
+    Select
+} from 'antd'
 import { Charts } from './components/Charts'
 import { DataList } from './components/DataList'
+
+import type { InputNumberProps } from 'antd'
+import type { HealthFormData } from '../../../models/health'
 
 enum FormItemEnum {
     INT = 'int',
@@ -83,7 +81,7 @@ const formFields: Array<{
 ].map(item => ({
     ...item,
     label: healthFieldsMap[item.name].name,
-    extraInputNumberProps: { addonAfter: healthFieldsMap[item.name].suffix }
+    extraInputNumberProps: { addonAfter: healthFieldsMap[item.name].unit }
 }))
 
 const formItemProps = { style: { width: 180 } }
@@ -120,7 +118,7 @@ const renderFormItem = (
 
 const options = [KeeperEnum.PDROL, KeeperEnum.CHERRY]
 
-export const FeatureHealthList: React.FC = () => {
+export const FeatureHealthList: FC = () => {
     const [{ name }, setUrlState] = useHealthSearchParams()
 
     const {
@@ -133,7 +131,7 @@ export const FeatureHealthList: React.FC = () => {
     const now = useMemo(() => new Date(), [])
     const recordedDates = useMemo(() => pluck('date', list), [list])
 
-    const [form] = useForm<Omit<HealthFormData, 'name'>>()
+    const [form] = Form.useForm<Omit<HealthFormData, 'name'>>()
     const [modalVisible, setModalVisible] = useState<boolean>(false)
     const handleAddData = useMemoizedFn(() => {
         form.validateFields().then(values => {
@@ -194,7 +192,7 @@ export const FeatureHealthList: React.FC = () => {
                         {formFields.map(
                             ({ label, name, type, extraInputNumberProps }) => (
                                 <Col key={name} span={8}>
-                                    <FormItem
+                                    <Form.Item
                                         key={name}
                                         label={label}
                                         name={name}
@@ -227,7 +225,7 @@ export const FeatureHealthList: React.FC = () => {
                                                 {...formItemProps}
                                             />
                                         )}
-                                    </FormItem>
+                                    </Form.Item>
                                 </Col>
                             )
                         )}

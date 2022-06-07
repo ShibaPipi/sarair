@@ -1,9 +1,9 @@
 // Basic Imports
-import React from 'react'
+import { FC } from 'react'
 import styled from '@emotion/styled'
 
 // Echarts Imports
-import * as echarts from 'echarts/core'
+import { use } from 'echarts/core'
 import {
     GridComponent,
     LegendComponent,
@@ -19,16 +19,15 @@ import { CanvasRenderer } from 'echarts/renderers'
 import type { Health } from '../../../../models'
 
 // UI Imports
-import { Col, Empty, Row, Spin, TabPane, Tabs } from '@sarair/desktop/shared/ui'
+import { Col, Empty, Row, Spin } from 'antd'
 import { Chart } from './Chart'
-import { HealthFieldForCharts } from '../../../../models'
 
 interface ChartProps {
     loading: boolean
     data: Health[]
 }
 
-echarts.use([
+use([
     TitleComponent,
     ToolboxComponent,
     TooltipComponent,
@@ -39,7 +38,7 @@ echarts.use([
     UniversalTransition
 ])
 
-export const Charts: React.FC<ChartProps> = ({ loading, data }) => {
+export const Charts: FC<ChartProps> = ({ loading, data }) => {
     if (!data.length) return null
 
     return (

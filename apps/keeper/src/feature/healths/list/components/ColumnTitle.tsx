@@ -1,6 +1,6 @@
-import React from 'react'
+import { FC } from 'react'
 
-import { Dropdown, Popover, Row } from '@sarair/desktop/shared/ui'
+import { Popover, Row } from 'antd'
 import { QuestionCircleOutlined } from '@ant-design/icons'
 
 interface ColumnTitleProps {
@@ -8,10 +8,7 @@ interface ColumnTitleProps {
     tipDescription: string
 }
 
-export const ColumnTitle: React.FC<ColumnTitleProps> = ({
-    text,
-    tipDescription
-}) => {
+export const ColumnTitle: FC<ColumnTitleProps> = ({ text, tipDescription }) => {
     return (
         <Row justify="space-between">
             <div>{text}</div>

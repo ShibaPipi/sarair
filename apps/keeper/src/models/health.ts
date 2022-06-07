@@ -44,25 +44,25 @@ export type HealthFieldForCharts = keyof Pick<
 interface HealthFieldItem {
     key: keyof Health
     name: string
-    suffix?: string
+    unit?: string
 }
 
-const healthFields: HealthFieldItem[] = [
+export const healthFields: HealthFieldItem[] = [
     { key: 'date', name: '日期' },
-    { key: 'weight', name: '体重', suffix: 'kg' },
+    { key: 'weight', name: '体重', unit: 'kg' },
     { key: 'score', name: '分数' },
-    { key: 'bmi', name: 'BMI', suffix: 'kg/m²' },
-    { key: 'bodyFatRate', name: '体脂率', suffix: '%' },
-    { key: 'bodyAge', name: '身体年龄', suffix: '岁' },
-    { key: 'muscle', name: '肌肉', suffix: 'kg' },
-    { key: 'boneMass', name: '骨量', suffix: 'kg' },
-    { key: 'water', name: '水分', suffix: '%' },
+    { key: 'bmi', name: 'BMI', unit: 'kg/m²' },
+    { key: 'bodyFatRate', name: '体脂率', unit: '%' },
+    { key: 'bodyAge', name: '身体年龄', unit: '岁' },
+    { key: 'muscle', name: '肌肉', unit: 'kg' },
+    { key: 'boneMass', name: '骨量', unit: 'kg' },
+    { key: 'water', name: '水分', unit: '%' },
     { key: 'visceralFat', name: '内脏脂肪' },
-    { key: 'bmr', name: '基础代谢', suffix: 'kJ/(m²·h)' },
-    { key: 'protein', name: '蛋白质', suffix: '%' },
-    { key: 'subcutaneousFat', name: '皮下脂肪', suffix: '%' },
-    { key: 'weightWithoutFat', name: '去脂体重', suffix: 'kg' },
-    { key: 'skeletalMuscleRate', name: '骨骼肌率', suffix: '%' }
+    { key: 'bmr', name: '基础代谢', unit: 'kJ/(m²·h)' },
+    { key: 'protein', name: '蛋白质', unit: '%' },
+    { key: 'subcutaneousFat', name: '皮下脂肪', unit: '%' },
+    { key: 'weightWithoutFat', name: '去脂体重', unit: 'kg' },
+    { key: 'skeletalMuscleRate', name: '骨骼肌率', unit: '%' }
 ]
 
 export const healthFieldsMap = healthFields.reduce<

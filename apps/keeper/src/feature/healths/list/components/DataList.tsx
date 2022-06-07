@@ -1,18 +1,19 @@
-import React from 'react'
+import { FC } from 'react'
 import dayjs from 'dayjs'
 
 import { healthFieldsMap, tips } from '../../../../models'
 
-import { ColumnProps, Table, TableProps } from '@sarair/desktop/shared/ui'
+import { Table } from 'antd'
 import { Cell } from './Cell'
 import { ColumnTitle } from './ColumnTitle'
 
+import type { TableColumnProps, TableProps } from 'antd'
 import type { Health } from '../../../../models'
 
 type DataListProps = TableProps<Health>
 
-export const DataList: React.FC<DataListProps> = ({ ...tableProps }) => {
-    const columns: ColumnProps<Health>[] = [
+export const DataList: FC<DataListProps> = ({ ...tableProps }) => {
+    const columns: TableColumnProps<Health>[] = [
         {
             title: '日期',
             dataIndex: 'date',
@@ -26,7 +27,7 @@ export const DataList: React.FC<DataListProps> = ({ ...tableProps }) => {
             dataIndex: 'weight',
             width: 100,
             fixed: 'left',
-            render: val => `${val}${healthFieldsMap['weight'].suffix}`
+            render: val => `${val}${healthFieldsMap['weight'].unit}`
         },
         {
             title: (
@@ -91,7 +92,7 @@ export const DataList: React.FC<DataListProps> = ({ ...tableProps }) => {
             ),
             dataIndex: 'water',
             width: 100,
-            render: val => `${val}${healthFieldsMap['water'].suffix}`
+            render: val => `${val}${healthFieldsMap['water'].unit}`
         },
         {
             title: (
@@ -122,7 +123,7 @@ export const DataList: React.FC<DataListProps> = ({ ...tableProps }) => {
             ),
             dataIndex: 'protein',
             width: 100,
-            render: val => `${val}${healthFieldsMap['protein'].suffix}`
+            render: val => `${val}${healthFieldsMap['protein'].unit}`
         },
         {
             title: (
@@ -133,7 +134,7 @@ export const DataList: React.FC<DataListProps> = ({ ...tableProps }) => {
             ),
             dataIndex: 'subcutaneousFat',
             width: 120,
-            render: val => `${val}${healthFieldsMap['subcutaneousFat'].suffix}`
+            render: val => `${val}${healthFieldsMap['subcutaneousFat'].unit}`
         },
         {
             title: (
@@ -144,7 +145,7 @@ export const DataList: React.FC<DataListProps> = ({ ...tableProps }) => {
             ),
             dataIndex: 'weightWithoutFat',
             width: 120,
-            render: val => `${val}${healthFieldsMap['weightWithoutFat'].suffix}`
+            render: val => `${val}${healthFieldsMap['weightWithoutFat'].unit}`
         },
         {
             title: (
@@ -155,8 +156,7 @@ export const DataList: React.FC<DataListProps> = ({ ...tableProps }) => {
             ),
             dataIndex: 'skeletalMuscleRate',
             width: 120,
-            render: val =>
-                `${val}${healthFieldsMap['skeletalMuscleRate'].suffix}`
+            render: val => `${val}${healthFieldsMap['skeletalMuscleRate'].unit}`
         },
         {
             title: '分数',

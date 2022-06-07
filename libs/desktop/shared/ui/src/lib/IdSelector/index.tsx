@@ -1,7 +1,8 @@
 import React, { ComponentProps } from 'react'
 
-import { Raw } from '@sarair/shared/types'
-import { Select } from '@sarair/desktop/shared/ui'
+import { Select } from 'antd'
+
+import type { Raw } from '@sarair/shared/types'
 
 const convertToNumber = (value: unknown) =>
     isNaN(Number(value)) ? 0 : Number(value)
