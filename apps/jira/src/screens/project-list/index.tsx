@@ -1,7 +1,7 @@
 import { FC } from 'react'
 import styled from '@emotion/styled'
+import { useDebounce, useTitle } from 'ahooks'
 
-import { useDebounce, useDocumentTitle } from '@sarair/shared/hooks'
 import {
     useProjectList,
     useProjectDrawer,
@@ -14,7 +14,7 @@ import { SearchPanel } from './components/SearchPanel'
 import { List } from './components/List'
 
 export const ProjectListScreen: FC = () => {
-    useDocumentTitle('项目列表', true)
+    useTitle('项目列表', { restoreOnUnmount: true })
 
     const {
         methods: { showCreate, showEdit }

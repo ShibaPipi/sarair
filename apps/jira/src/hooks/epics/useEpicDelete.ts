@@ -1,4 +1,7 @@
-import { useDeleteQueryConfig, useMutation } from '@sarair/shared/hooks'
+import {
+    useDeleteQueryConfig,
+    useMutation
+} from '@sarair/shared/hooks/react-query'
 import { sarairRequest } from '@sarair/shared/request'
 import { useEpicListQueryKey } from './useEpicListQueryKey'
 

@@ -1,4 +1,5 @@
-import { useMemoizedFn, useUrlState } from '@sarair/shared/hooks'
+import { useMemoizedFn } from 'ahooks'
+import useUrlState from '@ahooksjs/use-url-state'
 import { useProjectStore } from './useProjectStore'
 
 export const useProjectDrawer = () => {

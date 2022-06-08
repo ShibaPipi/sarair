@@ -1,4 +1,7 @@
-import { useCreateQueryConfig, useMutation } from '@sarair/shared/hooks'
+import {
+    useCreateQueryConfig,
+    useMutation
+} from '@sarair/shared/hooks/react-query'
 import { sarairRequest } from '@sarair/shared/request'
 import { useTaskListQueryKey } from '.'
 

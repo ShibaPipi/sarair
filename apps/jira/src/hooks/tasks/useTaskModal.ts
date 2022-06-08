@@ -1,4 +1,5 @@
-import { useMemoizedFn, useUrlState } from '@sarair/shared/hooks'
+import { useMemoizedFn } from 'ahooks'
+import useUrlState from '@ahooksjs/use-url-state'
 import { useTaskDetail } from './useTaskDetail'
 
 export const useTaskModal = () => {

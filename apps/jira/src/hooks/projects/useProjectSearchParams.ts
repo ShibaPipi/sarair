@@ -1,6 +1,4 @@
-import { useMemo } from 'react'
-
-import { useUrlState } from '@sarair/shared/hooks'
+import useUrlState from '@ahooksjs/use-url-state'
 
 export const useProjectSearchParams = () => {
     const [{ name, personId }, setParam] = useUrlState({

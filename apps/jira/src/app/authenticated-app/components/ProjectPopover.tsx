@@ -1,17 +1,9 @@
 import { FC, useMemo } from 'react'
-import styled from '@emotion/styled'
 
 import { useProjectDrawer, useProjectList } from '../../../hooks/projects'
 
-import {
-    ButtonNoPadding,
-    Divider,
-    List,
-    ListItem,
-    ListItemMeta,
-    Popover,
-    TypographyText
-} from '@sarair/desktop/shared/ui'
+import { Divider, List, Popover, Typography } from 'antd'
+import { ButtonNoPadding } from '@sarair/desktop/shared/ui'
 import { PopoverContentContainer } from '../../../components'
 
 export const ProjectPopover: FC = () => {
@@ -31,12 +23,12 @@ export const ProjectPopover: FC = () => {
             placement="bottom"
             content={
                 <PopoverContentContainer>
-                    <TypographyText type="secondary">收藏项目</TypographyText>
+                    <Typography.Text type="secondary">收藏项目</Typography.Text>
                     <List>
                         {pinnedProjects?.map(({ id, name }) => (
-                            <ListItem key={id}>
-                                <ListItemMeta title={name} />
-                            </ListItem>
+                            <List.Item key={id}>
+                                <List.Item.Meta title={name} />
+                            </List.Item>
                         ))}
                     </List>
                     <Divider />

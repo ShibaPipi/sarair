@@ -1,10 +1,10 @@
 import { FC, useState } from 'react'
+import { useMemoizedFn } from 'ahooks'
 
-import { useMemoizedFn } from '@sarair/shared/hooks'
 import { useBoardCreate } from '../../../hooks/boards'
 import { useProjectIdInRouteParams } from '../../../hooks/projects'
 
-import { Input } from '@sarair/desktop/shared/ui'
+import { Input } from 'antd'
 import { ColumnContainer } from './ColumnContainer'
 
 export const CreateBoard: FC = () => {

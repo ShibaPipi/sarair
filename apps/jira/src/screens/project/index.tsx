@@ -2,7 +2,7 @@ import { FC, useMemo } from 'react'
 import { Link, Route, Routes, useLocation } from 'react-router-dom'
 import styled from '@emotion/styled'
 
-import { Menu, MenuItem } from '@sarair/desktop/shared/ui'
+import { Menu } from 'antd'
 
 import { BoardScreen } from '../board'
 import { EpicScreen } from '../epic'
@@ -18,12 +18,12 @@ export const ProjectScreen: FC = () => {
         <Container>
             <Aside>
                 <Menu mode="inline" selectedKeys={[selectedKey]}>
-                    <MenuItem key="board">
+                    <Menu.Item key="board">
                         <Link to="board">看板</Link>
-                    </MenuItem>
-                    <MenuItem key="epic">
+                    </Menu.Item>
+                    <Menu.Item key="epic">
                         <Link to="epic">任务组</Link>
-                    </MenuItem>
+                    </Menu.Item>
                 </Menu>
             </Aside>
             <Main>

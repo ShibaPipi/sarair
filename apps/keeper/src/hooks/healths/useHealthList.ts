@@ -6,7 +6,7 @@ import {
     useCreateQueryConfig,
     useListQuery,
     useMutation
-} from '@sarair/shared/hooks'
+} from '@sarair/shared-hooks-react-query'
 import request from '../../request'
 import { useHealthListQueryKey } from './useHealthListQueryKey'
 

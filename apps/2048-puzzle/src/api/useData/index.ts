@@ -3,7 +3,7 @@ import {
     useMemoizedFn,
     useSetState,
     useThrottleFn
-} from '@sarair/shared/hooks'
+} from '@sarair/shared-hooks-react-query'
 import { useMemo } from 'react'
 import {
     animateDurationShift,

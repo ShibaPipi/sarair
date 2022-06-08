@@ -1,18 +1,10 @@
 import { FC, useEffect } from 'react'
+import { useMemoizedFn } from 'ahooks'
 
-import { useMemoizedFn } from '@sarair/shared/hooks'
 import { useProjectDrawer } from '../../../hooks/projects'
 
-import {
-    Button,
-    Drawer,
-    ErrorBox,
-    Form,
-    FormItem,
-    Input,
-    Spin,
-    useForm
-} from '@sarair/desktop/shared/ui'
+import { Button, Drawer, Form, Input, Spin } from 'antd'
+import { ErrorBox } from '@sarair/desktop/shared/ui'
 import { DrawerContainer } from '../../../components'
 import { UserSelector } from '../../../features/user-selector'
 
@@ -27,7 +19,7 @@ export const ProjectDrawer: FC = () => {
         methods: { close, create, update }
     } = useProjectDrawer()
 
-    const [form] = useForm()
+    const [form] = Form.useForm()
     const handleDrawerClose = useMemoizedFn(() => {
         form.resetFields()
         close()
@@ -59,7 +51,7 @@ export const ProjectDrawer: FC = () => {
                         style={{ width: '40rem' }}
                         onFinish={onFinish}
                     >
-                        <FormItem
+                        <Form.Item
                             label="名称"
                             name="name"
                             rules={[
@@ -70,8 +62,8 @@ export const ProjectDrawer: FC = () => {
                             ]}
                         >
                             <Input placeholder="请输入项目名称" />
-                        </FormItem>
-                        <FormItem
+                        </Form.Item>
+                        <Form.Item
                             label="部门"
                             name="organization"
                             rules={[
@@ -82,11 +74,11 @@ export const ProjectDrawer: FC = () => {
                             ]}
                         >
                             <Input placeholder="请输入部门名称" />
-                        </FormItem>
-                        <FormItem label="负责人" name="personId">
+                        </Form.Item>
+                        <Form.Item label="负责人" name="personId">
                             <UserSelector defaultOptionLabel="负责人" />
-                        </FormItem>
-                        <FormItem style={{ textAlign: 'center' }}>
+                        </Form.Item>
+                        <Form.Item style={{ textAlign: 'center' }}>
                             <Button
                                 loading={isMutateLoading}
                                 type="primary"
@@ -94,7 +86,7 @@ export const ProjectDrawer: FC = () => {
                             >
                                 提交
                             </Button>
-                        </FormItem>
+                        </Form.Item>
                     </Form>
                 </Spin>
             </DrawerContainer>

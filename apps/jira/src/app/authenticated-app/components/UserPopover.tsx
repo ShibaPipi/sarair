@@ -2,13 +2,7 @@ import { FC } from 'react'
 
 import { useUserList } from '../../../hooks/useUserList'
 
-import {
-    List,
-    ListItem,
-    ListItemMeta,
-    Popover,
-    TypographyText
-} from '@sarair/desktop/shared/ui'
+import { List, Popover, Typography } from 'antd'
 import { PopoverContentContainer } from '../../../components'
 
 export const UserPopover: FC = () => {
@@ -19,12 +13,12 @@ export const UserPopover: FC = () => {
             placement="bottom"
             content={
                 <PopoverContentContainer>
-                    <TypographyText type="secondary">组员列表</TypographyText>
+                    <Typography.Text type="secondary">组员列表</Typography.Text>
                     <List>
                         {list.map(({ id, name }) => (
-                            <ListItem key={id}>
-                                <ListItemMeta title={name}></ListItemMeta>
-                            </ListItem>
+                            <List.Item key={id}>
+                                <List.Item.Meta title={name}></List.Item.Meta>
+                            </List.Item>
                         ))}
                     </List>
                 </PopoverContentContainer>

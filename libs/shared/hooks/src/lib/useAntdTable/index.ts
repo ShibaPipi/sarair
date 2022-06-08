@@ -1,1 +1,0 @@
-export { useAntdTable } from 'ahooks'

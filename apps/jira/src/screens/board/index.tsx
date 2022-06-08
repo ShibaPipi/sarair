@@ -1,19 +1,13 @@
 import { FC } from 'react'
 import { DragDropContext, DropResult } from 'react-beautiful-dnd'
+import { useTitle, useMemoizedFn } from 'ahooks'
 
-import { useDocumentTitle, useMemoizedFn } from '@sarair/shared/hooks'
 import { useBoardList, useBoardSearchParams } from '../../hooks/boards'
 import { useTaskList } from '../../hooks/tasks'
 import { useProjectStore } from '../../hooks/projects'
 
-import {
-    Drag,
-    Drop,
-    DropChild,
-    infoMessage,
-    PageContainer,
-    Spin
-} from '@sarair/desktop/shared/ui'
+import { Spin } from 'antd'
+import { Drag, Drop, DropChild, PageContainer } from '@sarair/desktop/shared/ui'
 import {
     BoardColumn,
     ColumnsWrapper,
@@ -23,7 +17,7 @@ import {
 } from './components'
 
 export const BoardScreen: FC = () => {
-    useDocumentTitle('看板列表', true)
+    useTitle('看板列表', { restoreOnUnmount: true })
 
     const { projectId } = useBoardSearchParams()
     const { detail: project } = useProjectStore(projectId)

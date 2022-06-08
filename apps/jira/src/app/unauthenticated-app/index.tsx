@@ -3,7 +3,8 @@ import { FC, useState } from 'react'
 import styled from '@emotion/styled'
 
 // Component / UI imports
-import { Button, Card, Divider, ErrorBox } from '@sarair/desktop/shared/ui'
+import { Button, Card, Divider } from 'antd'
+import { ErrorBox } from '@sarair/desktop/shared/ui'
 import { Login } from './components/Login'
 import { Register } from './components/Register'
 

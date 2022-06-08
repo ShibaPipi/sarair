@@ -55,7 +55,7 @@
         "shared-context": {
             "tags": []
         },
-        "shared-hooks": {
+        "shared-hooks-react-query": {
             "tags": []
         },
         "shared-providers": {

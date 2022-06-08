@@ -1,9 +1,9 @@
 import { useContext } from 'react'
 // import { useDispatch, useSelector } from 'react-redux'
+// import { useMemoizedFn } from 'ahooks'
 
 import { AuthContext } from '@sarair/shared/context'
 // import { AuthForm, User } from '@sarair/shared/context'
-// import { useMemoizedFn } from '@sarair/shared/hooks'
 // import * as authStore from '../store/auth.slice'
 
 export const useAuth = () => {

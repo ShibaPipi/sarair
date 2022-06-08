@@ -1,9 +1,10 @@
 import { FC } from 'react'
+import { useMemoizedFn } from 'ahooks'
 
-import { useMemoizedFn } from '@sarair/shared/hooks'
 import { useTaskSearchParams } from '../../../hooks/tasks'
 
-import { Button, Input, SarairRow } from '@sarair/desktop/shared/ui'
+import { Button, Input } from 'antd'
+import { SarairRow } from '@sarair/desktop/shared/ui'
 import { TaskTypeSelector, UserSelector } from '../../../features'
 
 export const SearchPanel: FC = () => {

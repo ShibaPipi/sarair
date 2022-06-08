@@ -4,14 +4,8 @@ import styled from '@emotion/styled'
 import { resetRoute } from '@sarair/shared/utils'
 import { useAuth } from '../../../hooks/useAuth'
 
-import {
-    Button,
-    ButtonNoPadding,
-    Dropdown,
-    Menu,
-    MenuItem,
-    SarairRow
-} from '@sarair/desktop/shared/ui'
+import { Button, Dropdown, Menu } from 'antd'
+import { ButtonNoPadding, SarairRow } from '@sarair/desktop/shared/ui'
 import { ProjectPopover } from './ProjectPopover'
 import { UserPopover } from './UserPopover'
 
@@ -36,11 +30,11 @@ export const Header: FC = () => {
                 <Dropdown
                     overlay={
                         <Menu>
-                            <MenuItem key="logout">
+                            <Menu.Item key="logout">
                                 <Button type="link" onClick={logout}>
                                     登出
                                 </Button>
-                            </MenuItem>
+                            </Menu.Item>
                         </Menu>
                     }
                 >

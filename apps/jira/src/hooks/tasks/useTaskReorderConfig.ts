@@ -1,6 +1,6 @@
 import { QueryKey } from 'react-query'
 
-import { useQueryConfig } from '@sarair/shared/hooks'
+import { useQueryConfig } from '@sarair/shared/hooks/react-query'
 import { reorder } from '@sarair/shared/utils'
 
 import type { SortProps } from '../../types'
@@ -20,7 +20,7 @@ export const useTaskReorderConfig = <
                 list: old || [],
                 ...(target as unknown as SortProps)
             })
-            return orderedList.map(item =>
+            return orderedList.map((item) =>
                 item.id === (target as unknown as SortProps).fromId
                     ? {
                           ...item,

@@ -1,1 +1,0 @@
-export { useMemoizedFn } from 'ahooks'

@@ -1,22 +1,13 @@
 import { FC } from 'react'
 import { Link } from 'react-router-dom'
 import dayjs from 'dayjs'
+import { useMemoizedFn } from 'ahooks'
 
-import { useMemoizedFn } from '@sarair/shared/hooks'
+import { Dropdown, Menu, Modal, Table } from 'antd'
+import { ButtonNoPadding, Pin } from '@sarair/desktop/shared/ui'
 
-import {
-    ButtonNoPadding,
-    ColumnProps,
-    confirmModal,
-    Dropdown,
-    Menu,
-    MenuItem,
-    Pin,
-    Table
-} from '@sarair/desktop/shared/ui'
-
+import type { TableColumnProps, TableProps } from 'antd'
 import type { User } from '@sarair/shared/context'
-import type { TableProps } from '@sarair/desktop/shared/ui'
 import type { Project } from '../../../types'
 
 interface ListProps extends TableProps<Project> {
@@ -34,7 +25,7 @@ export const List: FC<ListProps> = ({
     ...tableProps
 }) => {
     const handleRemoveItem = useMemoizedFn((id: number) => {
-        confirmModal({
+        Modal.confirm({
             title: '确定删除这个项目吗？',
             content: '点击确定删除',
             okText: '确定',
@@ -43,13 +34,13 @@ export const List: FC<ListProps> = ({
         })
     })
 
-    const columns: ColumnProps<Project>[] = [
+    const columns: TableColumnProps<Project>[] = [
         {
             title: <Pin checked={true} disabled />,
             render: (_, { id, pin }) => (
                 <Pin
                     checked={pin}
-                    onCheckedChange={pin => onPinChange({ id, pin })}
+                    onCheckedChange={(pin) => onPinChange({ id, pin })}
                 />
             )
         },
@@ -67,40 +58,40 @@ export const List: FC<ListProps> = ({
         {
             title: '负责人',
             dataIndex: 'personId',
-            render: personId => (
+            render: (personId) => (
                 <span>
-                    {users.find(user => user.id === personId)?.name || '未知'}
+                    {users.find((user) => user.id === personId)?.name || '未知'}
                 </span>
             )
         },
         {
             title: '创建时间',
             dataIndex: 'created',
-            render: created =>
+            render: (created) =>
                 created ? dayjs(created).format('YYYY-MM-DD') : '无'
         },
         {
             dataIndex: 'id',
-            render: id => (
+            render: (id) => (
                 <Dropdown
                     overlay={
                         <Menu>
-                            <MenuItem key="edit">
+                            <Menu.Item key="edit">
                                 <ButtonNoPadding
                                     type="link"
                                     onClick={() => showEdit(id)}
                                 >
                                     编辑
                                 </ButtonNoPadding>
-                            </MenuItem>
-                            <MenuItem key="delete">
+                            </Menu.Item>
+                            <Menu.Item key="delete">
                                 <ButtonNoPadding
                                     type="link"
                                     onClick={() => handleRemoveItem(id)}
                                 >
                                     删除
                                 </ButtonNoPadding>
-                            </MenuItem>
+                            </Menu.Item>
                         </Menu>
                     }
                 >
@@ -115,7 +106,7 @@ export const List: FC<ListProps> = ({
             {...tableProps}
             columns={columns}
             pagination={false}
-            rowKey={r => r.id}
+            rowKey={(r) => r.id}
         />
     )
 }

@@ -1,7 +1,10 @@
 import { useMemo } from 'react'
 
 import { sarairRequest } from '@sarair/shared/request'
-import { useCreateQueryConfig, useMutation } from '@sarair/shared/hooks'
+import {
+    useCreateQueryConfig,
+    useMutation
+} from '@sarair/shared/hooks/react-query'
 import { BOARD_LIST_CACHE_KEY, useBoardSearchParams } from '.'
 
 import type { Board } from '../../types'

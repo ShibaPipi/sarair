@@ -1,10 +1,10 @@
 import { FC, useEffect, useState } from 'react'
+import { useMemoizedFn } from 'ahooks'
 
-import { useMemoizedFn } from '@sarair/shared/hooks'
 import { useProjectIdInRouteParams } from '../../../hooks/projects'
 import { useTaskCreate } from '../../../hooks/tasks'
 
-import { Card, Input } from '@sarair/desktop/shared/ui'
+import { Card, Input } from 'antd'
 
 interface CreateTaskProps {
     boardId: number

@@ -1,6 +1,6 @@
 import { useMemo } from 'react'
 
-import { useListQuery } from '@sarair/shared/hooks'
+import { useListQuery } from '@sarair/shared/hooks/react-query'
 import { sarairRequest } from '@sarair/shared/request'
 
 import type { User } from '@sarair/shared/context'

@@ -1,24 +1,18 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import dayjs from 'dayjs'
+import { useTitle } from 'ahooks'
 
-import { useDocumentTitle } from '@sarair/shared/hooks'
 import { useProjectStore } from '../../hooks/projects'
 import { useEpicList, useEpicSearchParams } from '../../hooks/epics'
 import { useTaskList } from '../../hooks/tasks'
 
-import {
-    Button,
-    List,
-    ListItem,
-    ListItemMeta,
-    PageContainer,
-    SarairRow
-} from '@sarair/desktop/shared/ui'
+import { Button, List } from 'antd'
+import { PageContainer, SarairRow } from '@sarair/desktop/shared/ui'
 import { CreateEpic } from './components/CreateEpic'
 
 export const EpicScreen = () => {
-    useDocumentTitle('任务组列表', true)
+    useTitle('任务组列表', { restoreOnUnmount: true })
 
     const { projectId } = useEpicSearchParams()
     const { detail } = useProjectStore(projectId)
@@ -44,8 +38,8 @@ export const EpicScreen = () => {
                 itemLayout="vertical"
                 style={{ overflow: 'scroll' }}
                 renderItem={({ id, name, startTime, endTime }) => (
-                    <ListItem>
-                        <ListItemMeta
+                    <List.Item>
+                        <List.Item.Meta
                             title={
                                 <SarairRow between>
                                     <span>{name}</span>
@@ -82,7 +76,7 @@ export const EpicScreen = () => {
                                     </Link>
                                 ))}
                         </div>
-                    </ListItem>
+                    </List.Item>
                 )}
             />
             <CreateEpic

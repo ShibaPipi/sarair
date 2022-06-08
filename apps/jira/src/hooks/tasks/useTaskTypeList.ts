@@ -1,4 +1,4 @@
-import { useListQuery } from '@sarair/shared/hooks'
+import { useListQuery } from '@sarair/shared/hooks/react-query'
 import { sarairRequest } from '@sarair/shared/request'
 import { TASK_TYPE_LIST_CACHE_KEY } from '.'
 

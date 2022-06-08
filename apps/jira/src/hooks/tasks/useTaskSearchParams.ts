@@ -1,4 +1,4 @@
-import { useUrlState } from '@sarair/shared/hooks'
+import useUrlState from '@ahooksjs/use-url-state'
 import { useProjectIdInRouteParams } from '../projects'
 
 export const useTaskSearchParams = () => {

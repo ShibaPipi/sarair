@@ -3,7 +3,7 @@ import { FC } from 'react'
 import { AuthForm } from '@sarair/shared/context'
 import { useAuth } from '../../../hooks/useAuth'
 
-import { Form, Input } from '@sarair/desktop/shared/ui'
+import { Form, Input } from 'antd'
 import { LongButton } from '../index'
 
 interface LoginProps {

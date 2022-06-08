@@ -187,7 +187,7 @@
                         ],
                         "styles": ["apps/jira/src/styles.css"],
                         "scripts": [],
-                        "webpackConfig": "@nrwl/react/plugins/webpack"
+                        "webpackConfig": "webpack.config.js"
                     },
                     "configurations": {
                         "production": {
@@ -473,23 +473,25 @@
                 }
             }
         },
-        "shared-hooks": {
-            "root": "libs/shared/hooks",
-            "sourceRoot": "libs/shared/hooks/src",
+        "shared-hooks-react-query": {
+            "root": "libs/shared/hooks/react-query",
+            "sourceRoot": "libs/shared/hooks/react-query/src",
             "projectType": "library",
             "targets": {
                 "lint": {
                     "executor": "@nrwl/linter:eslint",
                     "outputs": ["{options.outputFile}"],
                     "options": {
-                        "lintFilePatterns": ["libs/shared/hooks/**/*.ts"]
+                        "lintFilePatterns": [
+                            "libs/shared/hooks/react-query/**/*.ts"
+                        ]
                     }
                 },
                 "test": {
                     "executor": "@nrwl/jest:jest",
-                    "outputs": ["coverage/libs/shared/hooks"],
+                    "outputs": ["coverage/libs/shared/hooks/react-query"],
                     "options": {
-                        "jestConfig": "libs/shared/hooks/jest.config.js",
+                        "jestConfig": "libs/shared/hooks/react-query/jest.config.js",
                         "passWithNoTests": true
                     }
                 }

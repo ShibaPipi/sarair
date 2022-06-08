@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { Form, Input } from '@sarair/desktop/shared/ui'
+import { Form, Input } from 'antd'
 import { UserSelector } from '../../../features'
 
 import type { Param } from '../../../types'

@@ -1,6 +1,6 @@
 import { QueryKey } from 'react-query'
 
-import { useQueryConfig } from '@sarair/shared/hooks'
+import { useQueryConfig } from '@sarair/shared/hooks/react-query'
 import { reorder } from '@sarair/shared/utils'
 import { SortProps } from '../../types'
 

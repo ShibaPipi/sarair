@@ -2,7 +2,7 @@ import { QueryKey } from 'react-query'
 
 import { useQueryConfig } from '../useQueryConfig'
 
-export const useUpdateQueryConfig = <
+export const useDeleteQueryConfig = <
     TData = unknown,
     TError = unknown,
     TVariables = void,
@@ -13,10 +13,9 @@ export const useUpdateQueryConfig = <
     useQueryConfig<TData, TError, TVariables, TContext>(
         queryKey,
         (target, old) =>
-            old?.map(item =>
-                (item as unknown as { id: number }).id ===
-                (target as unknown as { id: number }).id
-                    ? { ...item, ...target }
-                    : item
+            old?.filter(
+                (item) =>
+                    (item as unknown as { id: number }).id !==
+                    (target as unknown as { id: number }).id
             ) || []
     )

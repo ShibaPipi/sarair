@@ -1,4 +1,4 @@
-import { useUrlState } from '@sarair/shared/hooks'
+import { useUrlState } from '@sarair/shared-hooks-react-query'
 import { KeeperEnum } from '../../models'
 
 export const useHealthSearchParams = () => {

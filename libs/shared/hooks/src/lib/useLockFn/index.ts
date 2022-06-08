@@ -1,1 +1,0 @@
-export { useLockFn } from 'ahooks'

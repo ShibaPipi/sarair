@@ -1,17 +1,9 @@
 import { FC, useEffect } from 'react'
+import { useMemoizedFn } from 'ahooks'
 
-import { useMemoizedFn } from '@sarair/shared/hooks'
 import { useTaskModal } from '../../../hooks/tasks'
 
-import {
-    Button,
-    confirmModal,
-    Form,
-    FormItem,
-    Input,
-    Modal,
-    useForm
-} from '@sarair/desktop/shared/ui'
+import { Button, Form, Input, Modal } from 'antd'
 import { TaskTypeSelector, UserSelector } from '../../../features'
 
 const layout = {
@@ -27,7 +19,7 @@ export const TaskModal: FC = () => {
         methods: { close, update, remove }
     } = useTaskModal()
 
-    const [form] = useForm()
+    const [form] = Form.useForm()
 
     useEffect(() => {
         form.setFieldsValue(detail)
@@ -43,7 +35,7 @@ export const TaskModal: FC = () => {
     })
 
     const handleDelete = useMemoizedFn((id: number) => {
-        confirmModal({
+        Modal.confirm({
             okText: '确定',
             cancelText: '取消',
             title: '确定删除任务吗',
@@ -63,19 +55,19 @@ export const TaskModal: FC = () => {
             forceRender
         >
             <Form {...layout} form={form}>
-                <FormItem
+                <Form.Item
                     label="任务名"
                     name="name"
                     rules={[{ required: true, message: '请输入任务名' }]}
                 >
                     <Input />
-                </FormItem>
-                <FormItem label="经办人" name="processorId">
+                </Form.Item>
+                <Form.Item label="经办人" name="processorId">
                     <UserSelector defaultOptionLabel="经办人" />
-                </FormItem>
-                <FormItem label="类型" name="typeId">
+                </Form.Item>
+                <Form.Item label="类型" name="typeId">
                     <TaskTypeSelector defaultOptionLabel="类型" />
-                </FormItem>
+                </Form.Item>
             </Form>
             <div style={{ textAlign: 'right' }}>
                 <Button

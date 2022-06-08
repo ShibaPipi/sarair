@@ -1,7 +1,7 @@
 import { FC, forwardRef } from 'react'
 import styled from '@emotion/styled'
+import { useDebounce, useMemoizedFn } from 'ahooks'
 
-import { useDebounce, useMemoizedFn } from '@sarair/shared/hooks'
 import { useBoardDelete } from '../../../hooks/boards'
 import {
     useTaskList,
@@ -9,19 +9,9 @@ import {
     useTaskSearchParams
 } from '../../../hooks/tasks'
 
+import { Button, Card, Modal, Dropdown, Menu } from 'antd'
 import { MarkText } from '@sarair/shared/ui'
-import {
-    Button,
-    Card,
-    confirmModal,
-    Drag,
-    Drop,
-    DropChild,
-    Dropdown,
-    Menu,
-    MenuItem,
-    SarairRow
-} from '@sarair/desktop/shared/ui'
+import { Drag, Drop, DropChild, SarairRow } from '@sarair/desktop/shared/ui'
 import { ColumnContainer } from './ColumnContainer'
 import { CreateTask } from './CreateTask'
 import { TaskTypeIcon } from './TaskTypeIcon'
@@ -50,7 +40,7 @@ export const BoardColumn: FC<BoardColumnProps> = forwardRef<
     } = useTaskModal()
 
     const handleDelete = useMemoizedFn((id: number) => {
-        confirmModal({
+        Modal.confirm({
             okText: '确定',
             cancelText: '取消',
             title: '确定删除看板吗',
@@ -65,14 +55,14 @@ export const BoardColumn: FC<BoardColumnProps> = forwardRef<
                 <Dropdown
                     overlay={
                         <Menu>
-                            <MenuItem>
+                            <Menu.Item>
                                 <Button
                                     type="link"
                                     onClick={() => handleDelete(board.id)}
                                 >
                                     删除
                                 </Button>
-                            </MenuItem>
+                            </Menu.Item>
                         </Menu>
                     }
                 >

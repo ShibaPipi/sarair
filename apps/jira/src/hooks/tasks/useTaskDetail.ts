@@ -5,7 +5,7 @@ import {
     useDetailQuery,
     useMutation,
     useUpdateQueryConfig
-} from '@sarair/shared/hooks'
+} from '@sarair/shared/hooks/react-query'
 import { sarairRequest } from '@sarair/shared/request'
 import { TASK_CACHE_KEY, useTaskListQueryKey } from '.'
 

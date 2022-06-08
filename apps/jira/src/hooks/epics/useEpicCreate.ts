@@ -1,7 +1,10 @@
 import { useMemo } from 'react'
 
 import { sarairRequest } from '@sarair/shared/request'
-import { useCreateQueryConfig, useMutation } from '@sarair/shared/hooks'
+import {
+    useCreateQueryConfig,
+    useMutation
+} from '@sarair/shared/hooks/react-query'
 import { EPIC_LIST_CACHE_KEY, useEpicSearchParams } from '.'
 
 import type { Epic } from '../../types'
