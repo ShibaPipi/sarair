@@ -7,8 +7,8 @@ import {
     CELL_GUTTER_MOBILE,
     CELL_SIZE_DESKTOP,
     CELL_SIZE_MOBILE,
+    fontSizeCoefficient,
     FONT_SIZE_DESKTOP,
-    FONT_SIZE_MOBILE,
     GRID_CONTAINER_SIZE_DESKTOP,
     GRID_CONTAINER_SIZE_MOBILE,
     isMobile
@@ -41,7 +41,10 @@ export const CellDigit = styled.div<{
         : BORDER_RADIUS_DESKTOP};
     font-family: Arial;
     font-weight: bold;
-    font-size: ${isMobile ? `${FONT_SIZE_MOBILE}px` : FONT_SIZE_DESKTOP};
+    font-size: ${({ value }) =>
+        isMobile
+            ? `${CELL_SIZE_MOBILE * fontSizeCoefficient(value)}px`
+            : FONT_SIZE_DESKTOP};
     line-height: ${isMobile ? `${CELL_SIZE_MOBILE}px` : CELL_SIZE_DESKTOP};
     text-align: center;
 `

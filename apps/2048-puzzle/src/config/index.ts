@@ -10,10 +10,10 @@ export const intervalIsGameOver = animateDurationAppear + animateDurationShift
 export const initState = () => ({
     score: 0,
     cellDigits: [
-        [0, 0, 0, 0],
-        [0, 0, 0, 0],
-        [0, 0, 0, 0],
-        [0, 0, 0, 0]
+        [4, 4, 4, 4],
+        [4, 4, 4, 4],
+        [4, 4, 4, 4],
+        [4, 4, 4, 4]
     ].map(row =>
         row.map(value => ({
             value,

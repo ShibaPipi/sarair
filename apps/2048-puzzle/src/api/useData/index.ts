@@ -1,9 +1,4 @@
-import {
-    useLockFn,
-    useMemoizedFn,
-    useSetState,
-    useThrottleFn
-} from '@sarair/shared-hooks-react-query'
+import { useLockFn, useMemoizedFn, useSetState, useThrottleFn } from 'ahooks'
 import { useMemo } from 'react'
 import {
     animateDurationShift,

@@ -56,13 +56,7 @@ export const Board: FC<BoardProps> = ({ cellDigits }) => {
                                         left={col}
                                         value={value}
                                     >
-                                        {value === 2 ? (
-                                            <HeartIcon
-                                                style={{ color: 'hotpink' }}
-                                            />
-                                        ) : (
-                                            value
-                                        )}
+                                        {value}
                                     </CellDigit>
                                 </CSSTransition>
                             </CSSTransition>

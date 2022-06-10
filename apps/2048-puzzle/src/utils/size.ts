@@ -8,6 +8,15 @@ export const GRID_CONTAINER_SIZE_MOBILE = 0.92 * documentWidth
 export const CELL_SIZE_MOBILE = 0.18 * documentWidth
 export const CELL_GUTTER_MOBILE = 0.04 * documentWidth
 export const BORDER_RADIUS_MOBILE = 0.02 * GRID_CONTAINER_SIZE_MOBILE
-export const FONT_SIZE_MOBILE = 0.6 * CELL_SIZE_MOBILE
 
 export const isMobile = documentWidth <= 576
+
+export const fontSizeCoefficient = (value: number) => {
+    if (value < 128) {
+        return 0.6
+    }
+    if (value < 1024) {
+        return 0.5
+    }
+    return 0.4
+}
